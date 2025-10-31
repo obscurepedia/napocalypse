@@ -13,8 +13,10 @@ stripe==7.8.0
 boto3==1.34.0
 
 # PDF Generation
-WeasyPrint==60.1
-Pillow==10.2.0
+WeasyPrint==61.2
+Pillow==10.4.0
+cffi==1.16.0
+pycparser==2.21
 
 # Environment Variables
 python-dotenv==1.0.0
