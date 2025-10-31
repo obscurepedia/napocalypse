@@ -61,6 +61,25 @@ def health():
     """Health check endpoint"""
     return jsonify({'status': 'healthy'}), 200
 
+@app.route('/test-db')
+def test_db():
+    """Test database connection"""
+    try:
+        # Try to query the database
+        from database import Customer
+        customer_count = Customer.query.count()
+        return jsonify({
+            'database_status': 'connected',
+            'customer_count': customer_count,
+            'message': 'Database is working!'
+        }), 200
+    except Exception as e:
+        return jsonify({
+            'database_status': 'error',
+            'error': str(e),
+            'message': 'Database connection failed'
+        }), 500
+
 # Error handlers
 @app.errorhandler(404)
 def not_found(e):
