@@ -5,7 +5,7 @@ Flask-SQLAlchemy==3.1.1
 
 # Database
 psycopg2-binary==2.9.9
-SQLAlchemy==2.0.23
+SQLAlchemy==2.0.35
 
 # Payment Processing
 stripe==10.12.0
