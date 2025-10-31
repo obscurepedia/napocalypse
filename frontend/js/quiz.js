@@ -82,6 +82,23 @@ function updateButtons() {
 document.getElementById('quiz-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     
+    // First, collect the final question's answer (sleep_associations)
+    const finalQuestionEl = document.querySelector(`.question[data-question="${totalQuestions}"]`);
+    const finalInputs = finalQuestionEl.querySelectorAll('input[type="radio"]');
+    let finalAnswered = false;
+    
+    finalInputs.forEach(input => {
+        if (input.checked) {
+            finalAnswered = true;
+            quizData[input.name] = input.value;
+        }
+    });
+    
+    if (!finalAnswered) {
+        alert('Please select an option for the final question before continuing.');
+        return;
+    }
+    
     // Get email and name
     const email = document.getElementById('email').value;
     const name = document.getElementById('name').value;
