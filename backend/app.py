@@ -45,6 +45,17 @@ def success():
     """Success page after payment"""
     return render_template('success.html')
 
+# Static file routes
+@app.route('/css/<path:filename>')
+def css_static(filename):
+    """Serve CSS files"""
+    return send_from_directory(os.path.join(app.static_folder, 'css'), filename)
+
+@app.route('/js/<path:filename>')
+def js_static(filename):
+    """Serve JavaScript files"""
+    return send_from_directory(os.path.join(app.static_folder, 'js'), filename)
+
 @app.route('/health')
 def health():
     """Health check endpoint"""
