@@ -25,7 +25,12 @@ def send_delivery_email(to_email, customer_name, pdf_path, modules):
     Send initial delivery email with PDF attachment
     """
     from_email = Config.AWS_SES_FROM_EMAIL
-    subject = "Your Personalized Baby Sleep Guide is Ready! 🌙"
+    
+    # Personalized subject line
+    if customer_name:
+        subject = f"🌙 {customer_name}, your personalized sleep guide is ready!"
+    else:
+        subject = "🌙 Your personalized sleep guide is ready!"
     
     # HTML body
     html_body = f"""
@@ -140,34 +145,34 @@ def send_delivery_email(to_email, customer_name, pdf_path, modules):
         print(f"Error sending delivery email: {str(e)}")
         return False
 
-def send_sequence_email(to_email, customer_name, day_number):
+def send_sequence_email(customer_id, day_number):
     """
-    Send automated sequence email (Days 1-7)
+    Send specific day email in the sequence
     """
-    from_email = Config.AWS_SES_FROM_EMAIL
+    from database import Customer
+    customer = Customer.query.get(customer_id)
     
-    # Email content based on day
-    email_content = get_sequence_content(day_number, customer_name)
+    if not customer:
+        print(f"Customer {customer_id} not found")
+        return False
+    
+    # Get email content with personalization
+    email_content = get_sequence_content(day_number, customer.name, customer.baby_name)
     
     try:
         response = ses_client.send_email(
-            Source=from_email,
-            Destination={'ToAddresses': [to_email]},
+            Source=Config.AWS_SES_FROM_EMAIL,
+            Destination={
+                'ToAddresses': [customer.email]
+            },
             Message={
                 'Subject': {'Data': email_content['subject']},
                 'Body': {
-                    'Text': {'Data': email_content['text']},
-                    'Html': {'Data': email_content['html']}
+                    'Html': {'Data': email_content['html_body']},
+                    'Text': {'Data': email_content['text_body']}
                 }
             }
         )
-        
-        print(f"Day {day_number} email sent to {to_email}. Message ID: {response['MessageId']}")
-        return True
-        
-    except ClientError as e:
-        print(f"Error sending sequence email: {e.response['Error']['Message']}")
-        return False
 
 def schedule_email_sequence(customer_id, order_id):
     """
@@ -182,7 +187,7 @@ def schedule_email_sequence(customer_id, order_id):
                 order_id=order_id,
                 day_number=day,
                 email_type=f'day{day}',
-                subject=get_sequence_content(day, '')['subject'],
+                subject=get_sequence_content(day, customer.name, customer.baby_name)['subject'],
                 scheduled_for=scheduled_time,
                 status='pending'
             )
@@ -197,42 +202,111 @@ def schedule_email_sequence(customer_id, order_id):
         print(f"Error scheduling email sequence: {str(e)}")
         return False
 
-def get_sequence_content(day_number, customer_name):
+def generate_personalized_subject(day_number, customer_name=None, baby_name=None):
     """
-    Get email content for specific day in sequence
-    Loads from HTML template files
+    Generate highly optimized, personalized subject lines for maximum open rates
     """
-    import os
+    # Fallback names for personalization
+    parent_name = customer_name or ""
+    child_name = baby_name or "your baby"
     
-    # Map day numbers to template files and subjects
+    subjects = {
+        1: {
+            # High urgency + personal + benefit
+            'both': f"🌙 {parent_name}, {child_name}'s sleep guide is here!",
+            'parent_only': f"🌙 {parent_name}, your personalized sleep guide is ready!",
+            'baby_only': f"🌙 {child_name}'s personalized sleep guide is here!",
+            'neither': "🌙 Your personalized sleep guide is ready!"
+        },
+        2: {
+            # Question + urgency + personal
+            'both': f"✅ {parent_name}, ready for {child_name}'s first night?",
+            'parent_only': f"✅ {parent_name}, ready for night 1? Here's your checklist",
+            'baby_only': f"✅ Ready for {child_name}'s first sleep training night?",
+            'neither': "✅ Ready for night 1? Your checklist inside"
+        },
+        3: {
+            # Problem-focused + solution hint + personal
+            'both': f"🛠️ {parent_name}, tough night with {child_name}? Quick fixes inside",
+            'parent_only': f"🛠️ {parent_name}, struggling? Here's what to do next",
+            'baby_only': f"🛠️ {child_name} having a tough time? Solutions inside",
+            'neither': "🛠️ Rough night? Here's exactly what to do"
+        },
+        4: {
+            # Social proof + encouragement + personal
+            'both': f"⭐ {parent_name}, proof that you and {child_name} can do this!",
+            'parent_only': f"⭐ {parent_name}, real success stories (you're next!)",
+            'baby_only': f"⭐ Success stories: babies like {child_name} who made it!",
+            'neither': "⭐ Real success stories (you can do this too!)"
+        },
+        5: {
+            # Crisis help + immediacy + personal
+            'both': f"🔧 {parent_name}, your 2AM lifeline for {child_name}",
+            'parent_only': f"🔧 {parent_name}, emergency help for tough nights",
+            'baby_only': f"🔧 When {child_name} won't sleep: your emergency guide",
+            'neither': "🔧 Emergency help: what to do at 2AM"
+        },
+        6: {
+            # Advancement + exclusivity + personal
+            'both': f"📚 {parent_name}, advanced secrets for {child_name}'s sleep",
+            'parent_only': f"📚 {parent_name}, expert sleep secrets revealed",
+            'baby_only': f"📚 Next-level sleep tips for {child_name}",
+            'neither': "📚 Expert sleep secrets (most parents don't know these)"
+        },
+        7: {
+            # Achievement + celebration + future + personal
+            'both': f"🎉 {parent_name}, you and {child_name} did it! What's next?",
+            'parent_only': f"🎉 {parent_name}, you made it! Share your success?",
+            'baby_only': f"🎉 {child_name} is sleeping! Your success story inside",
+            'neither': "🎉 You did it! Share your success story?"
+        }
+    }
+    
+    day_subjects = subjects.get(day_number, subjects[1])
+    
+    # Choose best subject based on available data
+    if customer_name and baby_name:
+        return day_subjects['both']
+    elif customer_name:
+        return day_subjects['parent_only']
+    elif baby_name:
+        return day_subjects['baby_only']
+    else:
+        return day_subjects['neither']
+
+def get_sequence_content(day_number, customer_name=None, baby_name=None):
+    """
+    Get email content for specific day with personalization
+    """
+    # Map day numbers to template files and personalized subjects
     templates = {
         1: {
             'file': 'day_1_welcome.html',
-            'subject': "🌙 Welcome to Napocalypse! Your Guide is Here"
+            'subject': generate_personalized_subject(1, customer_name, baby_name)
         },
         2: {
-            'file': 'day_2_getting_started.html',
-            'subject': "✅ Day 2: Your First Night Checklist"
+            'file': 'day_2_getting_started.html', 
+            'subject': generate_personalized_subject(2, customer_name, baby_name)
         },
         3: {
             'file': 'day_3_common_challenges.html',
-            'subject': "🛠️ Day 3: Common Challenges & How to Fix Them"
+            'subject': generate_personalized_subject(3, customer_name, baby_name)
         },
         4: {
             'file': 'day_4_success_stories.html',
-            'subject': "⭐ Day 4: Real Success Stories (You Can Do This!)"
+            'subject': generate_personalized_subject(4, customer_name, baby_name)
         },
         5: {
             'file': 'day_5_troubleshooting.html',
-            'subject': "🔧 Day 5: Your 2AM Troubleshooting Guide"
+            'subject': generate_personalized_subject(5, customer_name, baby_name)
         },
         6: {
             'file': 'day_6_additional_resources.html',
-            'subject': "📚 Day 6: Expert Tips & Additional Resources"
+            'subject': generate_personalized_subject(6, customer_name, baby_name)
         },
         7: {
             'file': 'day_7_feedback.html',
-            'subject': "🎉 Day 7: You Made It! (Plus What's Next)"
+            'subject': generate_personalized_subject(7, customer_name, baby_name)
         }
     }
     
@@ -245,12 +319,12 @@ def get_sequence_content(day_number, customer_name):
         with open(template_path, 'r', encoding='utf-8') as f:
             html_content = f.read()
         
-        # Replace placeholder with customer name if needed
-        html_content = html_content.replace('{customer_name}', customer_name)
+        # Apply personalization to template content
+        personalized_html = personalize_email_content(html_content, customer_name, baby_name)
         
         # Generate plain text version (simplified)
         text_content = f"""
-Hi {customer_name}!
+Hi {customer_name or 'there'}!
 
 This is Day {day_number} of your Napocalypse email series.
 
@@ -264,8 +338,8 @@ The Napocalypse Team
         
         return {
             'subject': template_info['subject'],
-            'text': text_content.strip(),
-            'html': html_content
+            'text_body': text_content.strip(),
+            'html_body': personalized_html
         }
         
     except Exception as e:
@@ -273,6 +347,42 @@ The Napocalypse Team
         # Fallback content
         return {
             'subject': template_info['subject'],
-            'text': f"Hi {customer_name}!\n\nDay {day_number} content...",
-            'html': f"<h2>Hi {customer_name}!</h2><p>Day {day_number} content...</p>"
+            'text_body': f"Hi {customer_name or 'there'}!\n\nDay {day_number} content...",
+            'html_body': f"<h2>Hi {customer_name or 'there'}!</h2><p>Day {day_number} content...</p>"
         }
+
+def personalize_email_content(html_content, customer_name=None, baby_name=None):
+    """
+    Apply personalization to email template content
+    """
+    # Fallback names
+    parent_name = customer_name or "there"
+    child_name = baby_name or "your baby"
+    
+    # Common greeting replacements
+    html_content = html_content.replace("Hi there!", f"Hi {parent_name}!")
+    html_content = html_content.replace("Hey there!", f"Hey {parent_name}!")
+    html_content = html_content.replace("Good morning!", f"Good morning, {parent_name}!")
+    html_content = html_content.replace("Wow!", f"Wow, {parent_name}!")
+    
+    # Baby-specific replacements (only if baby name is provided)
+    if baby_name:
+        html_content = html_content.replace("your baby", child_name)
+        html_content = html_content.replace("Your baby", child_name)
+        html_content = html_content.replace("Baby's", f"{child_name}'s")
+        html_content = html_content.replace("baby's", f"{child_name}'s")
+        html_content = html_content.replace("the baby", child_name)
+        html_content = html_content.replace("My baby", child_name)
+        html_content = html_content.replace("my baby", child_name)
+        # Add more specific patterns
+        html_content = html_content.replace("sleep training", f"{child_name}'s sleep training")
+        html_content = html_content.replace("first night", f"{child_name}'s first night")
+    
+    # Parent name in encouragement (only if parent name is provided)
+    if customer_name:
+        html_content = html_content.replace("You've got this!", f"You've got this, {customer_name}!")
+        html_content = html_content.replace("You're doing great", f"You're doing great, {customer_name}")
+        html_content = html_content.replace("Hang in there!", f"Hang in there, {customer_name}!")
+        html_content = html_content.replace("You're ready!", f"You're ready, {customer_name}!")
+    
+    return html_content

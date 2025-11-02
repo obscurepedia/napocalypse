@@ -26,6 +26,37 @@
                 
                 <p class="lead">Check your email inbox in the next few minutes.</p>
                 
+                <!-- Personalization Form -->
+                <div class="personalization-box" id="personalization-box">
+                    <h2>✨ Make Your Report Extra Special</h2>
+                    <p class="personalization-subtitle">Help us personalize your sleep guide for you and your little one!</p>
+                    
+                    <form id="personalization-form" class="personalization-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="parent-name">Your First Name:</label>
+                                <input type="text" id="parent-name" name="parent_name" placeholder="e.g., Sarah" maxlength="50">
+                            </div>
+                            <div class="form-group">
+                                <label for="baby-name">Your Baby's Name:</label>
+                                <input type="text" id="baby-name" name="baby_name" placeholder="e.g., Emma" maxlength="50">
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">✨ Personalize My Guide</button>
+                            <button type="button" class="btn-secondary" onclick="skipPersonalization()">Skip - Use Generic Version</button>
+                        </div>
+                    </form>
+                    
+                    <div id="personalization-success" class="personalization-success" style="display: none;">
+                        <div class="success-message">
+                            <span class="success-emoji">🎉</span>
+                            <p>Perfect! Your personalized guide is being prepared...</p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="success-details">
                     <h2>What Happens Next:</h2>
                     
@@ -117,6 +148,83 @@
         // Track successful purchase
         const urlParams = new URLSearchParams(window.location.search);
         const sessionId = urlParams.get('session_id');
+        
+        // Personalization form functionality
+        document.getElementById('personalization-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const parentName = document.getElementById('parent-name').value.trim();
+            const babyName = document.getElementById('baby-name').value.trim();
+            
+            // Prepare data to send
+            const personalizationData = {
+                session_id: sessionId,
+                parent_name: parentName || null,
+                baby_name: babyName || null,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Send to backend
+            fetch('/api/personalize', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(personalizationData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showPersonalizationSuccess();
+                } else {
+                    console.error('Personalization failed:', data.error);
+                    // Still show success to user
+                    showPersonalizationSuccess();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Still show success to user
+                showPersonalizationSuccess();
+            });
+        });
+        
+        function showPersonalizationSuccess() {
+            document.getElementById('personalization-form').style.display = 'none';
+            document.getElementById('personalization-success').style.display = 'block';
+            
+            // Hide the entire personalization box after a few seconds
+            setTimeout(() => {
+                document.getElementById('personalization-box').style.animation = 'fadeOut 0.5s ease-out forwards';
+                setTimeout(() => {
+                    document.getElementById('personalization-box').style.display = 'none';
+                }, 500);
+            }, 2000);
+        }
+        
+        function skipPersonalization() {
+            document.getElementById('personalization-box').style.animation = 'fadeOut 0.5s ease-out forwards';
+            setTimeout(() => {
+                document.getElementById('personalization-box').style.display = 'none';
+            }, 500);
+        }
+        
+        // Add fade out animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                from { opacity: 1; transform: scale(1); }
+                to { opacity: 0; transform: scale(0.95); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Check if we have the data already (from quiz)
+        window.addEventListener('load', function() {
+            // You could check localStorage or URL params here to pre-fill names
+            // if they were captured in the quiz process
+        });
+    </script>
         
         if (sessionId) {
             // You can add analytics tracking here

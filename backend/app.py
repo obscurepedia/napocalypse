@@ -66,6 +66,55 @@ def js_static(filename):
     """Serve JavaScript files"""
     return send_from_directory(os.path.join(app.static_folder, 'js'), filename)
 
+@app.route('/api/personalize', methods=['POST'])
+def personalize():
+    """Handle personalization data from success page"""
+    try:
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'success': False, 'error': 'No data provided'}), 400
+            
+        session_id = data.get('session_id')
+        parent_name = data.get('parent_name')
+        baby_name = data.get('baby_name')
+        
+        if not session_id:
+            return jsonify({'success': False, 'error': 'Session ID required'}), 400
+            
+        # Find the customer by session_id or email
+        from database import Customer
+        customer = Customer.query.filter_by(stripe_session_id=session_id).first()
+        
+        if customer:
+            # Update customer with personalization data
+            if parent_name:
+                customer.name = parent_name
+            if baby_name:
+                customer.baby_name = baby_name
+                
+            db.session.commit()
+            
+            return jsonify({
+                'success': True, 
+                'message': 'Personalization data saved successfully'
+            }), 200
+        else:
+            # If customer not found, still return success to avoid user-facing errors
+            # but log the issue
+            print(f"Customer not found for session_id: {session_id}")
+            return jsonify({
+                'success': True, 
+                'message': 'Personalization data received'
+            }), 200
+            
+    except Exception as e:
+        print(f"Error saving personalization data: {str(e)}")
+        return jsonify({
+            'success': False, 
+            'error': 'Internal server error'
+        }), 500
+
 @app.route('/health')
 def health():
     """Health check endpoint"""

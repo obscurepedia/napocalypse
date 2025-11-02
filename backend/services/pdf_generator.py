@@ -9,6 +9,22 @@ from datetime import datetime
 from config import Config
 from .module_selector import get_module_info
 
+def get_personalized_subtitle(customer):
+    """
+    Generate personalized subtitle based on available customer data
+    """
+    parent_name = customer.name
+    baby_name = customer.baby_name
+    
+    if parent_name and baby_name:
+        return f"{parent_name} and baby {baby_name}"
+    elif parent_name:
+        return f"{parent_name} and your little one"
+    elif baby_name:
+        return f"you and baby {baby_name}"
+    else:
+        return "your family"
+
 def generate_personalized_pdf(customer, quiz_data, modules):
     """
     Generate personalized PDF guide
@@ -56,7 +72,7 @@ def generate_html_content(customer, quiz_data, modules):
         <!-- Cover Page -->
         <div class="cover-page">
             <h1>Your Personalized Baby Sleep Guide</h1>
-            <p class="subtitle">Customized for {customer.name or 'Your Family'}</p>
+            <p class="subtitle">Customized for {get_personalized_subtitle(customer)}</p>
             <p class="date">Generated: {datetime.now().strftime('%B %d, %Y')}</p>
             
             <div class="personalization-box">
@@ -75,16 +91,16 @@ def generate_html_content(customer, quiz_data, modules):
         <!-- Introduction Page -->
         <div class="page-break"></div>
         <div class="intro-page">
-            <h1>Welcome to Your Sleep Journey</h1>
+            <h1>Welcome to Your Sleep Journey{', ' + customer.name if customer.name else ''}!</h1>
             
             <p>Congratulations on taking the first step toward better sleep for your entire family!</p>
             
-            <p>This guide has been personalized specifically for you based on your quiz responses:</p>
+            <p>This guide has been personalized specifically for you{' and ' + customer.baby_name if customer.baby_name else ''} based on your quiz responses:</p>
             
             <div class="quiz-summary">
                 <h3>Your Situation:</h3>
                 <ul>
-                    <li><strong>Baby's Age:</strong> {quiz_data.get('baby_age', 'N/A')}</li>
+                    <li><strong>{customer.baby_name + "'s" if customer.baby_name else "Baby's"} Age:</strong> {quiz_data.get('baby_age', 'N/A')}</li>
                     <li><strong>Sleep Challenge:</strong> {quiz_data.get('biggest_challenge', 'N/A')}</li>
                     <li><strong>Your Approach:</strong> {quiz_data.get('sleep_philosophy', 'N/A')}</li>
                     <li><strong>Living Situation:</strong> {quiz_data.get('living_situation', 'N/A')}</li>
@@ -108,8 +124,8 @@ def generate_html_content(customer, quiz_data, modules):
             </ol>
             
             <div class="encouragement-box">
-                <h3>You've Got This!</h3>
-                <p>Better sleep is just days away. Trust the process, stay consistent, and remember: you're teaching your baby a valuable life skill.</p>
+                <h3>You've Got This{', ' + customer.name if customer.name else ''}!</h3>
+                <p>Better sleep for {customer.baby_name if customer.baby_name else 'your baby'} is just days away. Trust the process, stay consistent, and remember: you're teaching {customer.baby_name if customer.baby_name else 'your little one'} a valuable life skill that will benefit your entire family.</p>
             </div>
         </div>
         

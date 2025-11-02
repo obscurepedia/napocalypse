@@ -16,7 +16,9 @@ class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
     name = db.Column(db.String(255))
+    baby_name = db.Column(db.String(255))  # Added for personalization
     stripe_customer_id = db.Column(db.String(255))
+    stripe_session_id = db.Column(db.String(255))  # Added to track sessions
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
@@ -29,6 +31,7 @@ class Customer(db.Model):
             'id': self.id,
             'email': self.email,
             'name': self.name,
+            'baby_name': self.baby_name,
             'created_at': self.created_at.isoformat()
         }
 
