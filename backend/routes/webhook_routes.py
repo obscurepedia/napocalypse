@@ -75,8 +75,11 @@ def handle_successful_payment(session):
         ).order_by(QuizResponse.created_at.desc()).first()
         
         # Save session_id to customer for personalization tracking
-        if customer and not customer.stripe_session_id:
+        if customer:
             customer.stripe_session_id = session['id']
+            # Commit this immediately to ensure it's available for personalization
+            db.session.commit()
+            print(f"Updated customer {customer.email} with session_id: {session['id']}")
         
         if not customer or not quiz:
             print(f"Customer or quiz not found for order: {order.id}")

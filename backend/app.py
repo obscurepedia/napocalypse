@@ -42,8 +42,13 @@ def quiz():
 
 @app.route('/success')
 def success():
-    """Success page after payment"""
+    """Success page after payment - personalization collection"""
     return render_template('success.html')
+
+@app.route('/success-details')
+def success_details():
+    """Success details page - what happens next"""
+    return render_template('success-details.html')
 
 @app.route('/privacy')
 def privacy():
@@ -83,10 +88,21 @@ def personalize():
             return jsonify({'success': False, 'error': 'Session ID required'}), 400
             
         # Find the customer by session_id or email
-        from database import Customer
+        from database import Customer, Order
         customer = Customer.query.filter_by(stripe_session_id=session_id).first()
         
+        # If not found by session_id, try to find by order session_id
+        if not customer:
+            order = Order.query.filter_by(stripe_checkout_session_id=session_id).first()
+            if order:
+                customer = Customer.query.get(order.customer_id)
+                # Update the customer with the session_id for future use
+                if customer:
+                    customer.stripe_session_id = session_id
+                    print(f"Found customer via order lookup: {customer.email}")
+        
         if customer:
+            print(f"Found customer for personalization: {customer.email}")
             # Update customer with personalization data
             if parent_name:
                 customer.name = parent_name

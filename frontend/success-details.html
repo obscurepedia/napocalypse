@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Success! - Napocalypse</title>
+    <title>What Happens Next - Napocalypse</title>
     <link rel="stylesheet" href="/css/styles.css">
 <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
 </head>
@@ -17,48 +17,19 @@
         </div>
     </header>
 
-    <!-- Success Section -->
+    <!-- Success Details Section -->
     <section class="success-section">
         <div class="container">
             <div class="success-box">
                 <div class="success-icon">✓</div>
-                <h1>🎉 Payment Successful!</h1>
+                <h1>Your Personalized Sleep Guide is On Its Way! 🎉</h1>
                 
-                <p class="lead">Your personalized sleep guide is being prepared...</p>
+                <p class="lead">Check your email inbox in the next few minutes.</p>
                 
-                <!-- Personalization Form -->
-                <div class="personalization-box" id="personalization-box">
-                    <h2>✨ Make Your Experience Personal</h2>
-                    <p class="personalization-subtitle">Help us customize your sleep guide for you and your little one!</p>
+                <div class="success-details">
+                    <h2>What Happens Next:</h2>
                     
-                    <form id="personalization-form" class="personalization-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="parent-name">Your First Name:</label>
-                                <input type="text" id="parent-name" name="parent_name" placeholder="e.g., Sarah" maxlength="50">
-                            </div>
-                            <div class="form-group">
-                                <label for="baby-name">Your Baby's Name:</label>
-                                <input type="text" id="baby-name" name="baby_name" placeholder="e.g., Emma" maxlength="50">
-                            </div>
-                        </div>
-                        
-                        <div class="form-actions">
-                            <button type="submit" class="btn-primary">✨ Continue</button>
-                            <button type="button" class="btn-secondary" onclick="skipPersonalization()">Skip</button>
-                        </div>
-                    </form>
-                    
-                    <div id="personalization-success" class="personalization-success" style="display: none;">
-                        <div class="success-message">
-                            <span class="success-emoji">🎉</span>
-                            <p>Perfect! Redirecting you to next steps...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                    <div class="timeline">
                         <div class="timeline-item">
                             <div class="timeline-number">1</div>
                             <div class="timeline-content">
@@ -147,81 +118,9 @@
         const urlParams = new URLSearchParams(window.location.search);
         const sessionId = urlParams.get('session_id');
         
-        // Personalization form functionality
-        document.getElementById('personalization-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const parentName = document.getElementById('parent-name').value.trim();
-            const babyName = document.getElementById('baby-name').value.trim();
-            
-            // Prepare data to send
-            const personalizationData = {
-                session_id: sessionId,
-                parent_name: parentName || null,
-                baby_name: babyName || null,
-                timestamp: new Date().toISOString()
-            };
-            
-            // Send to backend
-            fetch('/api/personalize', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(personalizationData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showPersonalizationSuccess();
-                } else {
-                    console.error('Personalization failed:', data.error);
-                    // Still show success to user
-                    showPersonalizationSuccess();
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // Still show success to user
-                showPersonalizationSuccess();
-            });
-        });
-        
-        function showPersonalizationSuccess() {
-            document.getElementById('personalization-form').style.display = 'none';
-            document.getElementById('personalization-success').style.display = 'block';
-            
-            // Redirect to details page after short delay
-            setTimeout(() => {
-                window.location.href = `/success-details?session_id=${sessionId}`;
-            }, 2000);
-        }
-        
-        function skipPersonalization() {
-            // Redirect immediately to details page without personalization
-            window.location.href = `/success-details?session_id=${sessionId}`;
-        }
-        
-        // Add fade out animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeOut {
-                from { opacity: 1; transform: scale(1); }
-                to { opacity: 0; transform: scale(0.95); }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Check if we have the data already (from quiz)
-        window.addEventListener('load', function() {
-            // You could check localStorage or URL params here to pre-fill names
-            // if they were captured in the quiz process
-        });
-    </script>
-        
         if (sessionId) {
             // You can add analytics tracking here
-            console.log('Purchase completed:', sessionId);
+            console.log('Purchase completed and details viewed:', sessionId);
         }
     </script>
 </body>
