@@ -173,6 +173,13 @@ def send_sequence_email(customer_id, day_number):
                 }
             }
         )
+        
+        print(f"Email sent successfully to {customer.email}")
+        return True
+        
+    except Exception as e:
+        print(f"Error sending email: {str(e)}")
+        return False
 
 def schedule_email_sequence(customer_id, order_id):
     """
