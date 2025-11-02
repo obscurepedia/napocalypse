@@ -45,6 +45,16 @@ def success():
     """Success page after payment"""
     return render_template('success.html')
 
+@app.route('/privacy')
+def privacy():
+    """Privacy policy page"""
+    return render_template('privacy.html')
+
+@app.route('/terms')
+def terms():
+    """Terms of service page"""
+    return render_template('terms.html')
+
 # Static file routes
 @app.route('/css/<path:filename>')
 def css_static(filename):
