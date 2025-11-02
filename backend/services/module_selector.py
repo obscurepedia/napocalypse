@@ -44,17 +44,30 @@ def select_modules(quiz_data):
         # Default to gentle if not sure
         modules.append('module_6_gentle')
     
-    # 3. Challenge-based module (CONDITIONAL - 1 module)
-    biggest_challenge = quiz_data.get('biggest_challenge', '').lower()
+    # 3. Sleep Association module (CONDITIONAL - 1 module)
     sleep_associations = quiz_data.get('sleep_associations', '').lower()
     
-    # Check if feeding is the main issue
-    if ('feeding' in biggest_challenge or 
-        'nursing' in sleep_associations or 
-        'bottle' in sleep_associations):
+    # Priority order: feeding > motion/rocking > pacifier
+    if 'nursing' in sleep_associations or 'bottle' in sleep_associations:
         modules.append('module_7_feeding')
+    elif 'rocking' in sleep_associations or 'bouncing' in sleep_associations or 'motion' in sleep_associations:
+        modules.append('module_9_motion_rocking')
+    elif 'pacifier' in sleep_associations:
+        modules.append('module_12_pacifier')
     
-    # 4. Situation-based module (CONDITIONAL - 1 module)
+    # 4. Challenge-based module (CONDITIONAL - 1 module)
+    biggest_challenge = quiz_data.get('biggest_challenge', '').lower()
+    specific_challenge = quiz_data.get('specific_challenge', '').lower()
+    
+    # Check for specific challenges
+    if 'nap' in biggest_challenge or 'nap' in specific_challenge:
+        if 'module_10_nap_training' not in modules:
+            modules.append('module_10_nap_training')
+    elif 'early morning' in biggest_challenge or 'early' in specific_challenge or 'wakes before 6' in specific_challenge:
+        if 'module_11_early_morning' not in modules:
+            modules.append('module_11_early_morning')
+    
+    # 5. Situation-based module (CONDITIONAL - 1 module)
     living_situation = quiz_data.get('living_situation', '').lower()
     
     if ('apartment' in living_situation or 
@@ -110,6 +123,22 @@ def get_module_info(module_name):
         'module_8_room_sharing': {
             'title': 'Room Sharing Strategies',
             'description': 'Sleep training while sharing a room'
+        },
+        'module_9_motion_rocking': {
+            'title': 'Breaking Motion/Rocking Dependency',
+            'description': 'Weaning from rocking, bouncing, and motion sleep'
+        },
+        'module_10_nap_training': {
+            'title': 'Nap Training Mastery',
+            'description': 'Fixing short naps and establishing great daytime sleep'
+        },
+        'module_11_early_morning': {
+            'title': 'Early Morning Wake Solutions',
+            'description': 'Solving 4-6am wake-ups and extending sleep'
+        },
+        'module_12_pacifier': {
+            'title': 'Pacifier Weaning Guide',
+            'description': 'Breaking pacifier dependency for better sleep'
         }
     }
     

@@ -200,43 +200,79 @@ def schedule_email_sequence(customer_id, order_id):
 def get_sequence_content(day_number, customer_name):
     """
     Get email content for specific day in sequence
+    Loads from HTML template files
     """
-    content = {
+    import os
+    
+    # Map day numbers to template files and subjects
+    templates = {
         1: {
-            'subject': "Day 1: Let's Start Your Baby's Sleep Transformation 🌟",
-            'text': f"Hi {customer_name}!\n\nDay 1 implementation tips...",
-            'html': f"<h2>Hi {customer_name}!</h2><p>Day 1 implementation tips...</p>"
+            'file': 'day_1_welcome.html',
+            'subject': "🌙 Welcome to Napocalypse! Your Guide is Here"
         },
         2: {
-            'subject': "Day 2: Age-Specific Sleep Tips You Need to Know",
-            'text': f"Hi {customer_name}!\n\nDay 2 content...",
-            'html': f"<h2>Hi {customer_name}!</h2><p>Day 2 content...</p>"
+            'file': 'day_2_getting_started.html',
+            'subject': "✅ Day 2: Your First Night Checklist"
         },
         3: {
-            'subject': "Day 3: Mastering Your Sleep Training Method",
-            'text': f"Hi {customer_name}!\n\nDay 3 content...",
-            'html': f"<h2>Hi {customer_name}!</h2><p>Day 3 content...</p>"
+            'file': 'day_3_common_challenges.html',
+            'subject': "🛠️ Day 3: Common Challenges & How to Fix Them"
         },
         4: {
-            'subject': "Day 4: Solving Your Specific Challenge",
-            'text': f"Hi {customer_name}!\n\nDay 4 content...",
-            'html': f"<h2>Hi {customer_name}!</h2><p>Day 4 content...</p>"
+            'file': 'day_4_success_stories.html',
+            'subject': "⭐ Day 4: Real Success Stories (You Can Do This!)"
         },
         5: {
-            'subject': "Day 5: Handling Setbacks & Staying Consistent",
-            'text': f"Hi {customer_name}!\n\nDay 5 content...",
-            'html': f"<h2>Hi {customer_name}!</h2><p>Day 5 content...</p>"
+            'file': 'day_5_troubleshooting.html',
+            'subject': "🔧 Day 5: Your 2AM Troubleshooting Guide"
         },
         6: {
-            'subject': "Day 6: Progress Check-In - How's It Going?",
-            'text': f"Hi {customer_name}!\n\nDay 6 content...",
-            'html': f"<h2>Hi {customer_name}!</h2><p>Day 6 content...</p>"
+            'file': 'day_6_additional_resources.html',
+            'subject': "📚 Day 6: Expert Tips & Additional Resources"
         },
         7: {
-            'subject': "Day 7: You Did It! What's Next?",
-            'text': f"Hi {customer_name}!\n\nDay 7 content with upsell...",
-            'html': f"<h2>Hi {customer_name}!</h2><p>Day 7 content with upsell...</p>"
+            'file': 'day_7_feedback.html',
+            'subject': "🎉 Day 7: You Made It! (Plus What's Next)"
         }
     }
     
-    return content.get(day_number, content[1])
+    template_info = templates.get(day_number, templates[1])
+    
+    # Load HTML template
+    template_path = os.path.join(os.path.dirname(__file__), '..', 'email_templates', template_info['file'])
+    
+    try:
+        with open(template_path, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+        
+        # Replace placeholder with customer name if needed
+        html_content = html_content.replace('{customer_name}', customer_name)
+        
+        # Generate plain text version (simplified)
+        text_content = f"""
+Hi {customer_name}!
+
+This is Day {day_number} of your Napocalypse email series.
+
+For the best experience, please view this email in HTML format.
+
+If you can't see the HTML version, visit napocalypse.com for support.
+
+Best,
+The Napocalypse Team
+        """
+        
+        return {
+            'subject': template_info['subject'],
+            'text': text_content.strip(),
+            'html': html_content
+        }
+        
+    except Exception as e:
+        print(f"Error loading email template: {str(e)}")
+        # Fallback content
+        return {
+            'subject': template_info['subject'],
+            'text': f"Hi {customer_name}!\n\nDay {day_number} content...",
+            'html': f"<h2>Hi {customer_name}!</h2><p>Day {day_number} content...</p>"
+        }
