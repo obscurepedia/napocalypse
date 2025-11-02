@@ -30,7 +30,25 @@ def create_checkout():
             return jsonify({'error': 'Customer or quiz not found'}), 404
         
         # Create or get Stripe customer
-        if not customer.stripe_customer_id:
+        # Check if we need to create a new customer (first time or mode switch)
+        stripe_customer_id = customer.stripe_customer_id
+        
+        # If we have a customer ID, verify it exists in current mode
+        if stripe_customer_id:
+            try:
+                stripe.Customer.retrieve(stripe_customer_id)
+                print(f"Using existing Stripe customer: {stripe_customer_id}")
+            except stripe.error.InvalidRequestError as e:
+                if "similar object exists in live mode" in str(e) or "similar object exists in test mode" in str(e):
+                    print(f"Customer {stripe_customer_id} exists in different mode, creating new one")
+                    stripe_customer_id = None
+                    customer.stripe_customer_id = None
+                else:
+                    raise e
+        
+        # Create new customer if needed
+        if not stripe_customer_id:
+            print(f"Creating new Stripe customer for: {customer.email}")
             stripe_customer = stripe.Customer.create(
                 email=customer.email,
                 name=customer.name,
@@ -40,6 +58,7 @@ def create_checkout():
             )
             customer.stripe_customer_id = stripe_customer.id
             db.session.commit()
+            print(f"Created new Stripe customer: {stripe_customer.id}")
         
         # Create checkout session
         checkout_session = stripe.checkout.Session.create(
