@@ -3,6 +3,7 @@ Email Service using AWS SES
 Handles delivery emails and automated sequences
 """
 
+import os
 import boto3
 from botocore.exceptions import ClientError
 from email.mime.multipart import MIMEMultipart
