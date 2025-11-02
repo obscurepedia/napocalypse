@@ -7,7 +7,42 @@ def init_db(app):
     """Initialize database with Flask app"""
     db.init_app(app)
     with app.app_context():
+        # Create all tables
         db.create_all()
+        
+        # Check if we need to add new columns to existing tables
+        try:
+            from sqlalchemy import text
+            
+            # Check if baby_name column exists
+            result = db.session.execute(text("""
+                SELECT column_name 
+                FROM information_schema.columns 
+                WHERE table_name='customers' AND column_name='baby_name';
+            """))
+            
+            if not result.fetchone():
+                print("Adding baby_name column to customers table...")
+                db.session.execute(text("ALTER TABLE customers ADD COLUMN baby_name VARCHAR(255);"))
+                db.session.commit()
+                print("✅ baby_name column added")
+            
+            # Check if stripe_session_id column exists
+            result = db.session.execute(text("""
+                SELECT column_name 
+                FROM information_schema.columns 
+                WHERE table_name='customers' AND column_name='stripe_session_id';
+            """))
+            
+            if not result.fetchone():
+                print("Adding stripe_session_id column to customers table...")
+                db.session.execute(text("ALTER TABLE customers ADD COLUMN stripe_session_id VARCHAR(255);"))
+                db.session.commit()
+                print("✅ stripe_session_id column added")
+                
+        except Exception as e:
+            print(f"Migration check failed (this is normal for new databases): {str(e)}")
+            db.session.rollback()
 
 # Models
 class Customer(db.Model):
