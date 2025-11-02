@@ -14,7 +14,8 @@ stripe==10.12.0
 boto3==1.35.36
 
 # PDF Generation
-WeasyPrint==60.2
+WeasyPrint==59.0
+pydyf==0.8.0
 Pillow==10.4.0
 cffi==1.16.0
 pycparser==2.21
