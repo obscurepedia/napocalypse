@@ -186,6 +186,10 @@ def schedule_email_sequence(customer_id, order_id):
     Schedule 7-day email sequence
     """
     try:
+        # Get customer for email personalization
+        from database import Customer
+        customer = Customer.query.get(customer_id)
+        
         for day in range(1, 8):
             scheduled_time = datetime.utcnow() + timedelta(days=day)
             
@@ -194,7 +198,7 @@ def schedule_email_sequence(customer_id, order_id):
                 order_id=order_id,
                 day_number=day,
                 email_type=f'day{day}',
-                subject=get_sequence_content(day, customer.name, customer.baby_name)['subject'],
+                subject=get_sequence_content(day, customer.name if customer else None, customer.baby_name if customer else None)['subject'],
                 scheduled_for=scheduled_time,
                 status='pending'
             )

@@ -138,23 +138,11 @@ def handle_successful_payment(session):
         db.session.commit()
         print(f"✅ Database updated with PDF info")
         
-        # Send delivery email with PDF
-        print(f"📧 Sending delivery email to: {customer.email}")
-        send_delivery_email(
-            to_email=customer.email,
-            customer_name=customer.name or 'there',
-            pdf_path=pdf_path,
-            modules=modules
-        )
-        print(f"✅ Delivery email sent successfully")
+        # PDF and modules are ready - email will be sent when user completes personalization
+        print(f"✅ Order processed, PDF ready. Email will be sent after personalization.")
         
-        # Schedule 7-day email sequence
-        print(f"📅 Scheduling 7-day email sequence...")
-        schedule_email_sequence(
-            customer_id=customer.id,
-            order_id=order.id
-        )
-        print(f"✅ Email sequence scheduled")
+        # Schedule 7-day email sequence (will start after email is sent)
+        print(f"📅 Email sequence will be scheduled after personalization...")
         
         print(f"🎉 Successfully processed payment for customer: {customer.email}")
         
