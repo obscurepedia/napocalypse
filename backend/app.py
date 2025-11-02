@@ -71,6 +71,16 @@ def js_static(filename):
     """Serve JavaScript files"""
     return send_from_directory(os.path.join(app.static_folder, 'js'), filename)
 
+@app.route('/images/<path:filename>')
+def images_static(filename):
+    """Serve image files"""
+    return send_from_directory(os.path.join(app.static_folder, 'images'), filename)
+
+@app.route('/favicon.ico')
+def favicon():
+    """Serve favicon"""
+    return send_from_directory(app.static_folder, 'favicon.ico')
+
 @app.route('/api/personalize', methods=['POST'])
 def personalize():
     """Handle personalization data from success page"""
