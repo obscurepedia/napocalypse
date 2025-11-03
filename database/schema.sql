@@ -93,3 +93,24 @@ CREATE TRIGGER update_customers_updated_at BEFORE UPDATE ON customers
 
 -- Insert sample data for testing (optional - remove in production)
 -- INSERT INTO customers (email, name) VALUES ('test@example.com', 'Test User');
+
+-- Upsells table
+CREATE TABLE upsells (
+    id SERIAL PRIMARY KEY,
+    customer_id INTEGER REFERENCES customers(id) ON DELETE CASCADE,
+    original_order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
+    upsell_order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
+    modules_included TEXT NOT NULL, -- comma-separated list of module names
+    stripe_payment_intent_id VARCHAR(255) UNIQUE,
+    stripe_checkout_session_id VARCHAR(255) UNIQUE,
+    amount INTEGER NOT NULL, -- in cents
+    currency VARCHAR(3) DEFAULT 'usd',
+    status VARCHAR(50) DEFAULT 'pending', -- pending, completed, refunded
+    pdf_generated BOOLEAN DEFAULT FALSE,
+    pdf_url TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    completed_at TIMESTAMP
+);
+
+CREATE INDEX idx_upsells_customer_id ON upsells(customer_id);
+CREATE INDEX idx_upsells_status ON upsells(status);

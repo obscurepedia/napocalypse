@@ -4,6 +4,7 @@ import os
 from config import Config
 from database import db, init_db
 from routes import quiz_bp, payment_bp, webhook_bp
+from routes.upsell import upsell_bp
 from scheduler import init_scheduler
 
 # Create Flask app
@@ -25,6 +26,7 @@ init_db(app)
 app.register_blueprint(quiz_bp, url_prefix='/api/quiz')
 app.register_blueprint(payment_bp, url_prefix='/api/payment')
 app.register_blueprint(webhook_bp, url_prefix='/webhook')
+app.register_blueprint(upsell_bp)
 
 # Initialize scheduler for email sequences
 init_scheduler(app)

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade to Complete Reference Library - Napocalypse</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .intro h2 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .benefit-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.3em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .benefit-card p {
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        .modules-section {
+            background: #e8f4f8;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 40px 0;
+        }
+
+        .modules-section h3 {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .module-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .module-list li {
+            background: white;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            font-size: 1.05em;
+        }
+
+        .module-list li strong {
+            color: #2c3e50;
+        }
+
+        .pricing-section {
+            background: linear-gradient(135deg, #d5f4e6 0%, #b8e6d5 100%);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .pricing-section h3 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .price-comparison {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .original-price {
+            font-size: 1.5em;
+            color: #7f8c8d;
+            text-decoration: line-through;
+        }
+
+        .arrow {
+            font-size: 2em;
+            color: #27ae60;
+        }
+
+        .special-price {
+            font-size: 3em;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .savings {
+            font-size: 1.3em;
+            color: #27ae60;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 50px;
+            font-size: 1.4em;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            margin: 30px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .guarantee {
+            background: #fff9e6;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #f39c12;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .guarantee h4 {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .guarantee p {
+            color: #555;
+            font-size: 1.05em;
+        }
+
+        .testimonials {
+            margin: 40px 0;
+        }
+
+        .testimonials h3 {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .testimonial {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+
+        .testimonial p {
+            font-style: italic;
+            color: #555;
+            font-size: 1.05em;
+            margin-bottom: 10px;
+        }
+
+        .testimonial .author {
+            font-weight: bold;
+            color: #2c3e50;
+            font-style: normal;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 5px 0;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .intro h2 {
+                font-size: 1.5em;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .special-price {
+                font-size: 2.5em;
+            }
+
+            .cta-button {
+                padding: 15px 35px;
+                font-size: 1.2em;
+            }
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Ready to Go Deeper?</h1>
+            <p class="subtitle">Upgrade to the Complete Reference Library</p>
+        </div>
+
+        <div class="content">
+            <div class="intro">
+                <h2>You've Got the Essentials. Now Get the COMPLETE System.</h2>
+                <p>Your Essential Guide gives you everything to get started. But the Complete Reference Library gives you MASTERY.</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>📚 5-7x More Content</h3>
+                    <p>Deep dives into every strategy, with detailed explanations and scientific backing</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h3>🎯 Advanced Troubleshooting</h3>
+                    <p>Detailed solutions for every possible challenge you might encounter</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h3>📊 Progress Tracking Tools</h3>
+                    <p>Comprehensive logs, charts, and tracking systems</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h3>🔬 The Science Behind It</h3>
+                    <p>Understand WHY each method works and how to adapt it</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h3>💡 Expert Tips &amp; Tricks</h3>
+                    <p>Professional sleep consultant strategies and insider knowledge</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h3>🎁 Bonus Resources</h3>
+                    <p>Printable schedules, checklists, and reference guides</p>
+                </div>
+            </div>
+
+            <div class="modules-section">
+                <h3>Your Complete Library Includes:</h3>
+                <ul class="module-list" id="moduleList">
+                </ul>
+            </div>
+
+            <div class="pricing-section">
+                <h3>Special Customer-Only Pricing</h3>
+                <div class="price-comparison">
+                    <span class="original-price">$27</span>
+                    <span class="arrow">→</span>
+                    <span class="special-price">$21.60</span>
+                </div>
+                <p class="savings">Save 20% as a Thank You for Being a Customer!</p>
+                
+                <button class="cta-button" id="checkoutButton">
+                    Get Complete Library Now
+                </button>
+            </div>
+
+            <div class="guarantee">
+                <h4>🛡️ Same 100% Money-Back Guarantee</h4>
+                <p>If the Complete Library doesn't give you even more confidence and success, we'll refund it. No questions asked.</p>
+            </div>
+
+            <div class="testimonials">
+                <h3>What Parents Say About the Complete Library:</h3>
+                
+                <div class="testimonial">
+                    <p>"The Essential Guide got us started, but the Complete Library answered every single question I had. Worth every penny!"</p>
+                    <p class="author">- Sarah M., Mom of 2</p>
+                </div>
+
+                <div class="testimonial">
+                    <p>"I thought I didn't need the extra content, but the troubleshooting section saved us when we hit a rough patch on day 4."</p>
+                    <p class="author">- Mike T., First-time Dad</p>
+                </div>
+
+                <div class="testimonial">
+                    <p>"The science explanations helped me understand WHY things work, which made me so much more confident implementing the methods."</p>
+                    <p class="author">- Jennifer L., Mom of 3</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&amp;copy; 2024 Napocalypse. All rights reserved.</p>
+            <p>support@napocalypse.com</p>
+            <p><a href="/privacy" style="color: white;">Privacy Policy</a> | <a href="/terms" style="color: white;">Terms of Service</a></p>
+        </div>
+    </div>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const customerId = urlParams.get('customer');
+        const modulesParam = urlParams.get('modules');
+
+        const moduleInfo = {
+            'module_1_newborn': 'Newborn Sleep Foundations (0-3 Months)',
+            'module_2_readiness': 'Sleep Training Readiness (4-6 Months)',
+            'module_3_established': 'Established Sleeper (7-12 Months)',
+            'module_4_toddler': 'Toddler Sleep Transitions (13-24 Months)',
+            'module_5_cio': 'Cry-It-Out Implementation Guide',
+            'module_6_gentle': 'Gentle/No-Cry Methods',
+            'module_7_feeding': 'Breaking the Feed-to-Sleep Association',
+            'module_8_room_sharing': 'Room Sharing Strategies',
+            'module_9_motion_rocking': 'Breaking Motion/Rocking Dependency',
+            'module_10_nap_training': 'Nap Training Mastery',
+            'module_11_early_morning': 'Early Morning Wake Solutions',
+            'module_12_pacifier': 'Pacifier Weaning Guide'
+        };
+
+        if (modulesParam) {
+            const modules = modulesParam.split(',');
+            const moduleList = document.getElementById('moduleList');
+            
+            modules.forEach(module => {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>✓</strong> ${moduleInfo[module] || module}`;
+                moduleList.appendChild(li);
+            });
+        }
+
+        const stripe = Stripe('YOUR_STRIPE_PUBLISHABLE_KEY');
+
+        document.getElementById('checkoutButton').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/api/create-upsell-checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        customer_id: customerId,
+                        modules: modulesParam
+                    })
+                });
+
+                const session = await response.json();
+
+                if (session.error) {
+                    alert('Error: ' + session.error);
+                    return;
+                }
+
+                const result = await stripe.redirectToCheckout({
+                    sessionId: session.sessionId
+                });
+
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

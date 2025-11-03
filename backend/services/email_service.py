@@ -146,39 +146,64 @@ def send_delivery_email(to_email, customer_name, pdf_path, modules):
         print(f"Error sending delivery email: {str(e)}")
         return False
 
-def send_sequence_email(customer_id, day_number):
+def send_sequence_email(to_email, customer_name, day_number, customer_id=None, modules=None, quiz_data=None, customer=None):
     """
-    Send specific day email in the sequence
+    Send automated sequence email (Days 1-7) with full personalization
+    
+    Args:
+        to_email: Recipient email
+        customer_name: Customer name
+        day_number: Day in sequence (1-7)
+        customer_id: Customer ID (for upsell URL)
+        modules: List of module names
+        quiz_data: Quiz response data (for personalization)
+        customer: Customer object (for full personalization)
     """
-    from database import Customer
-    customer = Customer.query.get(customer_id)
+    from_email = Config.AWS_SES_FROM_EMAIL
     
-    if not customer:
-        print(f"Customer {customer_id} not found")
-        return False
+    # Get personalization data if available
+    personalization_vars = None
+    if customer and quiz_data and modules:
+        from services.personalization import get_personalization_data
+        personalization_vars = get_personalization_data(customer, quiz_data, modules)
     
-    # Get email content with personalization
-    email_content = get_sequence_content(day_number, customer.name, customer.baby_name)
+    # Email content based on day and personalization
+    email_content = get_sequence_content(day_number, customer_name, personalization_vars)
     
+    # Add upsell URL to emails if customer_id and modules provided
+    if customer_id and modules:
+        module_ids = ','.join(modules)
+        upsell_url = f"https://napocalypse.com/upsell?customer={customer_id}&modules={module_ids}"
+        
+        # Replace upsell placeholder in content
+        if 'html_body' in email_content:
+            email_content['html_body'] = email_content['html_body'].replace(
+                '{{upsell_url}}', 
+                upsell_url
+            )
+        if 'text_body' in email_content:
+            email_content['text_body'] = email_content['text_body'].replace(
+                '{{upsell_url}}', 
+                upsell_url
+            )
+
     try:
         response = ses_client.send_email(
-            Source=Config.AWS_SES_FROM_EMAIL,
+            Source=from_email,
             Destination={
-                'ToAddresses': [customer.email]
+                'ToAddresses': [to_email]
             },
             Message={
                 'Subject': {'Data': email_content['subject']},
                 'Body': {
                     'Html': {'Data': email_content['html_body']},
-                    'Text': {'Data': email_content['text_body']}
+                    'Text': {'Data': email_content.get('text_body', '')}
                 }
             }
         )
         
-        print(f"Email sent successfully to {customer.email}")
-        return True
-        
-    except Exception as e:
+        print(f"Day {day_number} email sent successfully to {to_email}")
+        return True    except Exception as e:
         print(f"Error sending email: {str(e)}")
         return False
 
@@ -286,81 +311,77 @@ def generate_personalized_subject(day_number, customer_name=None, baby_name=None
     else:
         return day_subjects['neither']
 
-def get_sequence_content(day_number, customer_name=None, baby_name=None):
+def get_sequence_content(day_number, customer_name, personalization_vars=None):
     """
-    Get email content for specific day with personalization
-    """
-    # Map day numbers to template files and personalized subjects
-    templates = {
-        1: {
-            'file': 'day_1_welcome.html',
-            'subject': generate_personalized_subject(1, customer_name, baby_name)
-        },
-        2: {
-            'file': 'day_2_getting_started.html', 
-            'subject': generate_personalized_subject(2, customer_name, baby_name)
-        },
-        3: {
-            'file': 'day_3_common_challenges.html',
-            'subject': generate_personalized_subject(3, customer_name, baby_name)
-        },
-        4: {
-            'file': 'day_4_success_stories.html',
-            'subject': generate_personalized_subject(4, customer_name, baby_name)
-        },
-        5: {
-            'file': 'day_5_troubleshooting.html',
-            'subject': generate_personalized_subject(5, customer_name, baby_name)
-        },
-        6: {
-            'file': 'day_6_additional_resources.html',
-            'subject': generate_personalized_subject(6, customer_name, baby_name)
-        },
-        7: {
-            'file': 'day_7_feedback.html',
-            'subject': generate_personalized_subject(7, customer_name, baby_name)
-        }
-    }
+    Get email content for specific day in sequence
+    Loads from HTML template files with personalization
     
-    template_info = templates.get(day_number, templates[1])
+    Args:
+        day_number: Day in sequence (1-7)
+        customer_name: Customer name
+        personalization_vars: Dict with personalization data (method, challenge, etc.)
+    """
+    import os
+    
+    # Determine which template variant to use
+    if personalization_vars:
+        try:
+            from services.personalization import get_email_variant
+            method_type = personalization_vars.get('method_type', 'gentle')
+            challenge_type = personalization_vars.get('challenge_type', 'general')
+            template_file = get_email_variant(day_number, method_type, challenge_type)
+            
+            # Update subject line with personalization
+            subject = get_personalized_subject(day_number, personalization_vars)
+        except ImportError:
+            # Fallback if personalization service not available yet
+            template_file = f'day_{day_number}_generic.html'
+            subject = get_generic_subject(day_number)
+    else:
+        # Fallback to generic templates
+        template_file = f'day_{day_number}_generic.html'
+        subject = get_generic_subject(day_number)
     
     # Load HTML template
-    template_path = os.path.join(os.path.dirname(__file__), '..', 'email_templates', template_info['file'])
+    template_path = os.path.join(os.path.dirname(__file__), '..', 'email_templates', template_file)
+    
+    # Fallback to old template names if new ones don't exist yet
+    if not os.path.exists(template_path):
+        old_templates = {
+            1: 'day_1_welcome.html',
+            2: 'day_2_getting_started.html',
+            3: 'day_3_common_challenges.html',
+            4: 'day_4_success_stories.html',
+            5: 'day_5_troubleshooting.html',
+            6: 'day_6_additional_resources.html',
+            7: 'day_7_feedback.html'
+        }
+        template_file = old_templates.get(day_number, 'day_1_welcome.html')
+        template_path = os.path.join(os.path.dirname(__file__), '..', 'email_templates', template_file)
     
     try:
         with open(template_path, 'r', encoding='utf-8') as f:
             html_content = f.read()
         
-        # Apply personalization to template content
-        personalized_html = personalize_email_content(html_content, customer_name, baby_name)
+        # Replace all personalization placeholders
+        html_content = replace_personalization_vars(html_content, customer_name, personalization_vars)
         
         # Generate plain text version (simplified)
-        text_content = f"""
-Hi {customer_name or 'there'}!
-
-This is Day {day_number} of your Napocalypse email series.
-
-For the best experience, please view this email in HTML format.
-
-If you can't see the HTML version, visit napocalypse.com for support.
-
-Best,
-The Napocalypse Team
-        """
+        text_content = generate_text_version(day_number, customer_name, personalization_vars)
         
         return {
-            'subject': template_info['subject'],
+            'subject': subject,
             'text_body': text_content.strip(),
-            'html_body': personalized_html
+            'html_body': html_content
         }
         
     except Exception as e:
         print(f"Error loading email template: {str(e)}")
         # Fallback content
         return {
-            'subject': template_info['subject'],
-            'text_body': f"Hi {customer_name or 'there'}!\n\nDay {day_number} content...",
-            'html_body': f"<h2>Hi {customer_name or 'there'}!</h2><p>Day {day_number} content...</p>"
+            'subject': get_generic_subject(day_number),
+            'text_body': f"Hi {customer_name}!\n\nDay {day_number} content...",
+            'html_body': f"<h2>Hi {customer_name}!</h2><p>Day {day_number} content...</p>"
         }
 
 def personalize_email_content(html_content, customer_name=None, baby_name=None):
@@ -398,3 +419,221 @@ def personalize_email_content(html_content, customer_name=None, baby_name=None):
         html_content = html_content.replace("You're ready!", f"You're ready, {customer_name}!")
     
     return html_content
+
+def replace_personalization_vars(html_content, customer_name, personalization_vars):
+    """
+    Replace all personalization placeholders in HTML content
+    """
+    # Always replace customer name
+    html_content = html_content.replace('{customer_name}', customer_name)
+    
+    if personalization_vars:
+        # Replace all personalization variables
+        for key, value in personalization_vars.items():
+            placeholder = '{' + key + '}'
+            html_content = html_content.replace(placeholder, str(value))
+    
+    return html_content
+
+def get_personalized_subject(day_number, personalization_vars):
+    """
+    Get personalized subject line based on method and challenge
+    """
+    method = personalization_vars.get('method_short', 'Sleep Training')
+    challenge = personalization_vars.get('challenge_short', 'Sleep')
+    
+    subjects = {
+        1: "🌙 Welcome to Napocalypse! Your Guide is Here",
+        2: "✅ Day 2: Your First Night Checklist",
+        3: f"🛠️ Day 3: Common {method} Challenges & How to Fix Them",
+        4: f"⭐ Day 4: Real {method} Success Story (Just Like You!)",
+        5: "🔧 Day 5: Your 2AM Troubleshooting Guide",
+        6: "📚 Day 6: Expert Tips & Additional Resources",
+        7: f"🎉 Day 7: You Made It! (Plus Your {method} Mastery Offer)"
+    }
+    
+    return subjects.get(day_number, f"Day {day_number}: Napocalypse Update")
+
+def get_generic_subject(day_number):
+    """
+    Get generic subject line (fallback)
+    """
+    subjects = {
+        1: "🌙 Welcome to Napocalypse! Your Guide is Here",
+        2: "✅ Day 2: Your First Night Checklist",
+        3: "🛠️ Day 3: Common Challenges & How to Fix Them",
+        4: "⭐ Day 4: Real Success Stories (You Can Do This!)",
+        5: "🔧 Day 5: Your 2AM Troubleshooting Guide",
+        6: "📚 Day 6: Expert Tips & Additional Resources",
+        7: "🎉 Day 7: You Made It! (Plus What's Next)"
+    }
+    return subjects.get(day_number, f"Day {day_number}: Napocalypse Update")
+
+def generate_text_version(day_number, customer_name, personalization_vars):
+    """
+    Generate plain text version of email
+    """
+    method = personalization_vars.get('method', 'your method') if personalization_vars else 'your method'
+    
+    return f"""
+Hi {customer_name}!
+
+This is Day {day_number} of your Napocalypse email series.
+
+You're using the {method} approach, and we're here to support you every step of the way.
+
+For the best experience, please view this email in HTML format.
+
+If you can't see the HTML version, visit napocalypse.com for support.
+
+Best,
+The Napocalypse Team
+    """
+
+def send_upsell_confirmation_email(customer, pdf_path, modules):
+    """
+    Send upsell confirmation email with FULL PDF attachment
+    """
+    from_email = Config.AWS_SES_FROM_EMAIL
+    subject = "Your Complete Reference Library is Ready! 🎉"
+    
+    # Get module info
+    from services.module_selector import get_module_info
+    module_details = [get_module_info(m) for m in modules]
+    module_list = '\n'.join([f"<li>{m['title']}</li>" for m in module_details])
+    
+    # HTML body
+    html_body = f"""
+    <html>
+    <head></head>
+    <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h2 style="color: #27ae60;">🎉 Welcome to the Complete Library!</h2>
+            
+            <p>Hi {customer.name or 'there'}!</p>
+            
+            <p>Thank you for upgrading! Your <strong>Complete Reference Library</strong> is attached and ready to use.</p>
+            
+            <div style="background-color: #d5f4e6; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #27ae60;">
+                <h3 style="margin-top: 0; color: #2c3e50;">What's New in Your Complete Library:</h3>
+                <ul style="margin: 10px 0;">
+                    <li>✓ <strong>5-7x more content</strong> with deep dives into every strategy</li>
+                    <li>✓ <strong>Advanced troubleshooting</strong> for every possible challenge</li>
+                    <li>✓ <strong>Progress tracking tools</strong> and comprehensive logs</li>
+                    <li>✓ <strong>The science behind it</strong> - understand WHY each method works</li>
+                    <li>✓ <strong>Expert tips & tricks</strong> from professional sleep consultants</li>
+                    <li>✓ <strong>Bonus resources</strong> including printable schedules and checklists</li>
+                </ul>
+            </div>
+            
+            <h3 style="color: #2c3e50;">Your Complete Modules:</h3>
+            <ul style="background-color: #f8f9fa; padding: 15px 15px 15px 35px; border-radius: 5px;">
+                {module_list}
+            </ul>
+            
+            <div style="background-color: #fff9e6; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #f39c12;">
+                <h3 style="margin-top: 0; color: #2c3e50;">How to Use Your Complete Library:</h3>
+                <ol style="margin: 10px 0;">
+                    <li>Review the expanded content in each of your modules</li>
+                    <li>Use the troubleshooting sections when you hit challenges</li>
+                    <li>Reference the science sections to understand the "why"</li>
+                    <li>Print the bonus tracking tools and schedules</li>
+                    <li>Keep it handy for future sleep challenges</li>
+                </ol>
+            </div>
+            
+            <h3 style="color: #2c3e50;">Need Help?</h3>
+            <p>Reply to this email anytime with questions. We're here to support you!</p>
+            
+            <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin: 20px 0; text-align: center;">
+                <p style="margin: 0; font-size: 14px; color: #555;">
+                    <strong>Remember:</strong> You have our 100% money-back guarantee.<br>
+                    If this doesn't help you succeed, we'll refund every penny.
+                </p>
+            </div>
+            
+            <p>Here's to mastering your baby's sleep!</p>
+            
+            <p style="margin-top: 30px;">
+                <strong>The Napocalypse Team</strong><br>
+                <a href="mailto:support@napocalypse.com" style="color: #3498db;">support@napocalypse.com</a>
+            </p>
+        </div>
+    </body>
+    </html>
+    """
+    
+    # Text body
+    text_body = f"""
+    Hi {customer.name or 'there'}!
+    
+    Thank you for upgrading! Your Complete Reference Library is attached and ready to use.
+    
+    What's New in Your Complete Library:
+    - 5-7x more content with deep dives into every strategy
+    - Advanced troubleshooting for every possible challenge
+    - Progress tracking tools and comprehensive logs
+    - The science behind it - understand WHY each method works
+    - Expert tips & tricks from professional sleep consultants
+    - Bonus resources including printable schedules and checklists
+    
+    Your Complete Modules:
+    {chr(10).join([f"- {m['title']}" for m in module_details])}
+    
+    How to Use Your Complete Library:
+    1. Review the expanded content in each of your modules
+    2. Use the troubleshooting sections when you hit challenges
+    3. Reference the science sections to understand the "why"
+    4. Print the bonus tracking tools and schedules
+    5. Keep it handy for future sleep challenges
+    
+    Need Help?
+    Reply to this email anytime with questions. We're here to support you!
+    
+    Remember: You have our 100% money-back guarantee.
+    If this doesn't help you succeed, we'll refund every penny.
+    
+    Here's to mastering your baby's sleep!
+    
+    The Napocalypse Team
+    support@napocalypse.com
+    """
+    
+    try:
+        # Create message
+        msg = MIMEMultipart('mixed')
+        msg['Subject'] = subject
+        msg['From'] = from_email
+        msg['To'] = customer.email
+        
+        # Create message body
+        msg_body = MIMEMultipart('alternative')
+        text_part = MIMEText(text_body, 'plain', 'utf-8')
+        html_part = MIMEText(html_body, 'html', 'utf-8')
+        msg_body.attach(text_part)
+        msg_body.attach(html_part)
+        msg.attach(msg_body)
+        
+        # Attach PDF
+        with open(pdf_path, 'rb') as f:
+            pdf_attachment = MIMEApplication(f.read())
+            pdf_attachment.add_header('Content-Disposition', 'attachment', 
+                                    filename='Complete_Sleep_Guide.pdf')
+            msg.attach(pdf_attachment)
+        
+        # Send email
+        response = ses_client.send_raw_email(
+            Source=from_email,
+            Destinations=[customer.email],
+            RawMessage={'Data': msg.as_string()}
+        )
+        
+        print(f"Upsell confirmation email sent to {customer.email}")
+        return response
+        
+    except ClientError as e:
+        print(f"Error sending upsell confirmation email: {e.response['Error']['Message']}")
+        raise
+    except Exception as e:
+        print(f"Error sending upsell confirmation email: {str(e)}")
+        raise

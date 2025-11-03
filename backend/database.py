@@ -168,3 +168,33 @@ class EmailSequence(db.Model):
             'status': self.status,
             'sent_at': self.sent_at.isoformat() if self.sent_at else None
         }
+
+class Upsell(db.Model):
+    __tablename__ = 'upsells'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'), nullable=False)
+    original_order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=False)
+    upsell_order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
+    modules_included = db.Column(db.Text, nullable=False)  # comma-separated
+    stripe_payment_intent_id = db.Column(db.String(255), unique=True)
+    stripe_checkout_session_id = db.Column(db.String(255), unique=True)
+    amount = db.Column(db.Integer, nullable=False)  # in cents
+    currency = db.Column(db.String(3), default='usd')
+    status = db.Column(db.String(50), default='pending')
+    pdf_generated = db.Column(db.Boolean, default=False)
+    pdf_url = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    completed_at = db.Column(db.DateTime)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'customer_id': self.customer_id,
+            'amount': self.amount,
+            'currency': self.currency,
+            'status': self.status,
+            'modules_included': self.modules_included.split(','),
+            'pdf_generated': self.pdf_generated,
+            'created_at': self.created_at.isoformat()
+        }

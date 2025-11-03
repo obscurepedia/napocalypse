@@ -38,7 +38,18 @@ def stripe_webhook():
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
         print(f"Processing checkout.session.completed for session: {session['id']}")
-        handle_successful_payment(session)
+        
+        # Check if this is an upsell or regular purchase
+        session_type = session.get('metadata', {}).get('type', 'regular')
+        print(f"Session type: {session_type}")
+        
+        if session_type == 'upsell':
+            print(f"Processing upsell webhook...")
+            from routes.upsell import process_upsell_webhook
+            process_upsell_webhook(session)
+        else:
+            print(f"Processing regular payment webhook...")
+            handle_successful_payment(session)
     
     elif event['type'] == 'payment_intent.succeeded':
         payment_intent = event['data']['object']
@@ -127,7 +138,8 @@ def handle_successful_payment(session):
         pdf_path = generate_personalized_pdf(
             customer=customer,
             quiz_data=quiz.to_dict(),
-            modules=modules
+            modules=modules,
+            is_upsell=False  # Use ESSENTIAL versions for regular purchases
         )
         print(f"✅ PDF generated at: {pdf_path}")
         
