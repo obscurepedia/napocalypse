@@ -203,7 +203,9 @@ def send_sequence_email(to_email, customer_name, day_number, customer_id=None, m
         )
         
         print(f"Day {day_number} email sent successfully to {to_email}")
-        return True    except Exception as e:
+        return True
+        
+    except Exception as e:
         print(f"Error sending email: {str(e)}")
         return False
 
