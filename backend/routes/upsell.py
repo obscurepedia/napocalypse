@@ -4,7 +4,7 @@ Handles upsell checkout and fulfillment
 """
 
 from flask import Blueprint, request, jsonify, render_template
-from models import db, Customer, Order, Upsell, ModulesAssigned
+from database import db, Customer, Order, Upsell, ModulesAssigned
 from services.pdf_generator import generate_personalized_pdf
 from services.email_service import send_upsell_confirmation_email
 import stripe
