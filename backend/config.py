@@ -15,6 +15,11 @@ class Config:
     DATABASE_URL = os.getenv('DATABASE_URL')
     if DATABASE_URL and DATABASE_URL.startswith('postgres://'):
         DATABASE_URL = DATABASE_URL.replace('postgres://', 'postgresql://', 1)
+    
+    # Fallback to SQLite for development if no PostgreSQL available
+    if not DATABASE_URL:
+        DATABASE_URL = 'sqlite:///napocalypse.db'
+    
     SQLALCHEMY_DATABASE_URI = DATABASE_URL
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     

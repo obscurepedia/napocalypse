@@ -5,10 +5,61 @@ Combines selected modules into a personalized PDF guide
 
 import os
 import re
-from weasyprint import HTML, CSS
 from datetime import datetime
 from config import Config
 from .module_selector import get_module_info
+
+# Try to import WeasyPrint, fallback if not available
+try:
+    from weasyprint import HTML, CSS
+    WEASYPRINT_AVAILABLE = True
+except (ImportError, OSError, TypeError) as e:
+    print(f"Warning: WeasyPrint not available - {e}")
+    WEASYPRINT_AVAILABLE = False
+    HTML = None
+    CSS = None
+
+def format_quiz_value(field_name, value):
+    """
+    Convert raw quiz form values to user-friendly text
+    """
+    if not value or value == 'N/A':
+        return 'Not specified'
+    
+    # Map form values to readable text
+    value_mappings = {
+        # Baby age
+        '0-3_months': '0-3 months',
+        '4-6_months': '4-6 months', 
+        '7-12_months': '7-12 months',
+        '13-24_months': '13-24 months (toddler)',
+        '2_plus_years': '2+ years',
+        
+        # Sleep challenges
+        'frequent_night_waking': 'Frequent night waking',
+        'difficulty_falling_asleep': 'Difficulty falling asleep',
+        'early_morning_wake': 'Early morning wake-ups',
+        'short_naps': 'Short naps',
+        'wakes_when_putting_down': 'Wakes when putting down',
+        'needs_help_to_sleep': 'Needs help to fall asleep',
+        'bedtime_battles': 'Bedtime battles',
+        'room_sharing_issues': 'Room sharing difficulties',
+        
+        # Sleep philosophy
+        'gentle_methods': 'Gentle, no-cry methods',
+        'cry_it_out': 'Cry-it-out approach',
+        'flexible_approach': 'Flexible approach',
+        'whatever_works': 'Whatever works best',
+        
+        # Living situation
+        'own_room': 'Baby has own room',
+        'room_sharing_parents': 'Room sharing with parents',
+        'room_sharing_siblings': 'Room sharing with siblings',
+        'apartment_thin_walls': 'Apartment with thin walls',
+        'open_plan_living': 'Open plan living space'
+    }
+    
+    return value_mappings.get(value, value.replace('_', ' ').title())
 
 def get_personalized_subtitle(customer):
     """
@@ -39,6 +90,10 @@ def generate_personalized_pdf(customer, quiz_data, modules, is_upsell=False):
     Returns:
         str: Path to generated PDF
     """
+    # Check if WeasyPrint is available
+    if not WEASYPRINT_AVAILABLE:
+        raise RuntimeError("PDF generation not available: WeasyPrint dependencies not installed")
+    
     # Create filename
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     version = "FULL" if is_upsell else "ESSENTIAL"
@@ -78,16 +133,9 @@ def generate_html_content(customer, quiz_data, modules, is_upsell=False):
                 <img src="file://{os.path.abspath(os.path.join(os.path.dirname(__file__), '../../frontend/images/napocalypse.png'))}" alt="Napocalypse Logo" class="pdf-logo">
             </div>
             <h1>Your Personalized Baby Sleep Guide</h1>
-            <p class="subtitle">{'Complete Reference Library' if is_upsell else 'Quick-Start Edition'}</p>
+            {f'<p class="subtitle">Complete Reference Library</p>' if is_upsell else ''}
             <p class="subtitle">Customized for {get_personalized_subtitle(customer)}</p>
             <p class="date">Generated: {datetime.now().strftime('%B %d, %Y')}</p>
-            
-            <div class="personalization-box">
-                <h2>Your Personalized Plan Includes:</h2>
-                <ul>
-                    {''.join([f'<li>{m["title"]}</li>' for m in module_details])}
-                </ul>
-            </div>
             
             <div class="footer">
                 <p>© {datetime.now().year} Napocalypse. All rights reserved.</p>
@@ -107,10 +155,10 @@ def generate_html_content(customer, quiz_data, modules, is_upsell=False):
             <div class="quiz-summary">
                 <h3>Your Situation:</h3>
                 <ul>
-                    <li><strong>{customer.baby_name + "'s" if customer.baby_name else "Baby's"} Age:</strong> {quiz_data.get('baby_age', 'N/A')}</li>
-                    <li><strong>Sleep Challenge:</strong> {quiz_data.get('biggest_challenge', 'N/A')}</li>
-                    <li><strong>Your Approach:</strong> {quiz_data.get('sleep_philosophy', 'N/A')}</li>
-                    <li><strong>Living Situation:</strong> {quiz_data.get('living_situation', 'N/A')}</li>
+                    <li><strong>{customer.baby_name + "'s" if customer.baby_name else "Baby's"} Age:</strong> {format_quiz_value('baby_age', quiz_data.get('baby_age', 'N/A'))}</li>
+                    <li><strong>Sleep Challenge:</strong> {format_quiz_value('biggest_challenge', quiz_data.get('biggest_challenge', 'N/A'))}</li>
+                    <li><strong>Your Approach:</strong> {format_quiz_value('sleep_philosophy', quiz_data.get('sleep_philosophy', 'N/A'))}</li>
+                    <li><strong>Living Situation:</strong> {format_quiz_value('living_situation', quiz_data.get('living_situation', 'N/A'))}</li>
                 </ul>
             </div>
             
@@ -121,6 +169,7 @@ def generate_html_content(customer, quiz_data, modules, is_upsell=False):
                 {''.join([f'<li><strong>{m["title"]}</strong><br>{m["description"]}</li>' for m in module_details])}
             </ol>
             
+            <div class="page-break"></div>
             <h3>How to Use This Guide:</h3>
             <ol>
                 <li>Read through all modules to understand the complete approach</li>
@@ -215,29 +264,93 @@ def convert_markdown_to_html(markdown_text):
     """
     Convert markdown content to HTML for PDF generation
     """
-    # Simple markdown to HTML conversion
+    if not markdown_text:
+        return ""
+    
     html = markdown_text
     
-    # Convert headers
+    # Convert headers (order matters - start with h3, then h2, then h1)
     html = re.sub(r'^### (.*?)$', r'<h3>\1</h3>', html, flags=re.MULTILINE)
-    html = re.sub(r'^## (.*?)$', r'<h2>\1</h2>', html, flags=re.MULTILINE)
+    html = re.sub(r'^## (.*?)$', r'<h2>\1</h2>', html, flags=re.MULTILINE)  
     html = re.sub(r'^# (.*?)$', r'<h1>\1</h1>', html, flags=re.MULTILINE)
     
-    # Convert bold text
+    # Convert bold and italic text
     html = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', html)
+    html = re.sub(r'\*(.*?)\*', r'<em>\1</em>', html)
     
-    # Convert bullet points
-    html = re.sub(r'^- (.*?)$', r'<li>\1</li>', html, flags=re.MULTILINE)
+    # Handle numbered lists first
+    lines = html.split('\n')
+    in_numbered_list = False
+    processed_lines = []
     
-    # Wrap consecutive list items in ul tags
-    html = re.sub(r'(<li>.*?</li>\s*)+', lambda m: '<ul>' + m.group(0) + '</ul>', html, flags=re.DOTALL)
+    for line in lines:
+        # Check if this is a numbered list item
+        if re.match(r'^\d+\.\s+', line):
+            if not in_numbered_list:
+                processed_lines.append('<ol>')
+                in_numbered_list = True
+            # Convert to list item
+            content = re.sub(r'^\d+\.\s+', '', line)
+            processed_lines.append(f'<li>{content}</li>')
+        else:
+            if in_numbered_list:
+                processed_lines.append('</ol>')
+                in_numbered_list = False
+            processed_lines.append(line)
     
-    # Convert paragraphs (double newlines)
-    html = re.sub(r'\n\n', '</p><p>', html)
-    html = '<p>' + html + '</p>'
+    # Close any open numbered list
+    if in_numbered_list:
+        processed_lines.append('</ol>')
     
-    # Clean up empty paragraphs
+    html = '\n'.join(processed_lines)
+    
+    # Handle bullet point lists
+    lines = html.split('\n')
+    in_bullet_list = False
+    processed_lines = []
+    
+    for line in lines:
+        # Check if this is a bullet list item
+        if re.match(r'^-\s+', line):
+            if not in_bullet_list:
+                processed_lines.append('<ul>')
+                in_bullet_list = True
+            # Convert to list item
+            content = re.sub(r'^-\s+', '', line)
+            processed_lines.append(f'<li>{content}</li>')
+        else:
+            if in_bullet_list:
+                processed_lines.append('</ul>')
+                in_bullet_list = False
+            processed_lines.append(line)
+    
+    # Close any open bullet list
+    if in_bullet_list:
+        processed_lines.append('</ul>')
+    
+    html = '\n'.join(processed_lines)
+    
+    # Split into paragraphs on double newlines, but avoid breaking existing HTML
+    lines = html.split('\n\n')
+    processed_lines = []
+    
+    for line in lines:
+        line = line.strip()
+        if line:
+            # If it's already HTML (starts with < or contains HTML tags), leave it as is
+            if (line.startswith('<') or '</h' in line or '</ul>' in line or 
+                '</ol>' in line or '<li>' in line or '<ul>' in line or '<ol>' in line):
+                processed_lines.append(line)
+            else:
+                # Skip empty lines and wrap content in paragraph tags
+                if line.strip():
+                    processed_lines.append(f'<p>{line}</p>')
+    
+    html = '\n\n'.join(processed_lines)
+    
+    # Clean up extra whitespace and empty paragraphs
     html = re.sub(r'<p>\s*</p>', '', html)
+    html = re.sub(r'\n{3,}', '\n\n', html)
     
     return html
 
@@ -1758,25 +1871,6 @@ def get_module_summary(module_name):
     
     return summaries.get(module_name, f'<h1>{module_name}</h1><p>Summary content for this module.</p>')
 
-def convert_markdown_to_html(markdown_text):
-    """
-    Simple markdown to HTML conversion
-    For production, use a proper markdown library like markdown2 or mistune
-    """
-    # This is a simplified version - replace with proper markdown parser
-    html = markdown_text
-    
-    # Headers
-    html = html.replace('# ', '<h1>').replace('\n\n', '</h1>\n\n')
-    html = html.replace('## ', '<h2>').replace('\n\n', '</h2>\n\n')
-    html = html.replace('### ', '<h3>').replace('\n\n', '</h3>\n\n')
-    
-    # Paragraphs
-    lines = html.split('\n\n')
-    html = ''.join([f'<p>{line}</p>' if not line.startswith('<') else line for line in lines])
-    
-    return html
-
 def get_pdf_styles():
     """
     Clean, professional CSS styles for PDF
@@ -1831,6 +1925,7 @@ def get_pdf_styles():
         color: #7f8c8d;
         margin-bottom: 2cm;
         font-style: italic;
+        text-align: center;
     }
     
     .cover-page .date {
