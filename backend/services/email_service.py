@@ -221,12 +221,19 @@ def schedule_email_sequence(customer_id, order_id):
         for day in range(1, 8):
             scheduled_time = datetime.utcnow() + timedelta(days=day)
             
+            # Get email content for this day
+            email_content = get_sequence_content(
+                day_number=day, 
+                customer_name=customer.name if customer else None,
+                personalization_vars=None  # Could be enhanced with quiz data
+            )
+            
             email_seq = EmailSequence(
                 customer_id=customer_id,
                 order_id=order_id,
                 day_number=day,
                 email_type=f'day{day}',
-                subject=get_sequence_content(day, customer.name if customer else None, customer.baby_name if customer else None)['subject'],
+                subject=email_content['subject'],
                 scheduled_for=scheduled_time,
                 status='pending'
             )
