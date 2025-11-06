@@ -27,6 +27,9 @@ def send_delivery_email(to_email, customer_name, pdf_path, modules):
     """
     from_email = Config.AWS_SES_FROM_EMAIL
     
+    # Safe customer name handling
+    safe_customer_name = customer_name if customer_name else "there"
+    
     # Personalized subject line
     if customer_name:
         subject = f"🌙 {customer_name}, your personalized sleep guide is ready!"
@@ -39,7 +42,7 @@ def send_delivery_email(to_email, customer_name, pdf_path, modules):
     <head></head>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
         <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-            <h2 style="color: #2c3e50;">Hi {customer_name}!</h2>
+            <h2 style="color: #2c3e50;">Hi {safe_customer_name}!</h2>
             
             <p>Your personalized sleep guide is attached and ready to go!</p>
             
@@ -79,7 +82,9 @@ def send_delivery_email(to_email, customer_name, pdf_path, modules):
     
     # Text body
     text_body = f"""
-    Hi {customer_name}!
+    Hi {safe_customer_name}!
+    
+    Your personalized sleep guide is attached and ready to go!
     
     Your personalized sleep guide is attached and ready to go!
     
@@ -538,11 +543,12 @@ def get_sequence_content(day_number, customer_name, personalization_vars=None):
         
     except Exception as e:
         print(f"Error loading email template: {str(e)}")
-        # Fallback content
+        # Fallback content with safe customer name
+        safe_customer_name = customer_name if customer_name else "there"
         return {
             'subject': get_generic_subject(day_number),
-            'text_body': f"Hi {customer_name}!\n\nDay {day_number} content...",
-            'html_body': f"<h2>Hi {customer_name}!</h2><p>Day {day_number} content...</p>"
+            'text_body': f"Hi {safe_customer_name}!\n\nDay {day_number} content...",
+            'html_body': f"<h2>Hi {safe_customer_name}!</h2><p>Day {day_number} content...</p>"
         }
 
 def personalize_email_content(html_content, customer_name=None, baby_name=None):
@@ -585,14 +591,17 @@ def replace_personalization_vars(html_content, customer_name, personalization_va
     """
     Replace all personalization placeholders in HTML content
     """
-    # Always replace customer name
-    html_content = html_content.replace('{customer_name}', customer_name)
+    # Always replace customer name (handle None case)
+    safe_customer_name = customer_name if customer_name is not None else ""
+    html_content = html_content.replace('{customer_name}', safe_customer_name)
     
     if personalization_vars:
         # Replace all personalization variables
         for key, value in personalization_vars.items():
             placeholder = '{' + key + '}'
-            html_content = html_content.replace(placeholder, str(value))
+            # Ensure value is not None
+            safe_value = str(value) if value is not None else ""
+            html_content = html_content.replace(placeholder, safe_value)
     
     return html_content
 

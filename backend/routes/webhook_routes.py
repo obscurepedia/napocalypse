@@ -116,7 +116,6 @@ def handle_successful_payment(session):
         if not customer or not quiz:
             print(f"❌ Customer or quiz not found for order: {order.id}")
             return
-            return
         
         # Select modules based on quiz responses
         print(f"🧩 Selecting modules based on quiz responses...")
@@ -177,7 +176,15 @@ def handle_successful_payment(session):
             print(f"✅ V1 PDF generated at: {pdf_path}")
             
         except Exception as e:
-            print(f"⚠️ V2 system error: {e}, falling back to V1...")
+            # Log the specific V2 error for debugging
+            print(f"❌ V2 system error: {type(e).__name__}: {str(e)}")
+            print(f"⚠️ This error should be investigated - falling back to V1...")
+            
+            # Log more details in development
+            import traceback
+            if Config.DEBUG:
+                print(f"Full V2 error traceback:")
+                traceback.print_exc()
             
             # Fallback to V1 module system
             pdf_path = generate_personalized_pdf(
