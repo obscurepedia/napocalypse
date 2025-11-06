@@ -21,7 +21,8 @@ class BlockSelector:
     
     # Block definitions
     AGE_BLOCKS = {
-        '4-6': 'age_4_6_months',
+        '0-3': 'age_0_3_months',
+        '4-6': 'age_4_6_months', 
         '7-12': 'age_7_12_months',
         '13-18': 'age_13_18_months',
         '19-24': 'age_19_24_months'
@@ -140,24 +141,31 @@ class BlockSelector:
     def _map_challenge_to_block(self, challenge: str) -> str:
         """Map quiz challenge response to block identifier."""
         challenge_mapping = {
+            # Direct mappings from V2 mapping
             'feeding_to_sleep': 'feeding',
+            'rocking': 'motion',
+            'pacifier': 'pacifier', 
+            'naps': 'naps',
+            'early_morning': 'early_morning',
+            
+            # Legacy mappings (keep for compatibility)
             'feed_to_sleep': 'feeding',
             'nursing_to_sleep': 'feeding',
             'bottle_to_sleep': 'feeding',
-            'rocking': 'motion',
             'bouncing': 'motion',
             'motion': 'motion',
             'stroller': 'motion',
             'car': 'motion',
-            'pacifier': 'pacifier',
             'paci': 'pacifier',
             'binky': 'pacifier',
-            'naps': 'naps',
             'short_naps': 'naps',
             'nap_training': 'naps',
-            'early_morning': 'early_morning',
             'early_waking': 'early_morning',
-            'waking_early': 'early_morning'
+            'waking_early': 'early_morning',
+            
+            # Additional common challenges
+            'bedtime_routine': 'naps',  # Map bedtime issues to naps block for now
+            'night_wakings': 'naps',    # Map night wakings to naps block for now
         }
         
         challenge_key = challenge_mapping.get(challenge.lower(), challenge.lower())

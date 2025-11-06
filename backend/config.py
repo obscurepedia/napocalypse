@@ -23,6 +23,15 @@ class Config:
     SQLALCHEMY_DATABASE_URI = DATABASE_URL
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
+    # Database connection pool settings for production reliability
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_pre_ping': True,  # Verify connections before use
+        'pool_recycle': 300,    # Recycle connections every 5 minutes
+        'pool_timeout': 20,     # Wait 20 seconds for connection
+        'max_overflow': 0,      # Don't create extra connections beyond pool_size
+        'echo': False           # Don't log SQL in production
+    }
+    
     # Stripe
     STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
     STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')

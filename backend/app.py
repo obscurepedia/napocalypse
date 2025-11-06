@@ -14,6 +14,11 @@ app = Flask(__name__,
 
 # Load configuration
 app.config.from_object(Config)
+
+# Configure SQLAlchemy engine options for production reliability
+if hasattr(Config, 'SQLALCHEMY_ENGINE_OPTIONS'):
+    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = Config.SQLALCHEMY_ENGINE_OPTIONS
+
 Config.init_app(app)
 
 # Enable CORS

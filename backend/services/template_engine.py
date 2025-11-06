@@ -58,13 +58,16 @@ class TemplateEngine:
         Returns:
             Complete guide as markdown string
         """
-        # 1. Create personalization context
+        # 1. Map quiz responses to V2 expected format
+        mapped_responses = self._map_quiz_responses(quiz_responses)
+        
+        # 2. Create personalization context
         context = self.personalization_service.create_context_from_quiz(
-            quiz_responses, customer_info
+            mapped_responses, customer_info
         )
         
-        # 2. Select appropriate content blocks
-        selected_blocks = self.block_selector.select_blocks(quiz_responses)
+        # 3. Select appropriate content blocks
+        selected_blocks = self.block_selector.select_blocks(mapped_responses)
         
         # 3. Load and assemble content
         guide_content = self._assemble_guide(selected_blocks, context)
@@ -263,6 +266,83 @@ support@napocalypse.com
             return parts[0] + '---' + toc + parts[1]
         else:
             return content
+
+    def _map_quiz_responses(self, quiz_responses: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Map quiz response field names to V2 expected format.
+        
+        Args:
+            quiz_responses: Original quiz responses
+            
+        Returns:
+            Mapped responses compatible with V2 block selector
+        """
+        mapped = quiz_responses.copy()
+        
+        # 1. Map baby_age format
+        baby_age = quiz_responses.get('baby_age', '')
+        if baby_age:
+            # Convert "0-3 months" to "0-3" for block selector
+            age_mapping = {
+                '0-3 months': '0-3',
+                '4-6 months': '4-6', 
+                '7-12 months': '7-12',
+                '13-18 months': '13-18',
+                '19-24 months': '19-24'
+            }
+            mapped['baby_age'] = age_mapping.get(baby_age, baby_age)
+        
+        # 2. Map sleep_philosophy to sleep_method
+        sleep_philosophy = quiz_responses.get('sleep_philosophy', '')
+        if sleep_philosophy:
+            method_mapping = {
+                'prefer_gentle': 'gentle',
+                'comfortable_crying': 'cio',
+                'not_sure': 'gentle',  # Default to gentle when unsure
+                'gradual_approach': 'gentle',
+                'cry_it_out': 'cio',
+                'ferber': 'cio'
+            }
+            mapped['sleep_method'] = method_mapping.get(sleep_philosophy, 'gentle')
+        
+        # 3. Map biggest_challenge to main_challenge
+        biggest_challenge = quiz_responses.get('biggest_challenge', '')
+        if biggest_challenge:
+            challenge_mapping = {
+                'wont_sleep_without_feeding': 'feeding_to_sleep',
+                'wont_sleep_without_rocking': 'rocking',
+                'wont_sleep_without_pacifier': 'pacifier',
+                'short_naps': 'naps',
+                'bedtime_takes_over_hour': 'bedtime_routine',
+                'early_morning_waking': 'early_morning',
+                'night_wakings': 'night_wakings'
+            }
+            mapped['main_challenge'] = challenge_mapping.get(biggest_challenge, biggest_challenge)
+        
+        # 4. Map sleep_associations to secondary challenges
+        sleep_associations = quiz_responses.get('sleep_associations', '')
+        if sleep_associations and not mapped.get('secondary_challenge'):
+            association_mapping = {
+                'nursing_bottle': 'feeding_to_sleep',
+                'rocking_bouncing': 'rocking', 
+                'pacifier': 'pacifier',
+                'motion_stroller': 'motion',
+                'co_sleeping': 'bed_sharing'
+            }
+            secondary = association_mapping.get(sleep_associations)
+            # Only add if different from main challenge
+            if secondary and secondary != mapped.get('main_challenge'):
+                mapped['secondary_challenge'] = secondary
+        
+        # 5. Map living_situation
+        living_situation = quiz_responses.get('living_situation', '')
+        if living_situation:
+            if 'room_sharing' in living_situation:
+                mapped['room_sharing'] = True
+            elif 'apartment' in living_situation:
+                mapped['living_situation'] = 'apartment'
+        
+        return mapped
 
 
 def generate_personalized_guide(quiz_responses: Dict[str, Any], 
