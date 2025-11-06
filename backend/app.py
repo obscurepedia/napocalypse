@@ -19,6 +19,15 @@ Config.init_app(app)
 # Enable CORS
 CORS(app)
 
+# Disable caching in development
+@app.after_request
+def after_request(response):
+    if app.debug:
+        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+    return response
+
 # Initialize database
 init_db(app)
 
@@ -82,6 +91,24 @@ def images_static(filename):
 def favicon():
     """Serve favicon"""
     return send_from_directory(app.static_folder, 'favicon.ico')
+
+@app.route('/blog')
+def blog_index():
+    """Blog index page"""
+    return render_template('blog/index.html')
+
+@app.route('/blog/<slug>')
+def blog_post(slug):
+    """Individual blog post served as static file"""
+    try:
+        # Add .html extension if not present
+        if not slug.endswith('.html'):
+            slug += '.html'
+        # Serve as static file from the blog directory
+        return send_from_directory(os.path.join(app.static_folder, 'blog'), slug)
+    except:
+        # If file not found, return 404
+        return "Blog post not found", 404
 
 @app.route('/api/personalize', methods=['POST'])
 def personalize():

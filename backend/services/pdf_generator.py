@@ -9,6 +9,15 @@ from datetime import datetime
 from config import Config
 from .module_selector import get_module_info
 
+# Try to import markdown2 for v2 system
+try:
+    import markdown2
+    MARKDOWN2_AVAILABLE = True
+except ImportError:
+    print("Warning: markdown2 not available - V2 template system requires it")
+    MARKDOWN2_AVAILABLE = False
+    markdown2 = None
+
 # Try to import WeasyPrint, fallback if not available
 try:
     from weasyprint import HTML, CSS
@@ -77,15 +86,17 @@ def get_personalized_subtitle(customer):
     else:
         return "your family"
 
-def generate_personalized_pdf(customer, quiz_data, modules, is_upsell=False):
+def generate_personalized_pdf(customer, quiz_data, modules=None, is_upsell=False, guide_content=None, is_v2=False):
     """
     Generate personalized PDF guide
     
     Args:
         customer: Customer object
         quiz_data (dict): Quiz response data
-        modules (list): List of module names to include
-        is_upsell (bool): If True, use FULL content; if False, use ESSENTIAL
+        modules (list): List of module names to include (for v1 system)
+        is_upsell (bool): If True, use FULL content; if False, use ESSENTIAL (for v1 system)
+        guide_content (str): Markdown content from V2 template engine (if is_v2=True)
+        is_v2 (bool): If True, use guide_content; if False, use old module system
         
     Returns:
         str: Path to generated PDF
@@ -96,12 +107,26 @@ def generate_personalized_pdf(customer, quiz_data, modules, is_upsell=False):
     
     # Create filename
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    version = "FULL" if is_upsell else "ESSENTIAL"
+    
+    if is_v2:
+        version = "PERSONALIZED"
+    else:
+        version = "FULL" if is_upsell else "ESSENTIAL"
+    
     filename = f"sleep_guide_{version}_{customer.id}_{timestamp}.pdf"
     output_path = os.path.join(Config.PDF_OUTPUT_DIR, filename)
     
+    # Ensure output directory exists
+    os.makedirs(Config.PDF_OUTPUT_DIR, exist_ok=True)
+    
     # Generate HTML content
-    html_content = generate_html_content(customer, quiz_data, modules, is_upsell)
+    if is_v2 and guide_content:
+        html_content = generate_html_from_markdown(customer, quiz_data, guide_content)
+    else:
+        # Fallback to old system
+        if not modules:
+            modules = []
+        html_content = generate_html_content(customer, quiz_data, modules, is_upsell)
     
     # Generate PDF
     HTML(string=html_content).write_pdf(
@@ -110,6 +135,58 @@ def generate_personalized_pdf(customer, quiz_data, modules, is_upsell=False):
     )
     
     return output_path
+
+def generate_html_from_markdown(customer, quiz_data, guide_markdown):
+    """
+    Convert V2 guide markdown to HTML for PDF generation
+    
+    Args:
+        customer: Customer object
+        quiz_data: Quiz response data
+        guide_markdown: Complete guide as markdown
+        
+    Returns:
+        HTML string ready for PDF conversion
+    """
+    if not MARKDOWN2_AVAILABLE:
+        raise RuntimeError("V2 PDF generation not available: markdown2 package not installed")
+    
+    # Convert markdown to HTML
+    html_body = markdown2.markdown(
+        guide_markdown,
+        extras=['fenced-code-blocks', 'tables', 'break-on-newline']
+    )
+    
+    # Wrap in complete HTML document
+    html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Your Personalized Baby Sleep Guide</title>
+    </head>
+    <body>
+        <div class="guide-content">
+            {html_body}
+        </div>
+        
+        <!-- Footer on last page -->
+        <div class="footer-page">
+            <hr style="border: none; border-top: 2px solid #ddd; margin: 30px 0;">
+            <div style="text-align: center; color: #666; font-size: 10pt;">
+                <p>© {datetime.now().year} Napocalypse. All rights reserved.</p>
+                <p>support@napocalypse.com | napocalypse.com</p>
+                <p style="margin-top: 20px; font-size: 9pt;">
+                    This guide is for informational purposes only and does not constitute medical advice.<br>
+                    Always consult with your pediatrician before making changes to your baby's sleep routine.
+                </p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+    
+    return html
 
 def generate_html_content(customer, quiz_data, modules, is_upsell=False):
     """

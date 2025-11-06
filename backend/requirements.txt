@@ -35,3 +35,6 @@ jinja2==3.1.2
 
 # Scheduling (for email sequences)
 APScheduler==3.10.4
+
+# V2 Template System
+markdown2==2.5.1

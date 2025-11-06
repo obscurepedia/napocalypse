@@ -209,6 +209,158 @@ def send_sequence_email(to_email, customer_name, day_number, customer_id=None, m
         print(f"Error sending email: {str(e)}")
         return False
 
+def send_advanced_playbook_module(delivery_id: int):
+    """
+    Send an Advanced Playbook module delivery email
+    
+    Args:
+        delivery_id: AdvancedPlaybookDelivery record ID
+    """
+    from database import AdvancedPlaybookDelivery, Customer
+    from services.module_selector import get_module_info
+    from services.personalization import get_personalization_data
+    import os
+    
+    delivery = AdvancedPlaybookDelivery.query.get(delivery_id)
+    if not delivery:
+        print(f"Delivery {delivery_id} not found")
+        return False
+    
+    customer = Customer.query.get(delivery.customer_id)
+    if not customer:
+        print(f"Customer {delivery.customer_id} not found")
+        return False
+    
+    # Get personalization data
+    from database import QuizResponse, ModuleAssigned
+    quiz = QuizResponse.query.filter_by(customer_id=customer.id).first()
+    modules = [m.module_name for m in ModuleAssigned.query.filter_by(customer_id=customer.id).all()]
+    
+    personalization_vars = get_personalization_data(customer, quiz.to_dict() if quiz else {}, modules)
+    
+    # Determine which email template to use
+    if delivery.module_number == 1:
+        template_name = 'day_7_immediate_module_1.html'
+    elif delivery.module_number == 2:
+        template_name = 'day_14_module_2.html'
+    elif delivery.module_number == 3:
+        template_name = 'day_21_module_3.html'
+    elif delivery.module_number == 4:
+        template_name = 'day_28_module_4.html'
+    elif delivery.module_number == 5:
+        template_name = 'day_32_completion.html'
+    else:
+        print(f"Invalid module number: {delivery.module_number}")
+        return False
+    
+    # Load email template
+    template_path = os.path.join(os.path.dirname(__file__), 
+                                 '../email_templates/advanced_delivery', 
+                                 template_name)
+    
+    try:
+        with open(template_path, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+        
+        # Personalize content
+        html_content = html_content.replace('{customer_name}', personalization_vars.get('customer_name', 'there'))
+        html_content = html_content.replace('{method}', personalization_vars.get('method', 'Sleep Training'))
+        html_content = html_content.replace('{challenge}', personalization_vars.get('challenge', 'Sleep Challenge'))
+        
+        # Generate subject line
+        if delivery.module_number == 1:
+            subject = f"📚 Your Advanced {personalization_vars.get('method', 'Sleep Training')} Playbook - Module 1"
+        elif delivery.module_number == 2:
+            subject = f"📚 Week 2: Advanced {personalization_vars.get('challenge', 'Sleep')} Mastery"
+        elif delivery.module_number == 3:
+            subject = "📚 Week 3: Complete Nap Training Guide"
+        elif delivery.module_number == 4:
+            subject = "🎉 Week 4: Your Complete Library!"
+        elif delivery.module_number == 5:
+            subject = f"🎓 Congratulations, {personalization_vars.get('method', 'Sleep Training')} Expert!"
+        
+        # Generate PDF for modules 1-4
+        pdf_path = None
+        if delivery.module_number <= 4:
+            from services.pdf_generator import generate_personalized_pdf
+            pdf_path = generate_personalized_pdf(
+                customer=customer,
+                quiz_data=quiz.to_dict() if quiz else {},
+                modules=[delivery.module_name],
+                is_upsell=True  # Use FULL content
+            )
+        
+        # Send email with PDF attachment
+        if pdf_path and delivery.module_number <= 4:
+            # Send with attachment
+            send_email_with_attachment(
+                to_email=customer.email,
+                subject=subject,
+                html_content=html_content,
+                attachment_path=pdf_path
+            )
+        else:
+            # Send without attachment (completion email)
+            ses_client.send_email(
+                Source=Config.AWS_SES_FROM_EMAIL,
+                Destination={'ToAddresses': [customer.email]},
+                Message={
+                    'Subject': {'Data': subject},
+                    'Body': {'Html': {'Data': html_content}}
+                }
+            )
+        
+        # Update delivery status
+        delivery.status = 'delivered'
+        delivery.delivered_date = datetime.utcnow()
+        db.session.commit()
+        
+        print(f"Advanced Playbook module {delivery.module_number} delivered to {customer.email}")
+        return True
+        
+    except Exception as e:
+        print(f"Error sending Advanced Playbook module: {str(e)}")
+        delivery.status = 'failed'
+        db.session.commit()
+        return False
+
+
+def send_email_with_attachment(to_email: str, subject: str, html_content: str, attachment_path: str):
+    """
+    Send email with PDF attachment using AWS SES
+    """
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+    from email.mime.application import MIMEApplication
+    import os
+    
+    msg = MIMEMultipart('mixed')
+    msg['Subject'] = subject
+    msg['From'] = Config.AWS_SES_FROM_EMAIL
+    msg['To'] = to_email
+    
+    # Add HTML body
+    msg_body = MIMEMultipart('alternative')
+    html_part = MIMEText(html_content, 'html', 'utf-8')
+    msg_body.attach(html_part)
+    msg.attach(msg_body)
+    
+    # Add PDF attachment
+    with open(attachment_path, 'rb') as f:
+        pdf_data = f.read()
+    
+    attachment = MIMEApplication(pdf_data)
+    attachment.add_header('Content-Disposition', 'attachment', 
+                         filename=os.path.basename(attachment_path))
+    msg.attach(attachment)
+    
+    # Send email
+    ses_client.send_raw_email(
+        Source=Config.AWS_SES_FROM_EMAIL,
+        Destinations=[to_email],
+        RawMessage={'Data': msg.as_string()}
+    )
+
 def schedule_email_sequence(customer_id, order_id):
     """
     Schedule 7-day email sequence
