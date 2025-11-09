@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Napocalypse - Personalized Baby Sleep Training{% endblock %}</title>
+    <meta name="description" content="{% block description %}Expert baby sleep training resources and personalized guidance. Learn proven methods to help your baby sleep better with our tailored approach.{% endblock %}">
+    <link rel="stylesheet" href="/css/styles.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="logo">
+                <span class="logo-icon">😴</span>
+                <span class="logo-text">Napocalypse</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#approach">Our Approach</a></li>
+                <li><a href="{{ url_for('blog_index') }}">Blog</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="{{ url_for('quiz') }}" class="cta-button">Get Started</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Napocalypse</h4>
+                <p>Personalized baby sleep training guidance that actually works for YOUR family. Evidence-based, compassionate, and effective.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="{{ url_for('quiz') }}">Free Sleep Assessment</a></li>
+                    <li><a href="{{ url_for('blog_index') }}">Sleep Guides</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+                    <li><a href="{{ url_for('terms') }}">Terms of Service</a></li>
+                    <li><a href="{{ url_for('refund') }}">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p><small>&copy; 2024 Napocalypse. All rights reserved. | Medical Disclaimer: This is educational content, not medical advice. Always consult your pediatrician.</small></p>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

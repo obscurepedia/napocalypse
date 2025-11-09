@@ -1,23 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sleep Quiz - Napocalypse</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/css/styles.css">
-<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <a href="/"><img src="/images/napocalypse.png" alt="Napocalypse Logo" class="logo-img"></a>
-            </div>
-        </div>
-    </header>
+{% extends "quiz_base.html" %}
 
+{% block title %}Sleep Quiz - Napocalypse{% endblock %}
+
+{% block content %}
     <!-- Quiz Container -->
     <section class="quiz-section">
         <div class="container">
@@ -45,233 +30,236 @@
                 <!-- Quiz Form -->
                 <form id="quiz-form">
                     <!-- Question 1: Baby's Age -->
-                    <div class="question active" data-question="1">
-                        <h2>How old is your baby?</h2>
+                    <div class="question" id="question-1">
+                        <h2>👶 How old is your baby?</h2>
                         <p class="question-subtitle">This helps us recommend age-appropriate sleep methods and schedules.</p>
                         <div class="options">
-                            <label class="option">
-                                <input type="radio" name="baby_age" value="0-3 months" required>
-                                <span class="option-text">⭐ 0-3 months (newborn)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="baby_age" value="4-6 months" required>
-                                <span class="option-text">🌙 4-6 months (ready for sleep training)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="baby_age" value="7-12 months" required>
-                                <span class="option-text">💤 7-12 months (established sleeper)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="baby_age" value="13-18 months" required>
-                                <span class="option-text">🧸 13-18 months (toddler)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="baby_age" value="19-24 months" required>
-                                <span class="option-text">🎈 19-24 months (advanced toddler)</span>
-                            </label>
+                            <button type="button" class="option-btn" onclick="selectOption(1, '0-3 months')">
+                                <strong>⭐ 0-3 months (newborn)</strong>
+                                <span>Still establishing basic sleep patterns</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(1, '4-6 months')">
+                                <strong>🌙 4-6 months (ready for sleep training)</strong>
+                                <span>Ready for more structured sleep training</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(1, '7-12 months')">
+                                <strong>� 7-12 months (established sleeper)</strong>
+                                <span>Dealing with developmental changes</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(1, '13-18 months')">
+                                <strong>� 13-18 months (toddler)</strong>
+                                <span>Managing bedtime resistance and transitions</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(1, '19-24 months')">
+                                <strong>🎈 19-24 months (advanced toddler)</strong>
+                                <span>Complex sleep challenges and behavior</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Question 2: Sleep Situation -->
-                    <div class="question" data-question="2">
-                        <h2>What's your biggest sleep struggle right now?</h2>
+                    <div class="question" id="question-2" style="display: none;">
+                        <h2>😴 What's your biggest sleep struggle right now?</h2>
                         <p class="question-subtitle">Be honest - we've heard it all! This helps us prioritize what matters most to you.</p>
                         <div class="options">
-                            <label class="option">
-                                <input type="radio" name="sleep_situation" value="wakes_every_1-2_hours" required>
-                                <span class="option-text">😫 Wakes every 1-2 hours (I'm exhausted!)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="sleep_situation" value="wakes_3-5_times" required>
-                                <span class="option-text">😴 Wakes 3-5 times per night (need better sleep)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="sleep_situation" value="wakes_1-2_times" required>
-                                <span class="option-text">🌅 Wakes 1-2 times per night (almost there!)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="sleep_situation" value="takes_30min_to_sleep" required>
-                                <span class="option-text">⏰ Takes 30+ minutes to fall asleep (bedtime battles)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="sleep_situation" value="early_morning_waking" required>
-                                <span class="option-text">🌄 Early morning wake-ups (before 6am)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="sleep_situation" value="naps_disaster" required>
-                                <span class="option-text">😩 Naps are a complete disaster</span>
-                            </label>
+                            <button type="button" class="option-btn" onclick="selectOption(2, 'wakes_every_1-2_hours')">
+                                <strong>😫 Wakes every 1-2 hours (I'm exhausted!)</strong>
+                                <span>Multiple wakings throughout the night</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(2, 'wakes_3-5_times')">
+                                <strong>😴 Wakes 3-5 times per night (need better sleep)</strong>
+                                <span>Frequent night wakings disrupting rest</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(2, 'wakes_1-2_times')">
+                                <strong>🌅 Wakes 1-2 times per night (almost there!)</strong>
+                                <span>Close to sleeping through the night</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(2, 'takes_30min_to_sleep')">
+                                <strong>⏰ Takes 30+ minutes to fall asleep (bedtime battles)</strong>
+                                <span>Long, difficult bedtime routines</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(2, 'early_morning_waking')">
+                                <strong>� Early morning wake-ups (before 6am)</strong>
+                                <span>Baby wakes too early and won't go back to sleep</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(2, 'naps_disaster')">
+                                <strong>😩 Naps are a complete disaster</strong>
+                                <span>Daytime sleep is impossible</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Question 3: Sleep Philosophy -->
-                    <div class="question" data-question="3">
-                        <h2>What's your comfort level with sleep training methods?</h2>
+                    <div class="question" id="question-3" style="display: none;">
+                        <h2>💭 What's your comfort level with sleep training methods?</h2>
                         <p class="question-subtitle">There's no right or wrong answer - we'll match you with methods that feel right for YOUR family.</p>
                         <div class="options">
-                            <label class="option">
-                                <input type="radio" name="sleep_philosophy" value="comfortable_with_crying" required>
-                                <span class="option-text">💪 Comfortable with some crying (I can handle cry-it-out methods)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="sleep_philosophy" value="prefer_gentle" required>
-                                <span class="option-text">🤗 Prefer gentle/no-cry methods only (I want the softest approach)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="sleep_philosophy" value="willing_gradual" required>
-                                <span class="option-text">🌟 Willing to try gradual methods with minimal crying (somewhere in between)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="sleep_philosophy" value="not_sure" required>
-                                <span class="option-text">🤔 Not sure yet (help me understand my options)</span>
-                            </label>
+                            <button type="button" class="option-btn" onclick="selectOption(3, 'comfortable_with_crying')">
+                                <strong>💪 Comfortable with some crying (I can handle cry-it-out methods)</strong>
+                                <span>Ready for faster but more intense methods</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(3, 'prefer_gentle')">
+                                <strong>🤗 Prefer gentle/no-cry methods only (I want the softest approach)</strong>
+                                <span>Gradual approach with minimal crying</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(3, 'willing_gradual')">
+                                <strong>🌟 Willing to try gradual methods with minimal crying (somewhere in between)</strong>
+                                <span>Balanced approach that feels manageable</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(3, 'not_sure')">
+                                <strong>🤔 Not sure yet (help me understand my options)</strong>
+                                <span>Need guidance on which approach to choose</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Question 4: Living Situation -->
-                    <div class="question" data-question="4">
-                        <h2>Where does your baby sleep?</h2>
+                    <div class="question" id="question-4" style="display: none;">
+                        <h2>🏠 Where does your baby sleep?</h2>
                         <p class="question-subtitle">This helps us recommend methods that work with your space and noise concerns.</p>
                         <div class="options">
-                            <label class="option">
-                                <input type="radio" name="living_situation" value="apartment" required>
-                                <span class="option-text">🏢 Apartment or shared walls (need quiet methods)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="living_situation" value="house_separate_nursery" required>
-                                <span class="option-text">🏠 House with separate nursery (more flexibility)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="living_situation" value="room_sharing_baby" required>
-                                <span class="option-text">👶 Room sharing with baby in our room (special considerations)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="living_situation" value="room_sharing_siblings" required>
-                                <span class="option-text">👨‍👩‍👧 Room sharing with siblings (complex situation)</span>
-                            </label>
+                            <button type="button" class="option-btn" onclick="selectOption(4, 'apartment')">
+                                <strong>🏢 Apartment or shared walls (need quiet methods)</strong>
+                                <span>Noise concerns with neighbors</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(4, 'house_separate_nursery')">
+                                <strong>🏠 House with separate nursery (more flexibility)</strong>
+                                <span>Baby has own room, more method options</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(4, 'room_sharing_baby')">
+                                <strong>👶 Room sharing with baby in our room (special considerations)</strong>
+                                <span>Need methods that work with room sharing</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(4, 'room_sharing_siblings')">
+                                <strong>👨‍👩‍👧 Room sharing with siblings (complex situation)</strong>
+                                <span>Multiple children in same room</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Question 5: Parenting Setup -->
-                    <div class="question" data-question="5">
-                        <h2>Who handles nighttime duties?</h2>
+                    <div class="question" id="question-5" style="display: none;">
+                        <h2>💼 Who handles nighttime duties?</h2>
                         <p class="question-subtitle">Understanding your support system helps us create a sustainable plan.</p>
                         <div class="options">
-                            <label class="option">
-                                <input type="radio" name="parenting_setup" value="two_parents_sharing" required>
-                                <span class="option-text">👫 Two parents sharing duties (we can tag-team)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="parenting_setup" value="single_parent" required>
-                                <span class="option-text">🙋 Single parent doing it all (need simpler methods)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="parenting_setup" value="one_parent_nights" required>
-                                <span class="option-text">👤 One parent does all nights (need sustainable approach)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="parenting_setup" value="grandparents_involved" required>
-                                <span class="option-text">👵 Grandparents/caregivers involved (need consistent plan)</span>
-                            </label>
+                            <button type="button" class="option-btn" onclick="selectOption(5, 'two_parents_sharing')">
+                                <strong>👫 Two parents sharing duties (we can tag-team)</strong>
+                                <span>Both parents available for support</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(5, 'single_parent')">
+                                <strong>🙋 Single parent doing it all (need simpler methods)</strong>
+                                <span>Managing everything alone</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(5, 'one_parent_nights')">
+                                <strong>👤 One parent does all nights (need sustainable approach)</strong>
+                                <span>One parent handles all sleep responsibilities</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(5, 'grandparents_involved')">
+                                <strong>👵 Grandparents/caregivers involved (need consistent plan)</strong>
+                                <span>Multiple caregivers need coordinated approach</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Question 6: Work Schedule -->
-                    <div class="question" data-question="6">
-                        <h2>What's your work situation?</h2>
+                    <div class="question" id="question-6" style="display: none;">
+                        <h2>💼 What's your work situation?</h2>
                         <p class="question-subtitle">This helps us understand your timeline and energy levels.</p>
                         <div class="options">
-                            <label class="option">
-                                <input type="radio" name="work_schedule" value="stay_at_home" required>
-                                <span class="option-text">🏡 Stay-at-home parent (more flexible schedule)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="work_schedule" value="working_parent" required>
-                                <span class="option-text">💼 Working parent (need results before returning to work)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="work_schedule" value="shift_work" required>
-                                <span class="option-text">🌙 Shift work/irregular hours (need adaptable methods)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="work_schedule" value="work_from_home" required>
-                                <span class="option-text">💻 Work from home (different constraints)</span>
-                            </label>
+                            <button type="button" class="option-btn" onclick="selectOption(6, 'stay_at_home')">
+                                <strong>🏡 Stay-at-home parent (more flexible schedule)</strong>
+                                <span>Can adapt schedule as needed</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(6, 'working_parent')">
+                                <strong>💼 Working parent (need results before returning to work)</strong>
+                                <span>Time pressure for sleep improvements</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(6, 'shift_work')">
+                                <strong>🌙 Shift work/irregular hours (need adaptable methods)</strong>
+                                <span>Variable schedule requires flexibility</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(6, 'work_from_home')">
+                                <strong>💻 Work from home (different constraints)</strong>
+                                <span>Home during day with work responsibilities</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Question 7: Biggest Challenge -->
-                    <div class="question" data-question="7">
-                        <h2>What's the #1 thing preventing your baby from sleeping well?</h2>
+                    <div class="question" id="question-7" style="display: none;">
+                        <h2>🌟 What's the #1 thing preventing your baby from sleeping well?</h2>
                         <p class="question-subtitle">We'll make sure your personalized guide focuses on solving THIS specific problem.</p>
                         <div class="options">
-                            <label class="option">
-                                <input type="radio" name="biggest_challenge" value="wont_sleep_without_feeding" required>
-                                <span class="option-text">🍼 Won't fall asleep without feeding</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="biggest_challenge" value="wont_sleep_without_rocking" required>
-                                <span class="option-text">🤱 Won't fall asleep without rocking/holding</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="biggest_challenge" value="wakes_when_put_down" required>
-                                <span class="option-text">😱 Wakes up the moment I put them down</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="biggest_challenge" value="bedtime_takes_over_hour" required>
-                                <span class="option-text">⏳ Bedtime routine takes over an hour</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="biggest_challenge" value="naps_impossible" required>
-                                <span class="option-text">😴 Naps are impossible</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="biggest_challenge" value="wakes_too_early" required>
-                                <span class="option-text">🌅 Wakes up too early (before 6am)</span>
-                            </label>
+                            <button type="button" class="option-btn" onclick="selectOption(7, 'wont_sleep_without_feeding')">
+                                <strong>🍼 Won't fall asleep without feeding</strong>
+                                <span>Feeding is required for every sleep</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(7, 'wont_sleep_without_rocking')">
+                                <strong>🤱 Won't fall asleep without rocking/holding</strong>
+                                <span>Physical contact needed for sleep</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(7, 'wakes_when_put_down')">
+                                <strong>😱 Wakes up the moment I put them down</strong>
+                                <span>Transfer from arms to crib fails</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(7, 'bedtime_takes_over_hour')">
+                                <strong>⏳ Bedtime routine takes over an hour</strong>
+                                <span>Extremely long, exhausting bedtimes</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(7, 'naps_impossible')">
+                                <strong>😴 Naps are impossible</strong>
+                                <span>Daytime sleep is completely unsuccessful</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(7, 'wakes_too_early')">
+                                <strong>🌅 Wakes up too early (before 6am)</strong>
+                                <span>Day starts too early despite good bedtime</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Question 8: Sleep Associations + Email -->
-                    <div class="question" data-question="8">
-                        <h2>How does your baby currently fall asleep?</h2>
+                    <div class="question" id="question-8" style="display: none;">
+                        <h2>📧 How does your baby currently fall asleep?</h2>
                         <p class="question-subtitle">Understanding current habits helps us create a realistic transition plan.</p>
                         <div class="options">
-                            <label class="option">
-                                <input type="radio" name="sleep_associations" value="nursing_bottle" required>
-                                <span class="option-text">🍼 Nursing or bottle to sleep</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="sleep_associations" value="rocking_bouncing" required>
-                                <span class="option-text">🤗 Rocking, bouncing, or holding to sleep</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="sleep_associations" value="pacifier" required>
-                                <span class="option-text">😴 Pacifier dependency</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="sleep_associations" value="cosleeping" required>
-                                <span class="option-text">🛏️ Co-sleeping (want to transition to crib)</span>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="sleep_associations" value="multiple" required>
-                                <span class="option-text">🔄 Multiple associations (it's complicated!)</span>
-                            </label>
+                            <button type="button" class="option-btn" onclick="selectOption(8, 'nursing_bottle')">
+                                <strong>🍼 Nursing or bottle to sleep</strong>
+                                <span>Feeding is the primary sleep association</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(8, 'rocking_bouncing')">
+                                <strong>🤗 Rocking, bouncing, or holding to sleep</strong>
+                                <span>Motion and contact needed for sleep</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(8, 'pacifier')">
+                                <strong>😴 Pacifier dependency</strong>
+                                <span>Can't sleep without pacifier</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(8, 'cosleeping')">
+                                <strong>🛏️ Co-sleeping (want to transition to crib)</strong>
+                                <span>Currently bed-sharing, want independence</span>
+                            </button>
+                            <button type="button" class="option-btn" onclick="selectOption(8, 'multiple')">
+                                <strong>🔄 Multiple associations (it's complicated!)</strong>
+                                <span>Combination of several sleep dependencies</span>
+                            </button>
                         </div>
 
                         <!-- Email Input -->
                         <div class="email-input-container">
+                            <div class="scroll-indicator" style="text-align: center; margin-bottom: 1rem; opacity: 0; transition: opacity 0.3s ease;">
+                                <p style="color: #667eea; font-weight: 600;">👇 Almost done! Please enter your details below 👇</p>
+                            </div>
                             <label for="email">Enter your email to get your personalized guide:</label>
                             <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                            
+                            <label for="name">Your name:</label>
                             <input type="text" id="name" name="name" placeholder="Your name (optional)">
+                            
+                            <label for="baby_name">Your baby's name:</label>
+                            <input type="text" id="baby_name" name="baby_name" placeholder="Baby's name (optional)">
+                            
+                            <button type="submit" class="btn-primary btn-large">Get My Personalized Guide →</button>
                         </div>
-                    </div>
-
-                    <!-- Navigation Buttons -->
-                    <div class="quiz-navigation">
-                        <button type="button" class="btn-secondary" id="prev-btn" onclick="previousQuestion()" style="display: none;">← Previous</button>
-                        <button type="button" class="btn-primary" id="next-btn" onclick="nextQuestion()">Next →</button>
-                        <button type="submit" class="btn-primary btn-large" id="submit-btn" style="display: none;">Get My Personalized Guide →</button>
                     </div>
                 </form>
 
@@ -283,15 +271,8 @@
             </div>
         </div>
     </section>
+{% endblock %}
 
-    <footer style="background: #f8f9fa; padding: 20px; text-align: center; margin-top: 50px;">
-        <p style="margin: 10px 0;">
-            <a href="/terms" style="color: #667eea; text-decoration: none; margin: 0 10px;">Terms of Service</a> | 
-            <a href="/privacy" style="color: #667eea; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
-        </p>
-        <p style="margin: 10px 0; color: #666;">&copy; 2024 Napocalypse. All rights reserved.</p>
-    </footer>
-
+{% block extra_js %}
     <script src="/js/quiz.js"></script>
-</body>
-</html>
+{% endblock %}

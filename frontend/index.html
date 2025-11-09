@@ -1,234 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Napocalypse - Personalized Baby Sleep Guides</title>
-    <meta name="description" content="Get your personalized baby sleep guide in 2 minutes. Stop drowning in conflicting advice. Customized for your baby's age, your parenting style, and your specific challenges.">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/css/styles.css">
-<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <a href="/"><img src="/images/napocalypse.png" alt="Napocalypse Logo" class="logo-img"></a>
-            </div>
-        </div>
-    </header>
+{% extends "home_base.html" %}
 
+{% block title %}Napocalypse - Your Baby Sleep Training Resource Hub{% endblock %}
+
+{% block description %}Expert baby sleep training resources and personalized guidance. Learn proven methods to help your baby sleep better with our tailored approach.{% endblock %}
+
+{% block extra_css %}
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Napocalypse - Baby Sleep Training Resources">
+    <meta property="og:description" content="Expert sleep training resources and personalized guidance for exhausted parents.">
+    <meta property="og:image" content="/assets/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+{% endblock %}
+
+{% block content %}
     <!-- Hero Section -->
     <section class="hero">
-        <div class="container">
-            <h1 class="hero-title">Surviving the Napocalypse?</h1>
-            <p class="hero-subtitle">Get Your Personalized Baby Sleep Guide in 2 Minutes</p>
-            
-            <div class="cta-box">
-                <a href="/quiz" class="btn-primary">Take the 2-Minute Quiz →</a>
-                <p class="guarantee">100% Money-Back Guarantee</p>
+        <div class="hero-container">
+            <h1>Welcome to Napocalypse</h1>
+            <p class="hero-subtitle">Your trusted resource for personalized baby sleep training</p>
+            <p class="hero-description">
+                We help exhausted parents navigate the overwhelming world of sleep training with personalized guidance and proven methods tailored specifically to your family's needs.
+            </p>
+            <div class="hero-buttons">
+                <a href="/quiz" class="hero-primary-btn">Take Free Sleep Assessment</a>
             </div>
         </div>
     </section>
 
-    <!-- Problem Section -->
-    <section class="problem">
-        <div class="container">
-            <h2>Stop Drowning in Conflicting Sleep Advice</h2>
-            <p class="lead">Every baby is different. Every family is different.</p>
-            <p class="lead">That's why generic sleep guides don't work.</p>
-            
-            <div class="problem-grid">
-                <div class="problem-item">
-                    <span class="emoji">😫</span>
-                    <h3>Information Overload</h3>
-                    <p>75-page guides that overwhelm instead of help</p>
-                </div>
-                <div class="problem-item">
-                    <span class="emoji">🤯</span>
-                    <h3>Conflicting Advice</h3>
-                    <p>Every expert says something different</p>
-                </div>
-                <div class="problem-item">
-                    <span class="emoji">😴</span>
-                    <h3>Generic Solutions</h3>
-                    <p>One-size-fits-all approaches that don't work</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Solution Section -->
-    <section class="solution">
-        <div class="container">
-            <h2>Your Personalized Sleep Solution</h2>
-            <p class="lead">Take our 2-minute quiz and get a sleep guide customized for YOUR situation</p>
-            
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <span class="checkmark">✓</span>
-                    <h3>Personalized to Your Baby's Age</h3>
-                    <p>Different strategies for 0-3mo, 4-6mo, 7-12mo, and toddlers</p>
-                </div>
-                <div class="benefit-item">
-                    <span class="checkmark">✓</span>
-                    <h3>Customized for Your Parenting Style</h3>
-                    <p>Gentle methods or faster approaches - you choose</p>
-                </div>
-                <div class="benefit-item">
-                    <span class="checkmark">✓</span>
-                    <h3>Solutions for YOUR Specific Challenges</h3>
-                    <p>Feeding to sleep, room sharing, apartment living, and more</p>
-                </div>
-                <div class="benefit-item">
-                    <span class="checkmark">✓</span>
-                    <h3>10-15 Focused Pages</h3>
-                    <p>Not overwhelming - just what you need</p>
-                </div>
-                <div class="benefit-item">
-                    <span class="checkmark">✓</span>
-                    <h3>Instant PDF Delivery</h3>
-                    <p>Start tonight - no waiting</p>
-                </div>
-                <div class="benefit-item">
-                    <span class="checkmark">✓</span>
-                    <h3>7-Day Email Support Sequence</h3>
-                    <p>Daily guidance as you implement</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="how-it-works">
-        <div class="container">
-            <h2>How It Works</h2>
-            
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Take the Quiz</h3>
-                    <p>Answer 8 questions about your baby and situation (2 minutes)</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Get Your Guide</h3>
-                    <p>Receive your personalized PDF instantly via email</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Start Tonight</h3>
-                    <p>Follow your customized plan and see results in 3-14 days</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Social Proof -->
-    <section class="testimonials">
-        <div class="container">
-            <h2>Join 1,000+ Parents Who've Transformed Their Baby's Sleep</h2>
-            
-            <div class="testimonial-grid">
-                <div class="testimonial">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"Finally, a plan that actually worked for our apartment living situation!"</p>
-                    <p class="author">- Sarah M.</p>
-                </div>
-                <div class="testimonial">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"The personalized approach made all the difference. No more information overload!"</p>
-                    <p class="author">- James T.</p>
-                </div>
-                <div class="testimonial">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"We went from waking 5 times a night to sleeping through in just 10 days!"</p>
-                    <p class="author">- Maria L.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing -->
-    <section class="pricing">
-        <div class="container">
-            <h2>Get Your Personalized Sleep Guide</h2>
-            
-            <div class="price-box">
-                <div class="price-strike">$97</div>
-                <div class="price-current">$47</div>
-                <p class="price-subtitle">Limited Time Offer</p>
-                
-                <ul class="price-features">
-                    <li>✓ Personalized 10-15 page guide</li>
-                    <li>✓ Instant PDF delivery</li>
-                    <li>✓ 7-day email support sequence</li>
-                    <li>✓ Step-by-step action plans</li>
-                    <li>✓ Troubleshooting guides</li>
-                    <li>✓ 100% money-back guarantee</li>
-                </ul>
-                
-                <a href="/quiz" class="btn-primary btn-large">Take the Quiz Now →</a>
-                
-                <p class="guarantee-text">
-                    <strong>100% Money-Back Guarantee:</strong> If you don't see improvement in your baby's sleep within 14 days, we'll refund every penny. No questions asked.
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+        <div class="section-container">
+            <div class="welcome-content">
+                <h2>You're Not Alone in This</h2>
+                <p>
+                    Every parent struggles with baby sleep at some point. The endless nights, the conflicting advice, the exhaustion that makes everything harder. We get it, because we've been there too.
+                </p>
+                <p>
+                    Napocalypse was created to cut through the noise and provide clear, personalized guidance that actually works for YOUR family. No more one-size-fits-all advice. No more information overload. Just practical solutions tailored to your unique situation.
                 </p>
             </div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq">
-        <div class="container">
-            <h2>Frequently Asked Questions</h2>
-            
-            <div class="faq-item">
-                <h3>Will this work for my baby?</h3>
-                <p>Yes! Your guide is personalized based on your baby's age, temperament, and your specific situation. We've helped over 1,000 families with every type of sleep challenge.</p>
-            </div>
-            
-            <div class="faq-item">
-                <h3>What if I've tried everything?</h3>
-                <p>Most parents have tried generic advice that doesn't account for their unique situation. Your personalized plan addresses YOUR specific challenges with methods that fit YOUR parenting style.</p>
-            </div>
-            
-            <div class="faq-item">
-                <h3>How quickly will I see results?</h3>
-                <p>Most parents see improvement within 3-7 days. Your guide includes a realistic timeline based on the method you're matched with.</p>
-            </div>
-            
-            <div class="faq-item">
-                <h3>What if I need help?</h3>
-                <p>You'll receive a 7-day email sequence with daily guidance and troubleshooting tips. Plus, your guide includes a comprehensive FAQ section.</p>
-            </div>
-            
-            <div class="faq-item">
-                <h3>Is there a guarantee?</h3>
-                <p>Yes! 100% money-back guarantee. If you don't see improvement within 14 days, we'll refund every penny. No questions asked.</p>
+            <div class="welcome-stats">
+                <div class="stat">
+                    <div class="stat-number">1,000+</div>
+                    <div class="stat-label">Families Helped</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">5-7</div>
+                    <div class="stat-label">Days to See Results</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Final CTA -->
-    <section class="final-cta">
-        <div class="container">
-            <h2>Ready to End the Napocalypse?</h2>
-            <p class="lead">Take the 2-minute quiz and get your personalized sleep guide</p>
-            <a href="/quiz" class="btn-primary btn-large">Get Started Now →</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>
-                <a href="/terms" style="color: #667eea; text-decoration: none; margin: 0 10px;">Terms of Service</a> | 
-                <a href="/privacy" style="color: #667eea; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
+    <!-- Our Approach Section -->
+    <section class="approach-section" id="approach">
+        <div class="section-container">
+            <h2 class="section-title">Our Approach</h2>
+            <p class="section-subtitle">
+                We believe every family is unique. That's why we don't do one-size-fits-all advice.
             </p>
-            <p>&copy; 2024 Napocalypse. All rights reserved.</p>
-            <p>support@napocalypse.com</p>
+            <div class="approach-grid">
+                <div class="approach-card">
+                    <div class="approach-icon">🎯</div>
+                    <h3>Personalized</h3>
+                    <p>Your baby's age, your parenting style, your living situation - we consider it all to create a plan that works for YOU.</p>
+                </div>
+                <div class="approach-card">
+                    <div class="approach-icon">🔬</div>
+                    <h3>Evidence-Based</h3>
+                    <p>Our methods are backed by sleep science and proven by thousands of families who've successfully used them.</p>
+                </div>
+                <div class="approach-card">
+                    <div class="approach-icon">💙</div>
+                    <h3>Compassionate</h3>
+                    <p>We respect your parenting choices. Whether you prefer gentle methods or faster approaches, we support you.</p>
+                </div>
+                <div class="approach-card">
+                    <div class="approach-icon">📖</div>
+                    <h3>Clear & Simple</h3>
+                    <p>No overwhelming 75-page books. Just focused, actionable guidance that's easy to follow when you're exhausted.</p>
+                </div>
+            </div>
         </div>
-    </footer>
-</body>
-</html>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="resources-section" id="resources">
+        <div class="section-container">
+            <h2 class="section-title">Explore Our Resources</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">📝</div>
+                    <h3>Free Sleep Assessment</h3>
+                    <p>Take our 2-minute quiz to understand your baby's sleep challenges and get personalized recommendations.</p>
+                    <a href="/quiz" class="resource-link">Take Assessment →</a>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon">🎓</div>
+                    <h3>Sleep Training Methods</h3>
+                    <p>Learn about different sleep training approaches and find the one that aligns with your parenting philosophy.</p>
+                    <a href="/blog" class="resource-link">Read Guides →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Get Started?</h2>
+            <p>
+                Take our free 2-minute sleep assessment to discover what's keeping your baby from sleeping well and get personalized recommendations.
+            </p>
+            <a href="/quiz" class="hero-primary-btn">Take Free Assessment</a>
+            <a href="/blog" class="hero-secondary-btn">Read Sleep Guides</a>
+        </div>
+    </section>
+{% endblock %}

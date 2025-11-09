@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Baby Sleep Training Blog - Napocalypse{% endblock %}</title>
+    <meta name="description" content="{% block description %}Expert baby sleep training guides, tips, and educational content to help your baby sleep better. Evidence-based advice for exhausted parents.{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}baby sleep, sleep training, parenting{% endblock %}">
+    <link rel="stylesheet" href="/css/styles.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navigation-bar">
+        <div class="nav-content">
+            <a href="/" class="logo">
+                <span class="logo-icon">😴</span>
+                <span class="logo-text">Napocalypse</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/blog">All Guides</a></li>
+                <li><a href="/quiz" class="cta-button">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+        <div class="blog-layout">
+        <main class="blog-main-content">
+            <article class="blog-post-content">
+                {% block article_content %}{% endblock %}
+            </article>
+        </main>
+        
+        <!-- Sticky Sidebar -->
+        <aside class="blog-sidebar">
+            {% block sidebar %}
+            <div class="sidebar-section">
+                <h3>Related Sleep Guides</h3>
+                <ul class="related-articles">
+                    {% block related_articles %}
+                    <li><a href="/blog/02-baby-wont-sleep-unless-held">Baby Won't Sleep Unless Held</a></li>
+                    <li><a href="/blog/03-baby-wakes-every-hour">Baby Wakes Every Hour at Night</a></li>
+                    <li><a href="/blog/08-wake-windows-by-age">Wake Windows by Age Chart</a></li>
+                    <li><a href="/blog/05-baby-only-naps-30-minutes">Why Baby Only Naps 30 Minutes</a></li>
+                    {% endblock %}
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-cta">
+                    <h4>Need Help Now?</h4>
+                    <p>Get a personalized sleep plan for your baby's specific challenges.</p>
+                    <a href="/quiz" class="sidebar-cta-btn">Take Free Assessment</a>
+                </div>
+            </div>
+            {% endblock %}
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Napocalypse</h4>
+                <p>Personalized baby sleep training guidance that actually works for YOUR family. Evidence-based, compassionate, and effective.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="/quiz">Free Sleep Assessment</a></li>
+                    <li><a href="/blog">Sleep Guides</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                    <li><a href="/terms">Terms of Service</a></li>
+                    <li><a href="/refund">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="/contact">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p><small>&copy; 2024 Napocalypse. All rights reserved. | Medical Disclaimer: This is educational content, not medical advice. Always consult your pediatrician.</small></p>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

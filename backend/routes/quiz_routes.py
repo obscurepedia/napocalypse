@@ -11,9 +11,6 @@ def submit_quiz():
     try:
         data = request.get_json()
         
-        # Log the received data for debugging
-        print(f"Received quiz data: {data}")
-        
         # Validate required fields
         required_fields = [
             'email', 'baby_age', 'sleep_situation', 'sleep_philosophy',
@@ -21,15 +18,9 @@ def submit_quiz():
             'biggest_challenge', 'sleep_associations'
         ]
         
-        missing_fields = []
         for field in required_fields:
-            if field not in data or not data[field]:
-                missing_fields.append(field)
-        
-        if missing_fields:
-            error_msg = f'Missing required fields: {", ".join(missing_fields)}'
-            print(f"Validation error: {error_msg}")
-            return jsonify({'error': error_msg, 'success': False}), 400
+            if field not in data:
+                return jsonify({'error': f'Missing required field: {field}'}), 400
         
         # Get or create customer
         customer = Customer.query.filter_by(email=data['email']).first()

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sleep Training Success Story - Napocalypse{% endblock %}</title>
+    <meta name="description" content="{% block description %}Real parent success story with sleep training methods that work. Learn from other parents' experiences.{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}baby sleep, sleep training, success story{% endblock %}">
+    <link rel="stylesheet" href="/css/styles.css">
+    {% block extra_css %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .header .meta {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+        }
+        
+        .main-content {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        
+        .sidebar-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-box h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .related-post {
+            display: block;
+            padding: 12px 0;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .related-post:hover {
+            color: #667eea;
+        }
+        
+        .related-post:last-child {
+            border-bottom: none;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-box h3 {
+            color: white;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+        
+        .story-content h2 {
+            color: #333;
+            margin: 30px 0 15px 0;
+            font-size: 1.6em;
+        }
+        
+        .story-content h3 {
+            color: #667eea;
+            margin: 25px 0 10px 0;
+            font-size: 1.3em;
+        }
+        
+        .story-content p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .story-content ul, .story-content ol {
+            margin: 15px 0 15px 25px;
+        }
+        
+        .story-content li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight-box {
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .highlight-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .main-content {
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navigation-bar">
+        <div class="nav-content">
+            <a href="/" class="logo">
+                <span class="logo-icon">😴</span>
+                <span class="logo-text">Napocalypse</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/blog">All Guides</a></li>
+                <li><a href="/quiz" class="cta-button">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Napocalypse</h4>
+                <p>Personalized baby sleep training guidance that actually works for YOUR family. Evidence-based, compassionate, and effective.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="/quiz">Free Sleep Assessment</a></li>
+                    <li><a href="/blog">Sleep Guides</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                    <li><a href="/terms">Terms of Service</a></li>
+                    <li><a href="/refund">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="/contact">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p><small>&copy; 2024 Napocalypse. All rights reserved. | Medical Disclaimer: This is educational content, not medical advice. Always consult your pediatrician.</small></p>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

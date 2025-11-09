@@ -1,0 +1,123 @@
+{% extends "blog_base.html" %}
+
+{% block title %}Baby Sleep Training Blog - Napocalypse{% endblock %}
+{% block description %}Expert baby sleep training guides, tips, and educational content to help your baby sleep better. Evidence-based advice for exhausted parents.{% endblock %}
+{% block keywords %}baby sleep, sleep training, parenting, newborn sleep, sleep regression, nap training{% endblock %}
+
+{% block article_content %}
+<div class="blog-container">
+        <!-- Blog Header -->
+        <header class="blog-header">
+            <h1>Baby Sleep Training Blog</h1>
+            <p>Expert guides, tips, and evidence-based advice to help your baby sleep better. From sleep regressions to nap transitions, we've got you covered.</p>
+        </header>
+
+        <!-- Educational Posts Grid -->
+        <section class="posts-grid">
+            <article class="post-card">
+                <h3>How to Survive the 4 Month Sleep Regression</h3>
+                <div class="post-meta">Complete Guide • 12 min read</div>
+                <p>Your baby was sleeping beautifully, then suddenly everything fell apart. Learn what the 4-month regression really is and how to get through it successfully.</p>
+                <a href="/blog/01-how-to-survive-4-month-sleep-regression" class="read-more-btn">Read Guide →</a>
+            </article>
+
+            <article class="post-card">
+                <h3>Baby Won't Sleep Unless Held</h3>
+                <div class="post-meta">Sleep Solutions • 10 min read</div>
+                <p>Is your baby only sleeping when held? Discover gentle strategies to help your baby learn to sleep independently in their own crib.</p>
+                <a href="/blog/02-baby-wont-sleep-unless-held" class="read-more-btn">Read Guide →</a>
+            </article>
+
+            <article class="post-card">
+                <h3>Baby Wakes Every Hour</h3>
+                <div class="post-meta">Night Sleep • 8 min read</div>
+                <p>Frequent night wakings are exhausting. Learn the common causes and proven solutions for babies who wake every hour at night.</p>
+                <a href="/blog/03-baby-wakes-every-hour" class="read-more-btn">Read Guide →</a>
+            </article>
+
+            <article class="post-card">
+                <h3>How to Break Feed-to-Sleep Association</h3>
+                <div class="post-meta">Sleep Associations • 11 min read</div>
+                <p>Learn gentle and effective methods to help your baby fall asleep without needing to feed, while maintaining your feeding relationship.</p>
+                <a href="/blog/04-how-to-break-feed-to-sleep-association" class="read-more-btn">Read Guide →</a>
+            </article>
+
+            <article class="post-card">
+                <h3>Baby Only Naps 30 Minutes</h3>
+                <div class="post-meta">Nap Solutions • 9 min read</div>
+                <p>Short naps leaving you frustrated? Discover why babies have 30-minute naps and proven strategies to extend them for better daytime rest.</p>
+                <a href="/blog/05-baby-only-naps-30-minutes" class="read-more-btn">Read Guide →</a>
+            </article>
+
+            <article class="post-card">
+                <h3>3 to 2 Nap Transition</h3>
+                <div class="post-meta">Nap Transitions • 7 min read</div>
+                <p>Making the transition from 3 naps to 2? Learn the signs your baby is ready and how to make this transition smooth and successful.</p>
+                <a href="/blog/06-3-to-2-nap-transition" class="read-more-btn">Read Guide →</a>
+            </article>
+
+            <article class="post-card">
+                <h3>Newborn Won't Sleep Unless Held</h3>
+                <div class="post-meta">Newborn Sleep • 10 min read</div>
+                <p>Newborn sleep can be challenging. Learn safe strategies to help your newborn sleep independently while respecting their developmental needs.</p>
+                <a href="/blog/07-newborn-wont-sleep-unless-held" class="read-more-btn">Read Guide →</a>
+            </article>
+
+            <article class="post-card">
+                <h3>Wake Windows by Age</h3>
+                <div class="post-meta">Sleep Schedules • 6 min read</div>
+                <p>Get the complete guide to age-appropriate wake windows from newborn to toddler, plus tips for recognizing your baby's sleep cues.</p>
+                <a href="/blog/08-wake-windows-by-age" class="read-more-btn">Read Guide →</a>
+            </article>
+
+            <article class="post-card">
+                <h3>Contact Napping: How to Stop</h3>
+                <div class="post-meta">Independent Sleep • 8 min read</div>
+                <p>Learn gentle strategies to transition from contact napping to independent naps, helping your baby sleep better while giving you freedom back.</p>
+                <a href="/blog/09-contact-napping-how-to-stop" class="read-more-btn">Read Guide →</a>
+            </article>
+
+            <article class="post-card">
+                <h3>Personalised Baby Sleep Plan</h3>
+                <div class="post-meta">Sleep Planning • 12 min read</div>
+                <p>Discover how to create a customized sleep plan that works for your baby's age, temperament, and your family's unique needs and schedule.</p>
+                <a href="/blog/10-personalised-baby-sleep-plan" class="read-more-btn">Read Guide →</a>
+            </article>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="cta-section">
+            <h2>Ready for a Personalized Sleep Solution?</h2>
+            <p>Get a customized sleep plan tailored to your baby's specific needs and challenges. Take our free 2-minute assessment to get started.</p>
+            <a href="/quiz" class="btn">Get Your Personalized Sleep Guide →</a>
+        </section>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Track blog page visits and interactions
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: 'Educational Blog Index',
+                page_location: window.location.href
+            });
+        }
+        
+        // Track post clicks
+        document.querySelectorAll('.read-more-btn').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                const postTitle = e.target.closest('.post-card').querySelector('h3').textContent;
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'click', {
+                        event_category: 'Educational Blog',
+                        event_label: 'Post Click: ' + postTitle,
+                        value: 1
+                    });
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

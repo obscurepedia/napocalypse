@@ -1,60 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Service - Napocalypse</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <style>
-        .legal-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        .legal-container h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        .legal-container .last-updated {
-            color: #7f8c8d;
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
-        .legal-container h2 {
-            color: #34495e;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        .legal-container p, .legal-container li {
-            line-height: 1.8;
-            color: #555;
-            margin-bottom: 15px;
-        }
-        .legal-container ul {
-            margin-left: 20px;
-        }
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #3498db;
-            text-decoration: none;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        .important-notice {
-            background-color: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            margin: 20px 0;
-        }
-    </style>
-<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Terms of Service - Napocalypse{% endblock %}
+
+{% block content %}
+<div class="container">
     <div class="legal-container">
-        <a href="index.html" class="back-link">← Back to Home</a>
-        
         <h1>Terms of Service</h1>
         <p class="last-updated">Last Updated: October 30, 2024</p>
 
@@ -114,8 +64,8 @@
 
         <h2>7. Refund Policy</h2>
         
-        <h3>7.1 30-Day Money-Back Guarantee</h3>
-        <p>We offer a 30-day money-back guarantee. If you're not satisfied with your purchase, you may request a full refund within 30 days of purchase by emailing support@napocalypse.com with:</p>
+        <h3>7.1 14-Day Money-Back Guarantee</h3>
+        <p>We offer a 14-day money-back guarantee. If you're not satisfied with your purchase, you may request a full refund within 14 days of purchase by emailing support@napocalypse.com with:</p>
         <ul>
             <li>Your order number or email address used for purchase</li>
             <li>Brief explanation of why you're requesting a refund (optional but helpful)</li>
@@ -182,7 +132,7 @@
         </ul>
 
         <h2>12. Privacy</h2>
-        <p>Your use of the Service is also governed by our <a href="/privacy" style="color: #3498db;">Privacy Policy</a>. Please review it to understand how we collect, use, and protect your information.</p>
+        <p>Your use of the Service is also governed by our <a href="{{ url_for('privacy') }}">Privacy Policy</a>. Please review it to understand how we collect, use, and protect your information.</p>
 
         <h2>13. Email Communications</h2>
         
@@ -236,7 +186,7 @@
         <p>If you have questions about these Terms, please contact us at:</p>
         <p>
             <strong>Email:</strong> support@napocalypse.com<br>
-            <strong>Website:</strong> napocalypse.com
+            <strong>Website:</strong> <a href="{{ url_for('index') }}">napocalypse.com</a>
         </p>
 
         <h2>22. Acknowledgment</h2>
@@ -248,17 +198,6 @@
             <li>You will consult your pediatrician before implementing sleep training</li>
             <li>You accept full responsibility for your child's safety and wellbeing</li>
         </ul>
-
-        <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #ddd;">
-            <p style="text-align: center; color: #7f8c8d;">
-                <a href="index.html" style="color: #3498db; text-decoration: none;">Home</a> | 
-                <a href="/terms" style="color: #3498db; text-decoration: none;">Terms of Service</a> | 
-                <a href="/privacy" style="color: #3498db; text-decoration: none;">Privacy Policy</a>
-            </p>
-            <p style="text-align: center; color: #7f8c8d; font-size: 14px;">
-                © 2024 Napocalypse. All rights reserved.
-            </p>
-        </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

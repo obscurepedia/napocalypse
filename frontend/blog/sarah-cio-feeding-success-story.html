@@ -1,276 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How Sarah Used CIO to Break the Feed-to-Sleep Cycle in 7 Days | Napocalypse</title>
-    <meta name="description" content="Sarah's 5-month-old only slept while nursing. Here's how she used the Cry-It-Out method to break the feed-to-sleep association in just one week.">
-    <meta name="keywords" content="cry it out, CIO, feed to sleep, nursing to sleep, sleep training, baby sleep">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.8;
-            color: #333;
-            background: #f8f9fa;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .header .meta {
-            font-size: 1em;
-            opacity: 0.9;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 40px;
-        }
-        
-        .main-content {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .sidebar {
-            position: sticky;
-            top: 20px;
-            height: fit-content;
-        }
-        
-        .sidebar-box {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        
-        .sidebar-box h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-        
-        .related-post {
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .related-post:last-child {
-            border-bottom: none;
-        }
-        
-        .related-post a {
-            color: #333;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .related-post a:hover {
-            color: #667eea;
-        }
-        
-        .product-card {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 4px solid #667eea;
-        }
-        
-        .product-card h4 {
-            color: #333;
-            margin-bottom: 8px;
-        }
-        
-        .product-card p {
-            font-size: 0.9em;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        
-        .product-card a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        
-        .main-content h2 {
-            color: #2c3e50;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
-        
-        .main-content h3 {
-            color: #34495e;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 1.5em;
-        }
-        
-        .main-content p {
-            margin-bottom: 20px;
-            font-size: 1.1em;
-        }
-        
-        .main-content ul, .main-content ol {
-            margin-bottom: 20px;
-            margin-left: 30px;
-        }
-        
-        .main-content li {
-            margin-bottom: 10px;
-            font-size: 1.1em;
-        }
-        
-        .highlight-box {
-            background: #e8f4f8;
-            border-left: 4px solid #3498db;
-            padding: 25px;
-            margin: 30px 0;
-            border-radius: 5px;
-        }
-        
-        .success-box {
-            background: #d5f4e6;
-            border-left: 4px solid #27ae60;
-            padding: 25px;
-            margin: 30px 0;
-            border-radius: 5px;
-        }
-        
-        .timeline {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 10px;
-            margin: 30px 0;
-        }
-        
-        .timeline-item {
-            padding: 20px;
-            border-left: 3px solid #667eea;
-            margin-bottom: 20px;
-            position: relative;
-            padding-left: 30px;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -8px;
-            top: 25px;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: #667eea;
-        }
-        
-        .timeline-item h4 {
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-        
-        .upsell-box {
-            background: #fff9e6;
-            border: 2px solid #f39c12;
-            border-radius: 10px;
-            padding: 30px;
-            margin: 40px 0;
-            text-align: center;
-        }
-        
-        .upsell-box h3 {
-            color: #2c3e50;
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-        
-        .upsell-benefits {
-            text-align: left;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        
-        .upsell-benefits p {
-            margin-bottom: 15px;
-            font-size: 1em;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 18px 40px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.2em;
-            margin: 20px 0;
-            transition: transform 0.3s ease;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-        }
-        
-        .footer {
-            background: #2c3e50;
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            margin-top: 60px;
-        }
-        
-        @media (max-width: 968px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                position: static;
-            }
-            
-            .header h1 {
-                font-size: 1.8em;
-            }
-            
-            .main-content {
-                padding: 25px;
-            }
-        }
-    </style>
-<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
-</head>
-<body>
-    <div class="header">
+{% extends "success_base.html" %}
+
+{% block title %}How Sarah Used CIO to Break the Feed-to-Sleep Cycle in 7 Days | Napocalypse{% endblock %}
+{% block description %}Sarah's 5-month-old only slept while nursing. Here's how she used the Cry-It-Out method to break the feed-to-sleep association in just one week.{% endblock %}
+{% block keywords %}cry it out, CIO, feed to sleep, nursing to sleep, sleep training, baby sleep{% endblock %}
+
+{% block content %}
+<div class="header">
         <h1>How Sarah Used CIO to Break the Feed-to-Sleep Cycle in 7 Days</h1>
         <p class="meta">Real results from a real mom | 5-month-old baby | Cry-It-Out method</p>
     </div>
@@ -427,19 +162,19 @@
                 <p>But Sarah also had the <strong>Advanced CIO Playbook</strong>, which gave her:</p>
                 
                 <div class="upsell-benefits">
-                    <p><strong>✓ 50+ Troubleshooting Scenarios</strong><br>
+                    <p><strong>? 50+ Troubleshooting Scenarios</strong><br>
                     "What if she vomits?" "What about growth spurts?" "What if she stands up screaming?" - Every scenario covered.</p>
                     
-                    <p><strong>✓ The Complete Science</strong><br>
+                    <p><strong>? The Complete Science</strong><br>
                     Understand WHY CIO works, the research behind it, and how to explain it to skeptical family members.</p>
                     
-                    <p><strong>✓ Advanced Strategies</strong><br>
+                    <p><strong>? Advanced Strategies</strong><br>
                     Age-specific modifications, temperament adjustments, special circumstances.</p>
                     
-                    <p><strong>✓ Long-Term Success</strong><br>
+                    <p><strong>? Long-Term Success</strong><br>
                     How to handle travel, time changes, illness, regressions, and maintain great sleep for years.</p>
                     
-                    <p><strong>✓ Progress Tracking Tools</strong><br>
+                    <p><strong>? Progress Tracking Tools</strong><br>
                     Comprehensive logs and charts to see patterns you might miss.</p>
                 </div>
                 
@@ -502,12 +237,12 @@
                 <div class="product-card">
                     <h4>Toddler Sleep Guide</h4>
                     <p>Handling toddler sleep challenges, boundaries, and transitions.</p>
-                    <a href="/products/toddler-sleep">Coming Soon →</a>
+                    <a href="/products/toddler-sleep">Coming Soon ?</a>
                 </div>
                 <div class="product-card">
                     <h4>Nap Training Mastery</h4>
                     <p>Fix short naps and establish great daytime sleep.</p>
-                    <a href="/products/nap-training">Coming Soon →</a>
+                    <a href="/products/nap-training">Coming Soon ?</a>
                 </div>
             </div>
             
@@ -516,27 +251,26 @@
                 <div class="product-card">
                     <h4>Toddler Tantrum Toolkit</h4>
                     <p>Proven strategies for handling meltdowns and big emotions.</p>
-                    <a href="/products/tantrums">Coming Soon →</a>
+                    <a href="/products/tantrums">Coming Soon ?</a>
                 </div>
                 <div class="product-card">
                     <h4>Potty Training Mastery</h4>
                     <p>Step-by-step system for stress-free potty training.</p>
-                    <a href="/products/potty-training">Coming Soon →</a>
+                    <a href="/products/potty-training">Coming Soon ?</a>
                 </div>
             </div>
         </aside>
     </div>
     
-    <div class="footer">
-        <p><strong>Napocalypse</strong> – Surviving the Napocalypse, One Night at a Time</p>
-        <p style="margin-top: 15px;">
-            <a href="/" style="color: white; margin: 0 15px;">Home</a>
-            <a href="/blog" style="color: white; margin: 0 15px;">Blog</a>
-            <a href="/quiz" style="color: white; margin: 0 15px;">Take Quiz</a>
-            <a href="/privacy.html" style="color: white; margin: 0 15px;">Privacy</a>
-            <a href="/terms.html" style="color: white; margin: 0 15px;">Terms</a>
+    <!-- Call to Action Section -->
+    <div class="cta-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3rem 2rem; text-align: center; margin: 2rem 0;">
+        <h2 style="margin-bottom: 1rem; font-size: 2rem;">Ready to Fix Your Baby's Sleep?</h2>
+        <p style="margin-bottom: 2rem; font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+            Just like Sarah, you can break the cycle and get the rest your family needs. Take our 2-minute quiz to get a personalized sleep plan tailored to your baby's specific needs and your parenting style.
         </p>
-        <p style="margin-top: 15px;">© 2024 Napocalypse. All rights reserved.</p>
-    </div>
-</body>
-</html>
+        <a href="/quiz" style="display: inline-block; padding: 15px 30px; background: white; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; font-size: 1.1rem;">
+            Get Your Personalized Sleep Guide ?
+        </a>
+    </div
+{% endblock %}
+

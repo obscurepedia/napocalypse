@@ -1,0 +1,131 @@
+{% extends "blog_base.html" %}
+
+{% block title %}Success Stories - Napocalypse Blog{% endblock %}
+{% block description %}Read real success stories from parents who transformed their baby's sleep with Napocalypse personalized sleep training guides.{% endblock %}
+{% block keywords %}baby sleep success stories, sleep training results, parent testimonials, sleep solutions{% endblock %}
+
+
+
+{% block content %}
+<div class="blog-container">
+    <!-- Blog Header -->
+    <header class="blog-header">
+        <h1>Sleep Success Stories</h1>
+        <p>Real parents, real results. Read how families just like yours transformed their nights with personalized sleep training guides from Napocalypse.</p>
+    </header>
+
+    <!-- Blog Tabs -->
+    <div class="blog-tabs">
+        <a href="/blog" class="tab-button">Educational Guides</a>
+        <a href="/blog/stories" class="tab-button active">Success Stories</a>
+    </div>
+
+    <!-- Success Stories Grid -->
+    <section class="stories-grid">
+        <article class="story-card">
+            <span class="method-tag">Gentle Methods</span>
+            <h3>Amy's Gentle Pacifier Success</h3>
+            <p>How Amy helped her 8-month-old daughter learn to sleep without constant pacifier replacements using gentle, responsive techniques that respected her baby's temperament.</p>
+            <a href="/blog/amy-gentle-pacifier-success" class="read-more-btn">Read Amy's Story →</a>
+        </article>
+
+        <article class="story-card">
+            <span class="method-tag">Cry It Out</span>
+            <h3>Sarah's CIO Feeding Success</h3>
+            <p>Sarah's journey breaking the feed-to-sleep association with her 6-month-old son using structured cry-it-out methods that worked for her family's needs.</p>
+            <a href="/blog/sarah-cio-feeding-success-story" class="read-more-btn">Read Sarah's Story →</a>
+        </article>
+
+        <article class="story-card">
+            <span class="method-tag">Gentle Methods</span>
+            <h3>Chris's Gentle Nap Success</h3>
+            <p>How Chris transformed chaotic 20-minute naps into consistent 2-hour stretches using gentle methods perfect for his sensitive baby.</p>
+            <a href="/blog/chris-gentle-naps-success" class="read-more-btn">Read Chris's Story →</a>
+        </article>
+
+        <article class="story-card">
+            <span class="method-tag">Cry It Out</span>
+            <h3>Mike's CIO Motion Success</h3>
+            <p>Mike's experience breaking a severe motion dependency where his baby would only sleep while being bounced on a yoga ball for 45+ minutes.</p>
+            <a href="/blog/mike-cio-motion-success" class="read-more-btn">Read Mike's Story →</a>
+        </article>
+
+        <article class="story-card">
+            <span class="method-tag">Gentle Methods</span>
+            <h3>Jessica's Early Morning Success</h3>
+            <p>Jessica's gentle approach to solving 4am wake-ups that had been going on for months, using gradual methods that worked for her family.</p>
+            <a href="/blog/jessica-gentle-early-morning-success" class="read-more-btn">Read Jessica's Story →</a>
+        </article>
+
+        <article class="story-card">
+            <span class="method-tag">Cry It Out</span>
+            <h3>Lisa's CIO Nap Success</h3>
+            <p>How Lisa used structured cry-it-out methods to extend her baby's 20-minute naps into full 1.5-2 hour stretches that transformed their days.</p>
+            <a href="/blog/lisa-cio-naps-success" class="read-more-btn">Read Lisa's Story →</a>
+        </article>
+
+        <article class="story-card">
+            <span class="method-tag">Gentle Methods</span>
+            <h3>David's Gentle Motion Success</h3>
+            <p>David's journey breaking his baby's swing dependency using gradual, gentle methods that respected his family's parenting philosophy.</p>
+            <a href="/blog/david-gentle-motion-success" class="read-more-btn">Read David's Story →</a>
+        </article>
+
+        <article class="story-card">
+            <span class="method-tag">Gentle Methods</span>
+            <h3>Rachel's Gentle Feeding Success</h3>
+            <p>Rachel's experience breaking the nurse-to-sleep cycle using responsive, gentle techniques that preserved their breastfeeding relationship.</p>
+            <a href="/blog/rachel-gentle-feeding-success" class="read-more-btn">Read Rachel's Story →</a>
+        </article>
+
+        <article class="story-card">
+            <span class="method-tag">Cry It Out</span>
+            <h3>Tom's CIO Early Morning Success</h3>
+            <p>How Tom used cry-it-out methods to solve persistent 5am wake-ups and help his family get the full night's sleep they desperately needed.</p>
+            <a href="/blog/tom-cio-early-morning-success" class="read-more-btn">Read Tom's Story →</a>
+        </article>
+
+        <article class="story-card">
+            <span class="method-tag">Cry It Out</span>
+            <h3>Emma's CIO Pacifier Success</h3>
+            <p>Emma's structured approach to breaking pacifier dependency using cry-it-out methods that helped her baby learn independent sleep skills.</p>
+            <a href="/blog/emma-cio-pacifier-success" class="read-more-btn">Read Emma's Story →</a>
+        </article>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <h2>Ready to Write Your Own Success Story?</h2>
+        <p>Get a personalized sleep plan tailored to your baby's specific needs and your family's parenting style. Join hundreds of families who've transformed their nights.</p>
+        <a href="/quiz" class="btn">Get Your Personalized Sleep Guide →</a>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Track success stories page visits and interactions
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: 'Success Stories - Napocalypse Blog',
+                page_location: window.location.href
+            });
+        }
+        
+        // Track story card clicks
+        document.querySelectorAll('.read-more-btn').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                const storyTitle = e.target.closest('.story-card').querySelector('h3').textContent;
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'click', {
+                        event_category: 'Blog',
+                        event_label: 'Story Click: ' + storyTitle,
+                        value: 1
+                    });
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

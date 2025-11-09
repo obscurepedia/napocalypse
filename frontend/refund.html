@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Refund Policy - Napocalypse{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="legal-container">
+        <h1>Refund Policy</h1>
+        <p class="last-updated">Last Updated: November 2024</p>
+        
+        <h2>14-Day Money-Back Guarantee</h2>
+        <p>We stand behind the quality of our personalized sleep plans and want you to be completely satisfied with your purchase. If for any reason you're not happy with your sleep plan, we offer a full refund within 14 days of your purchase date.</p>
+
+        <h2>How to Request a Refund</h2>
+        <p>To request a refund, please contact us within 14 days of your purchase by:</p>
+        <ul>
+            <li>Email: <a href="mailto:support@napocalypse.com">support@napocalypse.com</a></li>
+            <li>Using our <a href="{{ url_for('contact') }}">contact form</a></li>
+        </ul>
+        
+        <p>Please include your order number and the email address used for your purchase in your refund request.</p>
+
+        <h2>Refund Processing</h2>
+        <ul>
+            <li><strong>Processing Time:</strong> Refunds are typically processed within 3-5 business days</li>
+            <li><strong>Refund Method:</strong> Refunds will be issued to the original payment method used for your purchase</li>
+            <li><strong>Bank Processing:</strong> Depending on your bank or credit card company, it may take an additional 5-10 business days for the refund to appear in your account</li>
+        </ul>
+
+        <h2>What's Included in Our Refund Policy</h2>
+        <p>This refund policy covers:</p>
+        <ul>
+            <li>Personalized sleep plans and assessments</li>
+            <li>Any digital products or guides purchased from Napocalypse</li>
+            <li>Email support packages</li>
+        </ul>
+
+        <h2>Refund Policy Exceptions</h2>
+        <p>Please note that refunds are not available for:</p>
+        <ul>
+            <li>Requests made after 14 days from the purchase date</li>
+            <li>Free content, guides, or resources</li>
+            <li>Services that have been fully delivered and utilized beyond the 14-day period</li>
+        </ul>
+
+        <h2>Partial Refunds</h2>
+        <p>In some cases, we may offer partial refunds for services that have been partially used. This will be evaluated on a case-by-case basis and communicated clearly during the refund process.</p>
+
+        <h2>Questions About Refunds</h2>
+        <p>If you have any questions about our refund policy or need assistance with your sleep plan, please don't hesitate to <a href="{{ url_for('contact') }}">contact us</a>. We're here to help ensure you and your baby get the sleep you both need.</p>
+
+        <div class="guarantee-highlight">
+            <h3>Our Commitment to You</h3>
+            <p>We believe in the effectiveness of our personalized approach to baby sleep training. Our 14-day money-back guarantee reflects our confidence that our sleep plans will help your family achieve better sleep. Your satisfaction is our top priority.</p>
+        </div>
+
+        <h2>Contact Information</h2>
+        <p>For refund requests or questions about this policy:</p>
+        <ul>
+            <li><strong>Email:</strong> <a href="mailto:support@napocalypse.com">support@napocalypse.com</a></li>
+            <li><strong>Contact Form:</strong> <a href="{{ url_for('contact') }}">Contact Us</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

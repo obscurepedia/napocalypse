@@ -1,23 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Success! - Napocalypse</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/css/styles.css">
-<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <a href="/"><img src="/images/napocalypse.png" alt="Napocalypse Logo" class="logo-img"></a>
-            </div>
-        </div>
-    </header>
+{% extends "quiz_base.html" %}
 
+{% block title %}Success! - Napocalypse{% endblock %}
+
+{% block content %}
     <!-- Success Section -->
     <section class="success-section">
         <div class="container">
@@ -50,29 +35,18 @@
                         </div>
                     </form>
                     
-                    <div id="personalization-success" class="personalization-success" style="display: none;">
-                        <div class="success-message">
-                            <span class="success-emoji">🎉</span>
-                            <p>Perfect! Redirecting you to next steps...</p>
-                        </div>
+                    <div id="personalization-success" style="display: none;">
+                        <div class="success-checkmark">✓</div>
+                        <h3>Perfect! We're personalizing your guide now...</h3>
+                        <p>Redirecting you to the next step...</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+{% endblock %}
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>
-                <a href="/terms" style="color: #667eea; text-decoration: none; margin: 0 10px;">Terms of Service</a> | 
-                <a href="/privacy" style="color: #667eea; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
-            </p>
-            <p>&copy; 2024 Napocalypse. All rights reserved.</p>
-            <p>support@napocalypse.com</p>
-        </div>
-    </footer>
-
+{% block extra_js %}
     <script>
         // Get session ID from URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -138,6 +112,4 @@
             console.log('Purchase completed:', sessionId);
         }
     </script>
-</body>
-</html>
-
+{% endblock %}

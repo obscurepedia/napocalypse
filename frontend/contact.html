@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - Napocalypse | Baby Sleep Training Support{% endblock %}
+
+{% block description %}Get in touch with our baby sleep training experts. We're here to help with questions about your personalized sleep plan and support your journey to better sleep.{% endblock %}
+
+{% block extra_css %}
+<style>
+    .contact-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .contact-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .contact-header h1 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        font-size: 2.5rem;
+    }
+
+    .contact-header p {
+        color: #666;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .contact-form {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .contact-form h2 {
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        color: #2c3e50;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #3498db;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .submit-btn {
+        background: #3498db;
+        color: white;
+        padding: 0.75rem 2rem;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+        width: 100%;
+    }
+
+    .submit-btn:hover {
+        background: #2980b9;
+    }
+
+    .contact-info {
+        padding: 2rem;
+    }
+
+    .contact-info h2 {
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+    }
+
+    .contact-method {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: #f8f9fa;
+        border-radius: 10px;
+    }
+
+    .contact-method h3 {
+        color: #3498db;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+    }
+
+    .contact-method p {
+        color: #666;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    .contact-method a {
+        color: #3498db;
+        text-decoration: none;
+    }
+
+    .contact-method a:hover {
+        text-decoration: underline;
+    }
+
+    .success-message {
+        background: #d4edda;
+        color: #155724;
+        padding: 1rem;
+        border-radius: 5px;
+        margin-bottom: 1.5rem;
+        border: 1px solid #c3e6cb;
+    }
+
+    .error-message {
+        background: #f8d7da;
+        color: #721c24;
+        padding: 1rem;
+        border-radius: 5px;
+        margin-bottom: 1.5rem;
+        border: 1px solid #f5c6cb;
+    }
+
+    .faq-section {
+        margin-top: 4rem;
+    }
+
+    .faq-section h2 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+    }
+
+    .faq-item {
+        margin-bottom: 1.5rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .faq-question {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        color: #2c3e50;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .faq-question:hover {
+        background: #e9ecef;
+    }
+
+    .faq-answer {
+        padding: 1.5rem;
+        color: #666;
+        line-height: 1.6;
+        border-top: 1px solid #eee;
+    }
+
+    @media (max-width: 768px) {
+        .contact-content {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .contact-container {
+            padding: 1rem;
+        }
+        
+        .contact-header h1 {
+            font-size: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="contact-container">
+    <!-- Contact Header -->
+    <header class="contact-header">
+        <h1>Contact Us</h1>
+        <p>We're here to help you and your baby get the sleep you both need. Have questions about your sleep plan or need support? We'd love to hear from you.</p>
+    </header>
+
+    <!-- Success/Error Messages -->
+    {% if request.args.get('success') %}
+    <div class="success-message">
+        Thank you for your message! We'll get back to you within 24 hours.
+    </div>
+    {% endif %}
+
+    {% if request.args.get('error') %}
+    <div class="error-message">
+        Please fill in all required fields.
+    </div>
+    {% endif %}
+
+    <!-- Contact Content -->
+    <div class="contact-content">
+        <!-- Contact Form -->
+        <div class="contact-form">
+            <h2>Send us a message</h2>
+            <form action="{{ url_for('contact') }}" method="POST">
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">What's your question about? *</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Please select...</option>
+                        <option value="sleep_plan">My sleep plan</option>
+                        <option value="payment">Payment or billing</option>
+                        <option value="technical">Technical support</option>
+                        <option value="general">General question</option>
+                        <option value="feedback">Feedback or suggestion</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="baby_age">Baby's Age (optional)</label>
+                    <select id="baby_age" name="baby_age">
+                        <option value="">Please select...</option>
+                        <option value="newborn">Newborn (0-3 months)</option>
+                        <option value="infant">Infant (3-6 months)</option>
+                        <option value="older_baby">Older Baby (6-12 months)</option>
+                        <option value="toddler">Toddler (12+ months)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Your Message *</label>
+                    <textarea id="message" name="message" placeholder="Please describe your question or how we can help..." required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+        
+        <!-- Contact Information -->
+        <div class="contact-info">
+            <h2>Other ways to reach us</h2>
+            
+            <div class="contact-method">
+                <h3>📧 Email Support</h3>
+                <p>For fastest response, email us directly at <a href="mailto:support@napocalypse.com">support@napocalypse.com</a></p>
+                <p><strong>Response time:</strong> Within 24 hours (usually much faster!)</p>
+            </div>
+            
+            <div class="contact-method">
+                <h3>💤 Sleep Plan Questions</h3>
+                <p>Already purchased? Email your order number to <a href="mailto:support@napocalypse.com">support@napocalypse.com</a> for personalized help with your sleep plan.</p>
+            </div>
+            
+            <div class="contact-method">
+                <h3>🔧 Technical Issues</h3>
+                <p>Can't access your plan or having website issues? We're here to help! Include details about what's not working.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question">How quickly will I receive my personalized sleep plan?</div>
+            <div class="faq-answer">Your personalized sleep plan will be delivered to your email within 24 hours of completing your quiz and payment. Most plans are delivered much faster!</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">What if I don't receive my sleep plan?</div>
+            <div class="faq-answer">First, check your spam/junk folder! If it's not there, email us at support@napocalypse.com with your order details and we'll resend it immediately.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">Can I get a refund if the plan doesn't work?</div>
+            <div class="faq-answer">Yes! We offer a 14-day money-back guarantee. If you're not satisfied with your sleep plan, contact us within 14 days for a full refund.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">Do you provide ongoing support?</div>
+            <div class="faq-answer">Absolutely! We're here to help you succeed. Email us with questions about implementing your plan and we'll provide guidance and adjustments as needed.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">Can you help with very specific sleep issues?</div>
+            <div class="faq-answer">Absolutely! Our personalized approach means we can address specific challenges like early morning wake-ups, short naps, night wakings, and sleep regressions.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">What if the sleep plan isn't working?</div>
+            <div class="faq-answer">We provide ongoing support to adjust and refine your plan. Sleep training often requires tweaks based on how your baby responds, and we're here to help every step of the way.</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

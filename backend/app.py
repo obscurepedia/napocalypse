@@ -48,7 +48,7 @@ init_scheduler(app)
 # Routes
 @app.route('/')
 def index():
-    """Landing page"""
+    """Home page - brand hub for returning visitors"""
     return render_template('index.html')
 
 @app.route('/quiz')
@@ -76,6 +76,33 @@ def terms():
     """Terms of service page"""
     return render_template('terms.html')
 
+@app.route('/refund')
+def refund():
+    """Refund policy page"""
+    return render_template('refund.html')
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    """Contact page - both display form and handle submissions"""
+    if request.method == 'POST':
+        # Handle form submission
+        name = request.form.get('name', '').strip()
+        email = request.form.get('email', '').strip()
+        subject = request.form.get('subject', '')
+        baby_age = request.form.get('baby_age', '').strip()
+        message = request.form.get('message', '').strip()
+        
+        # Basic validation
+        if not all([name, email, subject, message]):
+            return render_template('contact.html', error='Please fill in all required fields.')
+        
+        # TODO: Implement email sending logic here
+        # For now, just redirect to a success state
+        return render_template('contact.html', success='Thank you for your message! We\'ll get back to you within 24 hours.')
+    
+    # GET request - show the contact form
+    return render_template('contact.html')
+
 # Static file routes
 @app.route('/css/<path:filename>')
 def css_static(filename):
@@ -97,22 +124,31 @@ def favicon():
     """Serve favicon"""
     return send_from_directory(app.static_folder, 'favicon.ico')
 
+@app.route('/start')
+def start():
+    """Landing page - conversion-focused sales page"""
+    return render_template('start.html')
+
 @app.route('/blog')
 def blog_index():
-    """Blog index page"""
+    """Educational blog index page"""
     return render_template('blog/index.html')
 
 @app.route('/blog/<slug>')
 def blog_post(slug):
-    """Individual blog post served as static file"""
+    """Individual blog post rendered as template"""
     try:
         # Add .html extension if not present
         if not slug.endswith('.html'):
             slug += '.html'
-        # Serve as static file from the blog directory
-        return send_from_directory(os.path.join(app.static_folder, 'blog'), slug)
-    except:
-        # If file not found, return 404
+        # Check if file exists first
+        blog_path = os.path.join(app.template_folder, 'blog', slug)
+        if os.path.exists(blog_path):
+            return render_template(f'blog/{slug}')
+        else:
+            return "Blog post not found", 404
+    except Exception as e:
+        app.logger.error(f"Error serving blog post {slug}: {e}")
         return "Blog post not found", 404
 
 @app.route('/api/personalize', methods=['POST'])
