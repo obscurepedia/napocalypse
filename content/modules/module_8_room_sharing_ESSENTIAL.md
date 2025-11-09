@@ -1,4 +1,4 @@
-# Module 8: Room Sharing Strategies
+# Room Sharing Strategies
 
 ## Understanding Room Sharing Challenges
 
@@ -178,21 +178,6 @@ This method uses a physical barrier to create separation while still room sharin
 **Remember:** Room sharing doesn't mean you can't sleep train. With the right setup and consistency, you can have independent sleep while keeping baby close.
 
 ---
-
-## 📚 Want More Methods and Detailed Guidance?
-
-This Essential Guide gives you the ONE recommended approach for room sharing. Our **Complete Reference Library** includes:
-
-- ✓ Multiple room sharing strategies
-- ✓ Apartment-specific solutions
-- ✓ Sibling room sharing detailed guide
-- ✓ Temporary room separation strategies
-- ✓ Transitioning back to room sharing after training
-- ✓ Comprehensive success stories
-- ✓ Special situations (studio apartments, RV living, etc.)
-
-**Upgrade to Complete Reference Library: $27**
-[Learn More](#)
 
 ---
 

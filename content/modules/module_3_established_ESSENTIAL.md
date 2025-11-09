@@ -1,4 +1,4 @@
-# Module 3: Established Sleeper (7-12 Months)
+# Established Sleeper (7-12 Months)
 
 ## Why Sleep Issues Develop at This Age
 
@@ -182,21 +182,6 @@ This method is effective for older babies who have established sleep association
 **Remember:** Older babies may protest more vigorously than younger babies, but they also learn faster. Stay consistent and you'll see results quickly.
 
 ---
-
-## 📚 Want More Methods and Detailed Guidance?
-
-This Essential Guide gives you the ONE recommended approach for 7-12 month olds. Our **Complete Reference Library** includes:
-
-- ✓ Multiple sleep training methods (Gradual, Chair Method, Full Extinction)
-- ✓ Detailed troubleshooting for every scenario
-- ✓ Nap training strategies
-- ✓ Handling regressions (8-month, 10-month, 12-month)
-- ✓ Schedule optimization by age
-- ✓ Comprehensive success stories
-- ✓ Special situations (travel, illness, teething)
-
-**Upgrade to Complete Reference Library: $27**
-[Learn More](#)
 
 ---
 

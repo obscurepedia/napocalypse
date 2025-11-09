@@ -1,4 +1,4 @@
-# Module 11: Early Morning Wake Solutions
+# Early Morning Wake Solutions
 
 ## Understanding Early Morning Wakings
 
@@ -180,21 +180,6 @@ You delay the start of the day by 15 minutes every few days, allowing baby's bod
 **Remember:** Early morning wakings are the hardest to fix and take the longest (2-3 weeks). Be patient, stay consistent, and don't give up!
 
 ---
-
-## 📚 Want More Methods and Detailed Guidance?
-
-This Essential Guide gives you the ONE recommended approach for early morning wakes. Our **Complete Reference Library** includes:
-
-- ✓ Multiple methods (wake-to-sleep, treat-as-night, schedule adjustment)
-- ✓ Toddler clock implementation
-- ✓ Age-specific strategies
-- ✓ Handling split nights
-- ✓ Daylight saving time transitions
-- ✓ Comprehensive success stories
-- ✓ Special situations (twins, single parents)
-
-**Upgrade to Complete Reference Library: $27**
-[Learn More](#)
 
 ---
 

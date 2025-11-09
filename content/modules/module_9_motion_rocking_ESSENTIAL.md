@@ -1,4 +1,4 @@
-# Module 9: Breaking Motion/Rocking Dependency
+# Breaking Motion/Rocking Dependency
 
 ## Understanding Motion Sleep Association
 
@@ -171,21 +171,6 @@ This method slowly decreases motion intensity over 7-10 days, allowing baby to a
 **Remember:** Motion dependency is one of the most physically exhausting sleep associations. Breaking it will change your life. Stay consistent and push through the hard nights!
 
 ---
-
-## 📚 Want More Methods and Detailed Guidance?
-
-This Essential Guide gives you the ONE recommended approach for breaking motion dependency. Our **Complete Reference Library** includes:
-
-- ✓ Rapid reduction method (3-5 days)
-- ✓ Swing/device weaning strategies
-- ✓ Combining with other sleep associations
-- ✓ Age-specific approaches
-- ✓ Special situations (twins, single parents)
-- ✓ Comprehensive success stories
-- ✓ Detailed troubleshooting
-
-**Upgrade to Complete Reference Library: $27**
-[Learn More](#)
 
 ---
 

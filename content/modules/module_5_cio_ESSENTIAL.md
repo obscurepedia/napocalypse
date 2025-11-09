@@ -1,4 +1,4 @@
-# Module 5: Cry-It-Out Implementation Guide
+# Cry-It-Out Implementation Guide
 
 ## Understanding Cry-It-Out (CIO)
 
@@ -203,21 +203,6 @@ This is the classic CIO approach: put baby down awake, leave room, don't return 
 **Remember:** CIO sounds harsh, but it's actually the kindest approach for many families. The crying is temporary (3-5 nights), but the benefits last a lifetime.
 
 ---
-
-## 📚 Want More Methods and Detailed Guidance?
-
-This Essential Guide gives you the ONE recommended CIO approach. Our **Complete Reference Library** includes:
-
-- ✓ Modified CIO variations (with check-ins)
-- ✓ Handling every possible scenario
-- ✓ Nap training with CIO
-- ✓ Dealing with regressions
-- ✓ Partner alignment strategies
-- ✓ Comprehensive success stories
-- ✓ Special situations (twins, travel, illness)
-
-**Upgrade to Complete Reference Library: $27**
-[Learn More](#)
 
 ---
 

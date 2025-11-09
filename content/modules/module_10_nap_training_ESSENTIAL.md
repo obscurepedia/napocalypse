@@ -1,4 +1,4 @@
-# Module 10: Nap Training Mastery
+# Nap Training Mastery
 
 ## Why Naps Are Different (And Harder)
 
@@ -196,21 +196,6 @@ Wake windows are THE KEY to successful naps. They're more important than sleep c
 **Remember:** Naps take longer to fix than nighttime (2-3 weeks vs. 5-7 days). Be patient, focus on wake windows, and stay consistent!
 
 ---
-
-## 📚 Want More Methods and Detailed Guidance?
-
-This Essential Guide gives you the ONE recommended approach for nap training. Our **Complete Reference Library** includes:
-
-- ✓ Multiple nap training methods
-- ✓ All nap transitions (4→3→2→1)
-- ✓ Detailed short nap solutions
-- ✓ Daycare nap strategies
-- ✓ On-the-go nap management
-- ✓ Comprehensive success stories
-- ✓ Special situations (siblings, room sharing)
-
-**Upgrade to Complete Reference Library: $27**
-[Learn More](#)
 
 ---
 

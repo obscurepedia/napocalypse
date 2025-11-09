@@ -1,4 +1,4 @@
-# Module 4: Toddler Sleep Transitions (13-24 Months)
+# Toddler Sleep Transitions (13-24 Months)
 
 ## Understanding Toddler Sleep Challenges
 
@@ -190,21 +190,6 @@ This method combines a visual sleep cue (toddler clock) with clear boundaries an
 **Remember:** Toddlers test boundaries - it's their job. Your job is to stay consistent and calm. The more consistent you are, the faster they'll learn.
 
 ---
-
-## 📚 Want More Methods and Detailed Guidance?
-
-This Essential Guide gives you the ONE recommended approach for toddlers. Our **Complete Reference Library** includes:
-
-- ✓ Multiple behavioral approaches
-- ✓ Handling big emotions and tantrums
-- ✓ Crib-to-bed transition strategies
-- ✓ Potty training and sleep
-- ✓ Sibling room sharing
-- ✓ Comprehensive success stories
-- ✓ Special situations (travel, new sibling, moving)
-
-**Upgrade to Complete Reference Library: $27**
-[Learn More](#)
 
 ---
 

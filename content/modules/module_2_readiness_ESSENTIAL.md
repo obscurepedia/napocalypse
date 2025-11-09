@@ -1,4 +1,4 @@
-# Module 2: Sleep Training Readiness (4-6 Months)
+# Sleep Training Readiness (4-6 Months)
 
 ## Why 4-6 Months is the Sweet Spot
 
@@ -159,21 +159,6 @@ This method balances effectiveness with gentleness. You'll gradually increase th
 **Remember:** The first 3 nights are the hardest. If you can push through those, you'll see dramatic improvement. Most families report life-changing results within 7 days.
 
 ---
-
-## 📚 Want More Methods and Detailed Guidance?
-
-This Essential Guide gives you the ONE recommended approach for 4-6 month olds. Our **Complete Reference Library** includes:
-
-- ✓ Multiple sleep training methods (Ferber, Chair Method, Pick-Up-Put-Down)
-- ✓ Detailed troubleshooting for every scenario
-- ✓ Nap training strategies
-- ✓ Schedule optimization guides
-- ✓ Regression handling
-- ✓ Comprehensive success stories
-- ✓ Special situations (twins, travel, illness)
-
-**Upgrade to Complete Reference Library: $27**
-[Learn More](#)
 
 ---
 

@@ -246,7 +246,6 @@ def generate_html_content(customer, quiz_data, modules, is_upsell=False):
                 {''.join([f'<li><strong>{m["title"]}</strong><br>{m["description"]}</li>' for m in module_details])}
             </ol>
             
-            <div class="page-break"></div>
             <h3>How to Use This Guide:</h3>
             <ol>
                 <li>Read through all modules to understand the complete approach</li>
@@ -2009,6 +2008,12 @@ def get_pdf_styles():
         font-size: 11pt;
         color: #95a5a6;
         margin-bottom: 1.5cm;
+        text-align: center;
+    }
+    
+    .cover-page .footer p {
+        text-align: center;
+        margin: 0.2cm 0;
     }
     
     .personalization-box {
@@ -2096,6 +2101,13 @@ def get_pdf_styles():
     strong {
         color: #2c3e50;
         font-weight: bold;
+    }
+    
+    /* Strong headings (like Night X:) need more spacing */
+    p strong:only-child {
+        display: block;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
     }
     
     /* Quiz summary */

@@ -132,17 +132,49 @@ def handle_successful_payment(session):
             )
             db.session.add(module_assigned)
         
-        # Generate personalized PDF using V1 module system
-        print(f"📄 Generating personalized PDF using V1 module system...")
+        # Generate personalized PDF using V2 template system
+        print(f"📄 Generating personalized PDF using V2 template system...")
         
-        # Use V1 module system with ESSENTIAL versions for regular purchases
-        pdf_path = generate_personalized_pdf(
-            customer=customer,
-            quiz_data=quiz.to_dict(),
-            modules=modules,
-            is_upsell=False  # Use ESSENTIAL versions for regular purchases
-        )
-        print(f"✅ V1 PDF generated at: {pdf_path}")
+        try:
+            from services.template_engine import generate_personalized_guide
+            print(f"🧩 Using V2 template engine system...")
+            
+            customer_info = {
+                'customer_name': customer.name or 'there',
+                'customer_email': customer.email,
+                'baby_name': quiz.to_dict().get('baby_name', 'your baby')
+            }
+            
+            guide_markdown = generate_personalized_guide(
+                quiz_responses=quiz.to_dict(),
+                customer_info=customer_info
+            )
+            
+            # Save guide content to order
+            order.guide_content = guide_markdown
+            
+            # Generate PDF from V2 guide
+            pdf_path = generate_personalized_pdf(
+                customer=customer,
+                quiz_data=quiz.to_dict(),
+                guide_content=guide_markdown,
+                is_v2=True
+            )
+            print(f"✅ V2 PDF generated at: {pdf_path}")
+            
+        except Exception as e:
+            # Log the V2 error and fallback to V1
+            print(f"❌ V2 system error: {type(e).__name__}: {str(e)}")
+            print(f"⚠️ Falling back to V1 module system...")
+            
+            # Fallback to V1 module system
+            pdf_path = generate_personalized_pdf(
+                customer=customer,
+                quiz_data=quiz.to_dict(),
+                modules=modules,
+                is_upsell=False  # Use ESSENTIAL versions for regular purchases
+            )
+            print(f"✅ V1 fallback PDF generated at: {pdf_path}")
         
         # Update order with PDF info
         order.pdf_generated = True

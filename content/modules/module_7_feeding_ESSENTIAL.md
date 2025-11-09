@@ -1,4 +1,4 @@
-# Module 7: Breaking the Feed-to-Sleep Association
+# Breaking the Feed-to-Sleep Association
 
 ## Understanding Feed-to-Sleep
 
@@ -160,21 +160,6 @@ This method gradually moves feeding earlier in the bedtime routine, breaking the
 **Remember:** Breaking the feed-to-sleep association doesn't mean weaning from breastfeeding or bottles. It just means separating feeding from sleeping. You can continue nursing/bottle feeding as long as you want!
 
 ---
-
-## 📚 Want More Methods and Detailed Guidance?
-
-This Essential Guide gives you the ONE recommended approach for breaking feed-to-sleep. Our **Complete Reference Library** includes:
-
-- ✓ Multiple weaning methods (rapid, gradual, partial)
-- ✓ Breastfeeding-specific strategies
-- ✓ Bottle-specific strategies
-- ✓ Combining with other sleep associations
-- ✓ Maintaining milk supply while night weaning
-- ✓ Comprehensive success stories
-- ✓ Special situations (working moms, exclusively breastfed babies)
-
-**Upgrade to Complete Reference Library: $27**
-[Learn More](#)
 
 ---
 

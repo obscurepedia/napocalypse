@@ -1,4 +1,4 @@
-# Module 1: Newborn Sleep Foundations (0-3 Months)
+# Newborn Sleep Foundations (0-3 Months)
 
 ## Understanding Newborn Sleep
 
@@ -133,21 +133,6 @@ Around 3-4 months, your baby's sleep will mature and you can begin more structur
 **Remember:** You're not failing if your newborn needs help to sleep. This is normal and temporary. You're building the foundation for independent sleep in the future.
 
 ---
-
-## 📚 Want More Methods and Detailed Guidance?
-
-This Essential Guide gives you the ONE recommended approach for newborns. Our **Complete Reference Library** includes:
-
-- ✓ Multiple soothing techniques
-- ✓ Detailed troubleshooting for every scenario
-- ✓ Swaddle transition strategies
-- ✓ Reflux and colic management
-- ✓ Twin and multiples guidance
-- ✓ Comprehensive success stories
-- ✓ Week-by-week development guide
-
-**Upgrade to Complete Reference Library: $27**
-[Learn More](#)
 
 ---
 

@@ -1,4 +1,4 @@
-# Module 6: Gentle/No-Cry Methods
+# Gentle/No-Cry Methods
 
 ## Understanding Gentle Sleep Training
 
@@ -194,21 +194,6 @@ This method gradually reduces your presence and involvement over 10-14 days. You
 **Remember:** Gentle methods work, they just take longer. If you're comfortable with the timeline, this is a wonderful approach that respects your baby's emotions while still teaching independent sleep.
 
 ---
-
-## 📚 Want More Methods and Detailed Guidance?
-
-This Essential Guide gives you the ONE recommended gentle approach. Our **Complete Reference Library** includes:
-
-- ✓ Multiple gentle methods (Pick-Up-Put-Down, Patting, Shush-Pat)
-- ✓ Combining gentle methods with other approaches
-- ✓ Handling motion and rocking dependencies gently
-- ✓ Pacifier weaning (gentle approach)
-- ✓ Nap training (gentle methods)
-- ✓ Comprehensive success stories
-- ✓ Special situations (sensitive babies, anxious babies)
-
-**Upgrade to Complete Reference Library: $27**
-[Learn More](#)
 
 ---
 

@@ -1,4 +1,4 @@
-# Module 12: Pacifier Weaning Guide
+# Pacifier Weaning Guide
 
 ## Understanding Pacifier Dependency
 
@@ -194,21 +194,6 @@ This is the fastest and most effective method. Remove all pacifiers and commit t
 **Remember:** The first 2-3 nights are hard, but the payoff is huge. You'll never have to wake up to replace a pacifier again!
 
 ---
-
-## 📚 Want More Methods and Detailed Guidance?
-
-This Essential Guide gives you the ONE recommended approach for pacifier weaning. Our **Complete Reference Library** includes:
-
-- ✓ Multiple weaning methods (gradual, hole-cutting, Pacifier Fairy)
-- ✓ Age-specific approaches (6 months - 3+ years)
-- ✓ Naps vs. nighttime strategies
-- ✓ Combining with other sleep associations
-- ✓ Handling setbacks and regressions
-- ✓ Comprehensive success stories
-- ✓ Special situations (daycare, travel)
-
-**Upgrade to Complete Reference Library: $27**
-[Learn More](#)
 
 ---
 
