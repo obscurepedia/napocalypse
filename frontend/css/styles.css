@@ -574,11 +574,11 @@ footer {
 .quiz-container {
     max-width: 800px;
     margin: 2rem auto;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #ffffff;
     border-radius: 15px;
     padding: 2rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    color: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e1e8ed;
 }
 
 .progress-bar {
@@ -623,15 +623,18 @@ footer {
 
 .question h2 {
     margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-    color: white;
+    font-size: 2.2rem;
+    color: #2c3e50;
     text-align: center;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: 700;
 }
 
 .question-subtitle {
-    color: #7f8c8d;
+    color: #2c3e50;
     margin-bottom: 2rem;
+    text-align: center;
+    font-size: 1.1rem;
+    opacity: 0.8;
 }
 
 .options {
