@@ -79,25 +79,45 @@ def test_checkout():
         # Redirect directly to Stripe checkout
         print("🧪 Redirecting to Stripe checkout...")
         
-        # Create or get Stripe customer for test
+        # Create or get Stripe customer - handle mode switching
         print("STEP 4: Stripe customer operations...")
-        if not customer.stripe_customer_id:
-            print("STEP 4.1: Creating new Stripe customer...")
-            print(f"STEP 4.2: Customer email: {customer.email}")
-            print(f"STEP 4.3: Customer name: {customer.name}")
-            
-            print("STEP 4.3.1: About to call stripe.Customer.create()...")
-            print("STEP 4.3.2: Stripe module type:", type(stripe))
-            print("STEP 4.3.3: Stripe Customer class:", stripe.Customer)
+        
+        # Check if existing customer ID is compatible with current Stripe mode
+        stripe_customer_id = customer.stripe_customer_id
+        if stripe_customer_id:
+            try:
+                print(f"STEP 4.1: Checking existing Stripe customer: {stripe_customer_id}")
+                # Try to retrieve the customer to see if it exists in current mode
+                test_customer = stripe.Customer.retrieve(stripe_customer_id)
+                print(f"STEP 4.2: Existing customer validated: {test_customer.id}")
+            except stripe.error.InvalidRequestError as e:
+                if "similar object exists in live mode" in str(e) or "similar object exists in test mode" in str(e):
+                    print(f"STEP 4.2: Mode mismatch detected - clearing customer ID")
+                    print(f"STEP 4.3: Error: {str(e)}")
+                    stripe_customer_id = None
+                    customer.stripe_customer_id = None
+                    db.session.commit()
+                    print("STEP 4.4: Customer ID cleared due to mode mismatch")
+                else:
+                    raise e
+        
+        if not stripe_customer_id:
+            print("STEP 4.5: Creating new Stripe customer...")
+            print(f"STEP 4.6: Customer email: {customer.email}")
+            print(f"STEP 4.7: Customer name: {customer.name}")
             
             try:
-                print("STEP 4.3.4: Executing stripe.Customer.create() call...")
+                print("STEP 4.8: Executing stripe.Customer.create() call...")
                 stripe_customer = stripe.Customer.create(
                     email=customer.email,
                     name=customer.name,
                     metadata={'customer_id': customer.id}
                 )
-                print(f"STEP 4.4: Stripe customer created successfully: {stripe_customer.id}")
+                print(f"STEP 4.9: Stripe customer created successfully: {stripe_customer.id}")
+                customer.stripe_customer_id = stripe_customer.id
+                print("STEP 4.10: Saving Stripe customer ID to database...")
+                db.session.commit()
+                print("STEP 4.11: Stripe customer saved to database")
             except Exception as stripe_error:
                 print("=" * 50)
                 print("❌ STRIPE CUSTOMER CREATION FAILED!")
@@ -111,12 +131,8 @@ def test_checkout():
                     print(f"Error Code: {stripe_error.code}")
                 print("=" * 50)
                 raise stripe_error
-            customer.stripe_customer_id = stripe_customer.id
-            print("STEP 4.5: Saving Stripe customer ID to database...")
-            db.session.commit()
-            print("STEP 4.6: Stripe customer saved to database")
         else:
-            print(f"STEP 4.1: Using existing Stripe customer: {customer.stripe_customer_id}")
+            print(f"STEP 4.12: Using validated Stripe customer: {stripe_customer_id}")
         
         # Create checkout session for test
         print("STEP 5: Creating Stripe checkout session...")
@@ -230,9 +246,29 @@ def create_checkout():
             print("❌ Customer or quiz not found in database")
             return jsonify({'error': 'Customer or quiz not found'}), 404
         
-        # Create or get Stripe customer
+        # Create or get Stripe customer - handle mode switching
         print("📦 Step 4: Handling Stripe customer...")
-        if not customer.stripe_customer_id:
+        
+        # Check if existing customer ID is compatible with current Stripe mode
+        stripe_customer_id = customer.stripe_customer_id
+        if stripe_customer_id:
+            try:
+                print(f"📦 Checking existing Stripe customer: {stripe_customer_id}")
+                # Try to retrieve the customer to see if it exists in current mode
+                test_customer = stripe.Customer.retrieve(stripe_customer_id)
+                print(f"📦 Existing customer validated: {test_customer.id}")
+            except stripe.error.InvalidRequestError as e:
+                if "similar object exists in live mode" in str(e) or "similar object exists in test mode" in str(e):
+                    print(f"📦 Mode mismatch detected - clearing customer ID")
+                    print(f"📦 Error: {str(e)}")
+                    stripe_customer_id = None
+                    customer.stripe_customer_id = None
+                    db.session.commit()
+                    print("📦 Customer ID cleared due to mode mismatch")
+                else:
+                    raise e
+        
+        if not stripe_customer_id:
             print(f"📦 Creating new Stripe customer for: {customer.email}")
             try:
                 stripe_customer = stripe.Customer.create(
@@ -249,7 +285,7 @@ def create_checkout():
                 print(f"❌ Stripe customer creation failed: {stripe_error}")
                 raise stripe_error
         else:
-            print(f"📦 Using existing Stripe customer: {customer.stripe_customer_id}")
+            print(f"📦 Using validated Stripe customer: {stripe_customer_id}")
         
         # Create checkout session
         print("📦 Step 5: Creating Stripe checkout session...")
