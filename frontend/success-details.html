@@ -1,23 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Journey Ahead - Napocalypse</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/css/styles.css">
-    <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <a href="/"><img src="/images/napocalypse.png" alt="Napocalypse Logo" class="logo-img"></a>
-            </div>
-        </div>
-    </header>
+{% extends "base.html" %}
 
+{% block title %}Your Journey Ahead - Napocalypse{% endblock %}
+
+{% block content %}
     <!-- Success Details Section -->
     <section class="success-section">
         <div class="container">
@@ -124,5 +109,4 @@
             console.log('Purchase completed and details viewed:', sessionId);
         }
     </script>
-</body>
-</html>
+{% endblock %}
