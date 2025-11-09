@@ -144,10 +144,9 @@ document.getElementById('quiz-form').addEventListener('submit', async function(e
         return;
     }
     
-    // Get email, name, and baby name
+    // Get email and name
     const email = document.getElementById('email').value;
     const name = document.getElementById('name').value;
-    const babyName = document.getElementById('baby_name').value;
     
     if (!email) {
         alert('Please enter your email address.');
@@ -158,7 +157,6 @@ document.getElementById('quiz-form').addEventListener('submit', async function(e
     const submissionData = {
         email: email,
         name: name || '',
-        baby_name: babyName || '',
         baby_age: quizData.question1,
         sleep_situation: quizData.question2,
         sleep_philosophy: quizData.question3,
