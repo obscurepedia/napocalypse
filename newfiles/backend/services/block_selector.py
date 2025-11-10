@@ -21,10 +21,10 @@ class BlockSelector:
     
     # Block definitions (using condensed versions)
     AGE_BLOCKS = {
-        '4-6': 'age_4_6_months',
-        '7-12': 'age_7_12_months', 
-        '13-18': 'age_13_18_months',
-        '19-24': 'age_19_24_months'
+        '4-6': 'age_4_6_months_condensed',
+        '7-12': 'age_7_12_months_condensed',
+        '13-18': 'age_13_18_months_condensed',
+        '19-24': 'age_19_24_months_condensed'
     }
     
     METHOD_BLOCKS = {
