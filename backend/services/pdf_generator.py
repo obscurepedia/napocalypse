@@ -1,4 +1,5 @@
 """
+# -*- coding: utf-8 -*-
 PDF Generation Service
 Combines selected modules into a personalized PDF guide
 """
@@ -174,7 +175,7 @@ def generate_html_from_markdown(customer, quiz_data, guide_markdown):
         <div class="footer-page">
             <hr style="border: none; border-top: 2px solid #ddd; margin: 30px 0;">
             <div style="text-align: center; color: #666; font-size: 10pt;">
-                <p>© {datetime.now().year} Napocalypse. All rights reserved.</p>
+                <p>&copy; {datetime.now().year} Napocalypse. All rights reserved.</p>
                 <p>support@napocalypse.com | napocalypse.com</p>
                 <p style="margin-top: 20px; font-size: 9pt;">
                     This guide is for informational purposes only and does not constitute medical advice.<br>
@@ -215,7 +216,7 @@ def generate_html_content(customer, quiz_data, modules, is_upsell=False):
             <p class="date">Generated: {datetime.now().strftime('%B %d, %Y')}</p>
             
             <div class="footer">
-                <p>© {datetime.now().year} Napocalypse. All rights reserved.</p>
+                <p>&copy; {datetime.now().year} Napocalypse. All rights reserved.</p>
                 <p>support@napocalypse.com</p>
             </div>
         </div>
@@ -2170,3 +2171,95 @@ def get_pdf_styles():
         text-align: justify;
     }
     """
+    
+def generate_quick_start_guide_pdf(customer):
+    """
+    Generate the Quick-Start Guide PDF.
+    
+    Args:
+        customer: Customer object
+        
+    Returns:
+        str: Path to generated PDF
+    """
+    if not WEASYPRINT_AVAILABLE:
+        raise RuntimeError("PDF generation not available: WeasyPrint dependencies not installed")
+    
+    if not MARKDOWN2_AVAILABLE:
+        raise RuntimeError("PDF generation not available: markdown2 package not installed")
+
+    # Create filename
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    filename = f"quick_start_guide_{customer.id}_{timestamp}.pdf"
+    output_path = os.path.join(Config.PDF_OUTPUT_DIR, filename)
+    
+    os.makedirs(Config.PDF_OUTPUT_DIR, exist_ok=True)
+    
+    # Load Markdown content from file
+    content_path = os.path.join(os.path.dirname(__file__), '../../content/quick_start_guide.md')
+    with open(content_path, 'r', encoding='utf-8') as f:
+        markdown_content = f.read()
+        
+    # Personalize markdown content
+    markdown_content = markdown_content.replace('{customer_name}', customer.name or 'there')
+
+    # Convert markdown to HTML
+    html_body = markdown2.markdown(
+        markdown_content,
+        extras=['fenced-code-blocks', 'tables', 'break-on-newline', 'header-ids']
+    )
+    
+    # Wrap in complete HTML document
+    html_content = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Your Quick-Start Guide</title>
+    </head>
+    <body>
+        <!-- Cover Page -->
+        <div class="cover-page">
+            <div class="logo-header">
+                <img src="file://{os.path.abspath(os.path.join(os.path.dirname(__file__), '../../frontend/images/napocalypse.png'))}" alt="Napocalypse Logo" class="pdf-logo">
+            </div>
+            <h1>Quick-Start Guide</h1>
+            <p class="subtitle">Your First Steps to Better Sleep</p>
+            <p class="subtitle">Customized for {get_personalized_subtitle(customer)}</p>
+            <p class="date">Generated: {datetime.now().strftime('%B %d, %Y')}</p>
+            
+            <div class="footer">
+                <p>&copy; {datetime.now().year} Napocalypse. All rights reserved.</p>
+                <p>support@napocalypse.com</p>
+            </div>
+        </div>
+
+        <!-- Guide Content -->
+        <div class="page-break"></div>
+        <div class="module-content">
+            {html_body}
+        </div>
+        
+        <!-- Footer on last page -->
+        <div class="footer-page">
+            <hr style="border: none; border-top: 2px solid #ddd; margin: 30px 0;">
+            <div style="text-align: center; color: #666; font-size: 10pt;">
+                <p>&copy; {datetime.now().year} Napocalypse. All rights reserved.</p>
+                <p>support@napocalypse.com | napocalypse.com</p>
+                <p style="margin-top: 20px; font-size: 9pt;">
+                    This guide is for informational purposes only and does not constitute medical advice.<br>
+                    Always consult with your pediatrician before making changes to your baby's sleep routine.
+                </p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+    
+    # Generate PDF
+    HTML(string=html_content).write_pdf(
+        output_path,
+        stylesheets=[CSS(string=get_pdf_styles())]
+    )
+    
+    return output_path

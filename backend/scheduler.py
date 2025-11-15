@@ -36,7 +36,8 @@ def init_scheduler(app):
                         success = send_sequence_email(
                             to_email=customer.email,
                             customer_name=customer.name or 'there',
-                            day_number=email.day_number
+                            day_number=email.day_number,
+                            order_id=email.order_id
                         )
                         
                         if success:

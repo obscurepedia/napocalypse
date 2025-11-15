@@ -66,134 +66,63 @@ def stripe_webhook():
 
 def handle_successful_payment(session):
     """
-    Process successful payment:
-    1. Update order status
-    2. Select modules based on quiz
-    3. Generate personalized PDF
-    4. Send email with PDF
-    5. Schedule email sequence
+    Process successful payment for the new flow:
+    1. Update order status.
+    2. Generate the Quick-Start Guide PDF.
+    3. Immediately email the Quick-Start Guide.
+    4. Schedule the 14-day email course to start the next day.
     """
-    print(f"=== HANDLING SUCCESSFUL PAYMENT ===")
-    print(f"Session ID: {session['id']}")
+    print(f"=== HANDLING SUCCESSFUL PAYMENT (NEW FLOW) ===")
     try:
-        # Get order
-        order = Order.query.filter_by(
-            stripe_checkout_session_id=session['id']
-        ).first()
-        
+        order = Order.query.filter_by(stripe_checkout_session_id=session['id']).first()
         if not order:
             print(f"❌ Order not found for session: {session['id']}")
-            # Let's also check all recent orders
-            recent_orders = Order.query.order_by(Order.created_at.desc()).limit(5).all()
-            print(f"Recent orders in DB:")
-            for o in recent_orders:
-                print(f"  - Order {o.id}: session_id={o.stripe_checkout_session_id}")
             return
-        
+
         print(f"✅ Found order {order.id} for session: {session['id']}")
         
-        # Update order
         order.stripe_payment_intent_id = session.get('payment_intent')
         order.status = 'completed'
         order.completed_at = datetime.utcnow()
         
-        # Get customer and quiz
         customer = Customer.query.get(order.customer_id)
-        quiz = QuizResponse.query.filter_by(
-            customer_id=customer.id
-        ).order_by(QuizResponse.created_at.desc()).first()
-        
-        print(f"✅ Found customer: {customer.email if customer else 'None'}")
-        print(f"✅ Found quiz: {quiz.id if quiz else 'None'}")
-        
-        # Save session_id to customer for personalization tracking
-        if customer:
-            customer.stripe_session_id = session['id']
-            # Commit this immediately to ensure it's available for personalization
-            db.session.commit()
-            print(f"✅ Updated customer {customer.email} with session_id: {session['id']}")
-        
-        if not customer or not quiz:
-            print(f"❌ Customer or quiz not found for order: {order.id}")
+        if not customer:
+            print(f"❌ Customer not found for order: {order.id}")
             return
-        
-        # Select modules based on quiz responses
-        print(f"🧩 Selecting modules based on quiz responses...")
-        modules = select_modules(quiz.to_dict())
-        print(f"✅ Selected modules: {modules}")
-        
-        # Save assigned modules
-        from database import ModuleAssigned
-        for module_name in modules:
-            module_assigned = ModuleAssigned(
-                customer_id=customer.id,
-                order_id=order.id,
-                module_name=module_name
-            )
-            db.session.add(module_assigned)
-        
-        # Generate personalized PDF using V2 template system
-        print(f"📄 Generating personalized PDF using V2 template system...")
-        
-        try:
-            from services.template_engine import generate_personalized_guide
-            print(f"🧩 Using V2 template engine system...")
-            
-            customer_info = {
-                'customer_name': customer.name or 'there',
-                'customer_email': customer.email,
-                'baby_name': quiz.to_dict().get('baby_name', 'your baby')
-            }
-            
-            guide_markdown = generate_personalized_guide(
-                quiz_responses=quiz.to_dict(),
-                customer_info=customer_info
-            )
-            
-            # Save guide content to order
-            order.guide_content = guide_markdown
-            
-            # Generate PDF from V2 guide
-            pdf_path = generate_personalized_pdf(
-                customer=customer,
-                quiz_data=quiz.to_dict(),
-                guide_content=guide_markdown,
-                is_v2=True
-            )
-            print(f"✅ V2 PDF generated at: {pdf_path}")
-            
-        except Exception as e:
-            # Log the V2 error and fallback to V1
-            print(f"❌ V2 system error: {type(e).__name__}: {str(e)}")
-            print(f"⚠️ Falling back to V1 module system...")
-            
-            # Fallback to V1 module system
-            pdf_path = generate_personalized_pdf(
-                customer=customer,
-                quiz_data=quiz.to_dict(),
-                modules=modules,
-                is_upsell=False  # Use ESSENTIAL versions for regular purchases
-            )
-            print(f"✅ V1 fallback PDF generated at: {pdf_path}")
-        
-        # Update order with PDF info
+
+        print(f"✅ Found customer: {customer.email}")
+
+        # 1. Generate the Quick-Start Guide PDF
+        print(f"📄 Generating Quick-Start Guide PDF...")
+        from services.pdf_generator import generate_quick_start_guide_pdf
+        pdf_path = generate_quick_start_guide_pdf(customer)
+        print(f"✅ Quick-Start Guide PDF generated at: {pdf_path}")
+
         order.pdf_generated = True
         order.pdf_url = pdf_path
         
+        # 2. Immediately email the Quick-Start Guide
+        print(f"📧 Sending Quick-Start Guide email...")
+        # This function will be updated in the next step to have content about the Quick-Start Guide
+        send_delivery_email(
+            to_email=customer.email,
+            customer_name=customer.name,
+            pdf_path=pdf_path,
+            modules=[] # No modules for the quick start guide
+        )
+        print(f"✅ Quick-Start Guide email sent to {customer.email}")
+
+        # 3. Schedule the 14-day email sequence
+        print(f"📅 Scheduling 14-day email sequence...")
+        schedule_email_sequence(customer_id=customer.id, order_id=order.id)
+        print(f"✅ Email sequence scheduled for {customer.email}")
+
         db.session.commit()
-        print(f"✅ Database updated with PDF info")
-        
-        # PDF and modules are ready - email will be sent when user completes personalization
-        print(f"✅ Order processed, PDF ready. Email will be sent after personalization.")
-        
-        # Schedule 7-day email sequence (will start after email is sent)
-        print(f"📅 Email sequence will be scheduled after personalization...")
-        
-        print(f"🎉 Successfully processed payment for customer: {customer.email}")
-        
+        print(f"🎉 Successfully processed payment (new flow) for customer: {customer.email}")
+
     except Exception as e:
         db.session.rollback()
-        print(f"❌ Error handling successful payment: {str(e)}")
+        print(f"❌ Error handling successful payment (new flow): {str(e)}")
         import traceback
         print(f"📋 Full traceback: {traceback.format_exc()}")
         raise

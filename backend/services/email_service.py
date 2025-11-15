@@ -6,6 +6,7 @@ Handles delivery emails and automated sequences
 import os
 import boto3
 from botocore.exceptions import ClientError
+import markdown2
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
@@ -23,48 +24,36 @@ ses_client = boto3.client(
 
 def send_delivery_email(to_email, customer_name, pdf_path, modules):
     """
-    Send initial delivery email with PDF attachment
+    Send initial delivery email with the Quick-Start Guide PDF.
     """
     from_email = Config.AWS_SES_FROM_EMAIL
     
     # Safe customer name handling
     safe_customer_name = customer_name if customer_name else "there"
     
-    # Personalized subject line
-    if customer_name:
-        subject = f"🌙 {customer_name}, your personalized sleep guide is ready!"
-    else:
-        subject = "🌙 Your personalized sleep guide is ready!"
+    # New subject line for the Quick-Start Guide
+    subject = f"🚀 Your Quick-Start Guide to Better Sleep is Here!"
     
-    # HTML body
+    # New HTML body for the Quick-Start Guide
     html_body = f"""
     <html>
     <head></head>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
         <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-            <h2 style="color: #2c3e50;">Hi {safe_customer_name}!</h2>
+            <h2 style="color: #2c3e50;">Hi {safe_customer_name}, let's get started!</h2>
             
-            <p>Your personalized sleep guide is attached and ready to go!</p>
+            <p>Thank you for joining the Napocalypse program! Your attached <strong>Quick-Start Guide</strong> has the first simple steps you can take tonight.</p>
             
             <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin: 20px 0;">
-                <h3 style="margin-top: 0; color: #2c3e50;">Your Custom Guide Includes:</h3>
+                <h3 style="margin-top: 0; color: #2c3e50;">What's Next?</h3>
+                <p>This guide is your "instant gratification" to get you started immediately. Your comprehensive 14-day email coaching course begins tomorrow.</p>
                 <ul>
-                    <li>✓ Personalized for your baby's age and situation</li>
-                    <li>✓ {len(modules)} targeted modules just for you</li>
-                    <li>✓ Step-by-step action plan</li>
-                    <li>✓ Troubleshooting guide</li>
+                    <li>✓ <strong>Today:</strong> Read the Quick-Start Guide and try the "One Thing".</li>
+                    <li>✓ <strong>Tomorrow:</strong> Look for the "Day 1" email in your inbox.</li>
                 </ul>
             </div>
             
-            <h3 style="color: #2c3e50;">What to Do First:</h3>
-            <ol>
-                <li>Read the introduction (page 1)</li>
-                <li>Review your personalized approach</li>
-                <li>Set up your baby's environment</li>
-                <li>Start tonight!</li>
-            </ol>
-            
-            <p>Tomorrow, I'll send you Day 1 implementation tips.</p>
+            <p>We're so excited to guide you on this journey to better sleep for your entire family.</p>
             
             <p><strong>You've got this!</strong></p>
             
@@ -80,30 +69,20 @@ def send_delivery_email(to_email, customer_name, pdf_path, modules):
     </html>
     """
     
-    # Text body
+    # New text body for the Quick-Start Guide
     text_body = f"""
-    Hi {safe_customer_name}!
-    
-    Your personalized sleep guide is attached and ready to go!
-    
-    Your personalized sleep guide is attached and ready to go!
-    
-    Your Custom Guide Includes:
-    - Personalized for your baby's age and situation
-    - {len(modules)} targeted modules just for you
-    - Step-by-step action plan
-    - Troubleshooting guide
-    
-    What to Do First:
-    1. Read the introduction (page 1)
-    2. Review your personalized approach
-    3. Set up your baby's environment
-    4. Start tonight!
-    
-    Tomorrow, I'll send you Day 1 implementation tips.
-    
+    Hi {safe_customer_name}, let's get started!
+
+    Thank you for joining the Napocalypse program! Your attached Quick-Start Guide has the first simple steps you can take tonight.
+
+    What's Next?
+    - Today: Read the Quick-Start Guide and try the "One Thing".
+    - Tomorrow: Look for the "Day 1" email in your inbox.
+
+    We're so excited to guide you on this journey to better sleep for your entire family.
+
     You've got this!
-    
+
     Best,
     The Napocalypse Team
     
@@ -128,10 +107,10 @@ def send_delivery_email(to_email, customer_name, pdf_path, modules):
         msg_body.attach(MIMEText(html_body, 'html'))
         msg.attach(msg_body)
         
-        # Add PDF attachment
+        # Add PDF attachment with a new filename
         attachment = MIMEApplication(pdf_data)
         attachment.add_header('Content-Disposition', 'attachment', 
-                            filename='Your_Personalized_Sleep_Guide.pdf')
+                            filename='Napocalypse_Quick_Start_Guide.pdf')
         msg.attach(attachment)
         
         # Send email
@@ -151,14 +130,15 @@ def send_delivery_email(to_email, customer_name, pdf_path, modules):
         print(f"Error sending delivery email: {str(e)}")
         return False
 
-def send_sequence_email(to_email, customer_name, day_number, customer_id=None, modules=None, quiz_data=None, customer=None):
+def send_sequence_email(to_email, customer_name, day_number, order_id=None, customer_id=None, modules=None, quiz_data=None, customer=None):
     """
-    Send automated sequence email (Days 1-7) with full personalization
+    Send automated sequence email (Days 1-14) with full personalization
     
     Args:
         to_email: Recipient email
         customer_name: Customer name
-        day_number: Day in sequence (1-7)
+        day_number: Day in sequence (1-14)
+        order_id: Order ID for personalization
         customer_id: Customer ID (for upsell URL)
         modules: List of module names
         quiz_data: Quiz response data (for personalization)
@@ -173,7 +153,7 @@ def send_sequence_email(to_email, customer_name, day_number, customer_id=None, m
         personalization_vars = get_personalization_data(customer, quiz_data, modules)
     
     # Email content based on day and personalization
-    email_content = get_sequence_content(day_number, customer_name, personalization_vars)
+    email_content = get_sequence_content(day_number, customer_name, personalization_vars, order_id)
     
     # Add upsell URL to emails if customer_id and modules provided
     if customer_id and modules:
@@ -368,21 +348,22 @@ def send_email_with_attachment(to_email: str, subject: str, html_content: str, a
 
 def schedule_email_sequence(customer_id, order_id):
     """
-    Schedule 7-day email sequence
+    Schedule 14-day email sequence
     """
     try:
         # Get customer for email personalization
         from database import Customer
         customer = Customer.query.get(customer_id)
         
-        for day in range(1, 8):
+        for day in range(1, 15):
             scheduled_time = datetime.utcnow() + timedelta(days=day)
             
             # Get email content for this day
             email_content = get_sequence_content(
                 day_number=day, 
                 customer_name=customer.name if customer else None,
-                personalization_vars=None  # Could be enhanced with quiz data
+                personalization_vars=None,  # Could be enhanced with quiz data
+                order_id=order_id
             )
             
             email_seq = EmailSequence(
@@ -397,7 +378,7 @@ def schedule_email_sequence(customer_id, order_id):
             db.session.add(email_seq)
         
         db.session.commit()
-        print(f"Scheduled 7-day email sequence for customer {customer_id}")
+        print(f"Scheduled 14-day email sequence for customer {customer_id}")
         return True
         
     except Exception as e:
@@ -477,78 +458,82 @@ def generate_personalized_subject(day_number, customer_name=None, baby_name=None
     else:
         return day_subjects['neither']
 
-def get_sequence_content(day_number, customer_name, personalization_vars=None):
+import markdown2
+
+def get_sequence_content(day_number, customer_name, personalization_vars=None, order_id=None):
     """
-    Get email content for specific day in sequence
-    Loads from HTML template files with personalization
-    
-    Args:
-        day_number: Day in sequence (1-7)
-        customer_name: Customer name
-        personalization_vars: Dict with personalization data (method, challenge, etc.)
+    Get email content for the new 14-day sequence.
+    Loads from new_day_X.html templates and injects dynamic content.
     """
     import os
-    
-    # Determine which template variant to use
-    if personalization_vars:
-        try:
-            from services.personalization import get_email_variant
-            method_type = personalization_vars.get('method_type', 'gentle')
-            challenge_type = personalization_vars.get('challenge_type', 'general')
-            template_file = get_email_variant(day_number, method_type, challenge_type)
-            
-            # Update subject line with personalization
-            subject = get_personalized_subject(day_number, personalization_vars)
-        except ImportError:
-            # Fallback if personalization service not available yet
-            template_file = f'day_{day_number}_generic.html'
-            subject = get_generic_subject(day_number)
-    else:
-        # Fallback to generic templates
-        template_file = f'day_{day_number}_generic.html'
-        subject = get_generic_subject(day_number)
-    
-    # Load HTML template
+
+    template_file = f'new_day_{day_number}.html'
     template_path = os.path.join(os.path.dirname(__file__), '..', 'email_templates', template_file)
-    
-    # Fallback to old template names if new ones don't exist yet
-    if not os.path.exists(template_path):
-        old_templates = {
-            1: 'day_1_welcome.html',
-            2: 'day_2_getting_started.html',
-            3: 'day_3_common_challenges.html',
-            4: 'day_4_success_stories.html',
-            5: 'day_5_troubleshooting.html',
-            6: 'day_6_additional_resources.html',
-            7: 'day_7_feedback.html'
-        }
-        template_file = old_templates.get(day_number, 'day_1_welcome.html')
-        template_path = os.path.join(os.path.dirname(__file__), '..', 'email_templates', template_file)
-    
+
     try:
         with open(template_path, 'r', encoding='utf-8') as f:
             html_content = f.read()
+
+        # Inject dynamic content for specific days
+        if day_number == 5 and personalization_vars:
+            method_type = personalization_vars.get('method_type', 'gentle')
+            module_name = 'module_5_cio' if method_type == 'cio' else 'module_6_gentle'
+            
+            content_path = os.path.join(os.path.dirname(__file__), '../../content/modules', f'{module_name}_ESSENTIAL.md')
+            
+            with open(content_path, 'r', encoding='utf-8') as cf:
+                markdown_instructions = cf.read()
+            
+            # Convert markdown to HTML
+            html_instructions = markdown2.markdown(markdown_instructions, extras=['fenced-code-blocks', 'tables'])
+            
+            # Replace placeholder
+            html_content = html_content.replace('{method_instructions}', html_instructions)
+
+        # Replace simple placeholders
+        html_content = html_content.replace('{customer_name}', customer_name or 'there')
+        if personalization_vars:
+            html_content = html_content.replace('{method}', personalization_vars.get('method', 'your chosen method'))
+        else:
+            html_content = html_content.replace('{method}', 'your chosen method')
         
-        # Replace all personalization placeholders
-        html_content = replace_personalization_vars(html_content, customer_name, personalization_vars)
-        
-        # Generate plain text version (simplified)
-        text_content = generate_text_version(day_number, customer_name, personalization_vars)
-        
+        if order_id:
+            html_content = html_content.replace('{{order_id}}', str(order_id))
+
+
+        # Generate subject and text body (can be improved later)
+        subjects = {
+            1: "Day 1: Welcome to Your Sleep Transformation",
+            2: "Day 2: The Perfect Sleep Environment",
+            3: "Day 3: The Magic of a Bedtime Routine",
+            4: "Day 4: Understanding Wake Windows",
+            5: "Day 5: Your Sleep Training Method",
+            6: "Day 6: Troubleshooting & Staying Strong",
+            7: "Day 7: Finding the Wins",
+            8: "Day 8: The Tricky World of Naps",
+            9: "Day 9: The Dreaded Sleep Regression",
+            10: "Day 10: The Pacifier Problem",
+            11: "Day 11: Breaking the Feed-to-Sleep Association",
+            12: "Day 12: A Guide to Night Weaning",
+            13: "Day 13: Life Happens - Staying on Track",
+            14: "Day 14: You Did It! What's Next?"
+        }
+        subject = subjects.get(day_number, f"Day {day_number}: Your Napocalypse Update")
+        text_body = "This email is best viewed in HTML format. If you're having trouble, please contact support."
+
         return {
             'subject': subject,
-            'text_body': text_content.strip(),
+            'text_body': text_body,
             'html_body': html_content
         }
-        
+
     except Exception as e:
-        print(f"Error loading email template: {str(e)}")
-        # Fallback content with safe customer name
-        safe_customer_name = customer_name if customer_name else "there"
+        print(f"Error loading or personalizing new email template for day {day_number}: {str(e)}")
+        # Fallback content
         return {
-            'subject': get_generic_subject(day_number),
-            'text_body': f"Hi {safe_customer_name}!\n\nDay {day_number} content...",
-            'html_body': f"<h2>Hi {safe_customer_name}!</h2><p>Day {day_number} content...</p>"
+            'subject': f"Day {day_number}: Your Napocalypse Update",
+            'text_body': "There was an error loading the email content. Please contact support.",
+            'html_body': f"<h2>Hi {customer_name or 'there'}!</h2><p>There was an error loading the content for Day {day_number}. Please contact our support team for assistance.</p>"
         }
 
 def personalize_email_content(html_content, customer_name=None, baby_name=None):
