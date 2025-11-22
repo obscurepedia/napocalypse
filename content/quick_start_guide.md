@@ -1,6 +1,6 @@
 # Welcome to Your Sleep Transformation!
 
-Congratulations on taking the first step towards better sleep for you and your baby. This quick-start guide is designed to give you immediate, actionable steps you can take *tonight*. 
+Congratulations on taking the first step towards better sleep for you and your baby. This quick-start guide is designed to give you immediate, actionable steps you can take *tonight*.
 
 Over the next 14 days, you'll receive a daily email from us that will walk you through every step of this journey. But for now, let's focus on a few simple things to set the stage for success.
 
@@ -40,10 +40,76 @@ You don't need fancy gadgets. Focus on two things tonight:
 
 ---
 
+## What to Expect: Days 1-3
+
+Managing your expectations is crucial. Here's what typically happens:
+
+**Night 1:** Expect resistance. Your baby is used to the old way. Protest crying is normal and doesn't mean you're doing anything wrong. Most babies take 20-45 minutes to settle on the first night.
+
+**Night 2:** Often the hardest night. Your baby is testing whether you really mean it. Stay consistent. This is where most parents give up - don't be one of them.
+
+**Night 3:** You should start seeing improvement. Settlement time typically drops to 10-20 minutes. Your baby is learning.
+
+**Remember:** Progress isn't always linear. A difficult night doesn't mean failure - it means your baby is adjusting.
+
+---
+
+## Quick Troubleshooting Guide
+
+**Baby is hysterical, not just fussing:**
+Take a break. Pick up, calm until crying stops, then put back down. You're not starting over - you're teaching them you're there.
+
+**Baby keeps standing up in crib:**
+Lay them back down calmly without talking. Repeat as many times as needed. They'll tire of the game.
+
+**Baby was doing well but suddenly regressed:**
+Check for illness, teething, or a developmental leap. These are temporary - stay consistent and it will pass.
+
+**You feel like giving up:**
+This is normal. Text a supportive friend, re-read your "why", or simply get through tonight. Tomorrow is a new day.
+
+---
+
+## Tonight's Checklist
+
+Use this as your quick reference:
+
+- [ ] Room is pitch black (cover any light sources)
+- [ ] White noise is on and consistent
+- [ ] Baby has had a full feed (not feeding to sleep)
+- [ ] Bedtime routine was calm and predictable (15 mins max)
+- [ ] Baby was placed in crib drowsy but awake
+- [ ] You have a plan for how to respond to crying
+- [ ] Your phone is charging outside the room (no doom-scrolling!)
+
+---
+
+## Common Mistakes to Avoid
+
+**Don't rush in at every sound.** Babies are noisy sleepers. Wait 2-3 minutes before responding to fussing - they often resettle themselves.
+
+**Don't keep changing your approach.** Pick a method and stick with it for at least 5-7 nights. Switching strategies confuses your baby and delays progress.
+
+**Don't skip naps to make baby "more tired."** Overtired babies sleep worse, not better. Protect daytime sleep.
+
+**Don't compare to other babies.** Every baby is different. Focus on YOUR baby's progress, not someone else's highlight reel.
+
+---
+
 ## A Note on Crying
 
 Your baby will likely protest these changes. This is normal. Crying is your baby's primary way of communicating "This is new, and I'm not sure about it!"
 
 Your 14-day email course will walk you through exactly how to handle this based on the sleep training method you chose. For tonight, your goal is simply to introduce these new patterns. Stay calm, be confident, and know that you are building a foundation for a lifetime of healthy sleep.
 
-You've got this. We'll be in your inbox tomorrow with Day 1.
+---
+
+## You've Got This
+
+You're not alone in this journey. Thousands of parents have been exactly where you are right now - exhausted, overwhelmed, and wondering if things will ever get better.
+
+They do. And they will for you too.
+
+Check your inbox tomorrow for Day 1 of your personalised sleep course. We'll be with you every step of the way.
+
+Sweet dreams are coming.
