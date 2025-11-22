@@ -360,7 +360,7 @@ def generate_quick_start_guide_pdf(customer):
         <!-- Cover Page -->
         <div class="cover-page">
             <div class="logo-header">
-                <p style="font-size: 32pt; font-weight: bold; color: #2c3e50; margin: 0.5cm 0;">&#9790; Napocalypse</p>
+                <p style="font-size: 32pt; font-weight: bold; color: #2c3e50; margin: 0.5cm 0; text-align: center;">&#9790; Napocalypse</p>
             </div>
             <h1>Quick-Start Guide</h1>
             <p class="subtitle">Your First Steps to Better Sleep</p>

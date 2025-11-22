@@ -3,7 +3,7 @@ from . import webhook_bp
 import stripe
 from database import db, Customer, QuizResponse, Order
 from services.module_selector import select_modules
-from services.email_service import send_delivery_email, schedule_email_sequence
+from services.email_service import schedule_email_sequence
 from config import Config
 from datetime import datetime
 
@@ -80,27 +80,13 @@ def handle_successful_payment(session):
 
         print(f"✅ Found customer: {customer.email}")
 
-        # 1. Generate the Quick-Start Guide PDF
-        print(f"📄 Generating Quick-Start Guide PDF...")
-        from services.pdf_generator import generate_quick_start_guide_pdf
-        pdf_path = generate_quick_start_guide_pdf(customer)
-        print(f"✅ Quick-Start Guide PDF generated at: {pdf_path}")
+        # 1. Mark order ready for PDF generation (PDF will be generated after personalization)
+        # The PDF and delivery email will be sent from the success page after user enters names
+        order.pdf_generated = False
+        order.delivery_email_sent = False
+        print(f"📋 Order marked ready - PDF will be generated after personalization on success page")
 
-        order.pdf_generated = True
-        order.pdf_url = pdf_path
-        
-        # 2. Immediately email the Quick-Start Guide
-        print(f"📧 Sending Quick-Start Guide email...")
-        # This function will be updated in the next step to have content about the Quick-Start Guide
-        send_delivery_email(
-            to_email=customer.email,
-            customer_name=customer.name,
-            pdf_path=pdf_path,
-            modules=[] # No modules for the quick start guide
-        )
-        print(f"✅ Quick-Start Guide email sent to {customer.email}")
-
-        # 3. Schedule the 14-day email sequence
+        # 2. Schedule the 14-day email sequence
         print(f"📅 Scheduling 14-day email sequence...")
         schedule_email_sequence(customer_id=customer.id, order_id=order.id)
         print(f"✅ Email sequence scheduled for {customer.email}")

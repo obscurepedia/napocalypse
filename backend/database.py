@@ -112,6 +112,7 @@ class Order(db.Model):
     status = db.Column(db.String(50), default='pending')
     pdf_generated = db.Column(db.Boolean, default=False)
     pdf_url = db.Column(db.Text)
+    delivery_email_sent = db.Column(db.Boolean, default=False)  # Track if Quick-Start email was sent
     guide_content = db.Column(db.Text)  # V2 guide markdown content
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     completed_at = db.Column(db.DateTime)

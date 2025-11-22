@@ -103,8 +103,24 @@
         }
         
         function skipPersonalization() {
-            // Redirect immediately to details page without personalization
-            window.location.href = `/success-details?session_id=${sessionId}`;
+            // Still call the API to trigger PDF generation and email sending
+            fetch('/api/personalize', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    session_id: sessionId,
+                    parent_name: null,
+                    baby_name: null
+                })
+            })
+            .then(() => {
+                window.location.href = `/success-details?session_id=${sessionId}`;
+            })
+            .catch(() => {
+                window.location.href = `/success-details?session_id=${sessionId}`;
+            });
         }
         
         // Track successful purchase

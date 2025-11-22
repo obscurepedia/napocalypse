@@ -188,51 +188,46 @@ def personalize():
                 customer.baby_name = baby_name
                 
             db.session.commit()
-            
-            # Now send the personalized email with PDF
+            print(f"✅ Personalization saved: name={customer.name}, baby={customer.baby_name}")
+
+            # Now generate PDF and send delivery email (if not already sent)
             try:
                 from database import Order, ModuleAssigned
-                from services.email_service import send_delivery_email, schedule_email_sequence
-                
-                # Get the order and modules for this customer
+                from services.email_service import send_delivery_email
+                from services.pdf_generator import generate_quick_start_guide_pdf
+
                 order = Order.query.filter_by(stripe_checkout_session_id=session_id).first()
-                if order and order.pdf_generated:
-                    # Get assigned modules
-                    module_assignments = ModuleAssigned.query.filter_by(order_id=order.id).all()
-                    modules = [ma.module_name for ma in module_assignments]
-                    
-                    print(f"📧 Sending personalized delivery email to: {customer.email}")
-                    print(f"Using name: {customer.name or 'there'}, baby: {customer.baby_name or 'your little one'}")
-                    
-                    # Send email with personalized information
+
+                if order and not order.delivery_email_sent:
+                    # Generate personalized PDF
+                    print(f"📄 Generating personalized Quick-Start Guide PDF...")
+                    pdf_path = generate_quick_start_guide_pdf(customer)
+                    order.pdf_generated = True
+                    order.pdf_url = pdf_path
+                    print(f"✅ PDF generated at: {pdf_path}")
+
+                    # Send delivery email with personalized PDF
+                    print(f"📧 Sending Quick-Start Guide email to: {customer.email}")
                     send_delivery_email(
                         to_email=customer.email,
                         customer_name=customer.name or 'there',
-                        pdf_path=order.pdf_url,
-                        modules=modules
+                        pdf_path=pdf_path,
+                        modules=[]
                     )
-                    print(f"✅ Personalized delivery email sent successfully")
-                    
-                    # Schedule 7-day email sequence
-                    print(f"📅 Scheduling 7-day email sequence...")
-                    schedule_email_sequence(
-                        customer_id=customer.id,
-                        order_id=order.id
-                    )
-                    print(f"✅ Email sequence scheduled")
-                    
+                    order.delivery_email_sent = True
+                    db.session.commit()
+                    print(f"✅ Delivery email sent successfully")
                 else:
-                    print(f"⚠️ Order or PDF not found for session {session_id}")
-                    
+                    print(f"⚠️ Delivery email already sent or order not found")
+
             except Exception as email_error:
-                print(f"❌ Error sending personalized email: {str(email_error)}")
+                print(f"❌ Error generating PDF/sending email: {str(email_error)}")
                 import traceback
-                print(f"📋 Email error traceback: {traceback.format_exc()}")
-                # Don't fail the personalization if email fails
-            
+                print(f"📋 Traceback: {traceback.format_exc()}")
+
             return jsonify({
-                'success': True, 
-                'message': 'Personalization data saved and email sent successfully'
+                'success': True,
+                'message': 'Personalization saved and email sent'
             }), 200
         else:
             # If customer not found, still return success to avoid user-facing errors

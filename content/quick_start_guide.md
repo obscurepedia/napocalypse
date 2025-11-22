@@ -70,20 +70,6 @@ This is normal. Text a supportive friend, re-read your "why", or simply get thro
 
 ---
 
-## Tonight's Checklist
-
-Use this as your quick reference:
-
-- [ ] Room is pitch black (cover any light sources)
-- [ ] White noise is on and consistent
-- [ ] Baby has had a full feed (not feeding to sleep)
-- [ ] Bedtime routine was calm and predictable (15 mins max)
-- [ ] Baby was placed in crib drowsy but awake
-- [ ] You have a plan for how to respond to crying
-- [ ] Your phone is charging outside the room (no doom-scrolling!)
-
----
-
 ## Common Mistakes to Avoid
 
 **Don't rush in at every sound.** Babies are noisy sleepers. Wait 2-3 minutes before responding to fussing - they often resettle themselves.
