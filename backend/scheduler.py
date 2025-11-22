@@ -6,7 +6,7 @@ Uses APScheduler to send scheduled emails
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from datetime import datetime
-from database import db, EmailSequence, Customer
+from database import db, EmailSequence, Customer, QuizResponse, ModuleAssigned
 from services.email_service import send_sequence_email
 
 scheduler = BackgroundScheduler()
@@ -28,16 +28,23 @@ def init_scheduler(app):
                 ).all()
                 
                 for email in pending_emails:
-                    # Get customer
+                    # Get customer and related data for personalization
                     customer = Customer.query.get(email.customer_id)
+                    quiz_response = QuizResponse.query.filter_by(customer_id=email.customer_id).first()
+                    module_assignments = ModuleAssigned.query.filter_by(order_id=email.order_id).all()
+                    modules = [m.module_name for m in module_assignments]
                     
                     if customer:
-                        # Send email
+                        # Send email with all necessary data for personalization
                         success = send_sequence_email(
                             to_email=customer.email,
                             customer_name=customer.name or 'there',
                             day_number=email.day_number,
-                            order_id=email.order_id
+                            order_id=email.order_id,
+                            customer_id=customer.id,
+                            modules=modules,
+                            quiz_data=quiz_response.to_dict() if quiz_response else {},
+                            customer=customer
                         )
                         
                         if success:

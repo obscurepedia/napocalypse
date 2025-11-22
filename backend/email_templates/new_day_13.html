@@ -3,44 +3,119 @@
 <head>
 <title>Day 13: Life Happens - Staying on Track</title>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #2c3e50;">Day 13: What Happens When Life Gets in the Way?</h2>
-        
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #2c3e50; background: #F9F9F9; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; background: #F9F9F9;">
+
         <p>Hi {customer_name},</p>
-        
-        <p>You've worked so hard to create a great sleep foundation. But life is unpredictable. Travel, sickness, holidays, and visitors can all throw a wrench in your carefully laid plans. The goal isn't to avoid disruptions, but to have a plan for them.</p>
 
-        <p>A few off-nights will not erase all your progress. The key is to get back on track as soon as possible.</p>
+        <p>You've worked so hard to build this sleep foundation. And then life happens.</p>
 
-        <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #2c3e50;">Your Goal for Today: The "Back-on-Track" Plan</h3>
-            <p>Your task today is to have a simple mantra for when things go off the rails.</p>
-            
-            <h4>Rule #1: Control What You Can</h4>
-            <p><strong>When Traveling:</strong> You can't replicate your baby's room, but you can bring their sleep sack, sound machine, and a portable blackout blind. A familiar smell and environment can make a huge difference.</p>
+        <p>Maybe it's a vacation. Maybe it's a cold. Maybe grandma visits and "helps" by rocking the baby to sleep. Maybe there's a time zone change, or teething, or a growth spurt.</p>
 
-            <h4>Rule #2: Bend, Don't Break</h4>
-            <p><strong>When Sick:</strong> A sick baby needs extra cuddles and comfort. It's okay to offer more support. You might hold them or rock them to sleep. The goal is to help them feel better. Just be aware that you may need to do a mini-reset once they are healthy again.</p>
+        <p>I know what you're thinking: "Does this mean I'm back at square one?"</p>
 
-            <h4>Rule #3: Get Back to Basics Immediately</h4>
-            <p><strong>The Task:</strong> As soon as the disruption is over (you're home from a trip, your baby is fever-free for 24 hours), go right back to your core routine. Don't delay. Start again that very night with your {method} approach. It may take a night or two of protest, but your baby will remember the rules, and you'll be back on track faster than you think.</p>
+        <p><strong>No. Absolutely not.</strong></p>
+
+        <p>A few off-nights will not erase all your progress. Your baby hasn't forgotten how to sleep independently. You just need to remind them that the rules still apply.</p>
+
+        <!-- Work Schedule Disruption Content -->
+        <!-- IF work_schedule == working -->
+        <div style="background-color: #E8F4F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            {disruption_work_travel_block}
+        </div>
+        <!-- ENDIF -->
+
+        <!-- Living Situation Disruption Content -->
+        <!-- IF living_situation == sibling_sharing -->
+        <div style="background-color: #E8F4F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            {disruption_siblings_block}
+        </div>
+        <!-- ENDIF -->
+
+        <div style="background-color: #F4F4F4; padding: 20px; border-radius: 8px; border-left: 4px solid #3498db; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">The 3 Rules for Life Disruptions</h3>
+
+            <h4 style="color: #2c3e50;">Rule #1: Control What You Can</h4>
+            <p><strong>When traveling:</strong> You can't replicate your baby's room, but you CAN bring their sleep sack, white noise machine, and a portable blackout blind. Familiar cues make a huge difference.</p>
+
+            <p><strong>Pro tip:</strong> Travel with their crib sheet. Familiar smells signal "this is my sleep space" even in a hotel.</p>
+
+            <h4 style="color: #2c3e50; margin-top: 20px;">Rule #2: Bend, Don't Break</h4>
+            <p><strong>When sick:</strong> A sick baby needs extra cuddles and comfort. It's okay to offer more support - hold them, rock them, give extra feeds. The goal is to help them feel better, not enforce sleep rules.</p>
+
+            <p style="margin-bottom: 0;"><strong>Just be aware:</strong> You may need to do a mini-reset once they're healthy. That's normal and it won't take as long as the first time.</p>
+
+            <h4 style="color: #2c3e50; margin-top: 20px;">Rule #3: Get Back to Basics IMMEDIATELY</h4>
+            <p>As soon as the disruption is over (you're home from the trip, your baby is fever-free for 24 hours, grandma leaves), go right back to your core routine.</p>
+
+            <p style="margin-bottom: 0;"><strong>Don't delay. Start again that very night.</strong> There may be 1-2 nights of protest, but your baby will remember the rules faster than you think.</p>
         </div>
 
-        <p>You've given your baby a skill for life. A few off-nights won't change that. Your confidence and consistency are the anchors.</p>
-        
+        <!-- Grandparent Management -->
+        <div style="background-color: #FFF9E6; padding: 20px; border-radius: 8px; border-left: 4px solid #F39C12; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">Handling Well-Meaning Visitors</h3>
+            {disruption_grandparents_block}
+        </div>
+
+        <div style="background-color: #E8F4F8; padding: 20px; border-radius: 8px; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">Your Task for Today: Make a "Reset" Plan</h3>
+
+            <p>Think ahead to potential disruptions and decide now how you'll handle them:</p>
+
+            <ul style="line-height: 1.8;">
+                <li><strong>Travel:</strong> What 3 items will you always pack? (sleep sack, white noise, blackout curtain)</li>
+                <li><strong>Illness:</strong> At what point will you offer extra comfort vs. stick to the method? (fever = comfort, mild cold = stick to method)</li>
+                <li><strong>Visitors:</strong> How will you communicate your sleep rules to well-meaning family? (polite but firm)</li>
+            </ul>
+
+            <p style="margin-bottom: 0;">Having a plan removes the panic when life inevitably throws a curveball.</p>
+        </div>
+
+        <p>You've given your baby a skill for life. A few off-nights won't erase that. Your confidence and consistency are the anchors that keep everything steady.</p>
+
         <p>Tomorrow is our final day! We'll celebrate your success and talk about what comes next.</p>
-        
-        <p>You are so close!</p>
-        
-        <p>Best,<br>
-        The Napocalypse Team</p>
-        
-        <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
-        <p style="font-size: 12px; color: #666;">
-            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.
-            <br>
-            <a href="{{unsubscribe_url}}">Unsubscribe</a> | <a href="https://napocalypse.com/privacy">Privacy Policy</a>
+
+        <p>You're so close!</p>
+
+        <div style="margin-top: 30px; padding: 20px; background: #E8F4F8; border-radius: 8px;">
+            <p style="margin: 0; font-style: italic; color: #2c3e50;">
+                <strong>Quick question:</strong> What's your biggest worry about maintaining progress? Travel? Sickness? Visitors? Hit reply - let's problem-solve together.
+            </p>
+        </div>
+
+        <!-- Branded Footer -->
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #E8E8E8;">
+            <p style="margin: 0; font-size: 16px; color: #2c3e50;">
+                Almost there,<br>
+                <strong>Isaac</strong>
+            </p>
+
+            <div style="margin-top: 20px; padding: 20px; background: #FAFAFA; border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 32px;">😴</span>
+                    <div>
+                        <p style="margin: 0; font-weight: bold; font-size: 18px; color: #2c3e50;">
+                            Isaac | Napocalypse
+                        </p>
+                        <p style="margin: 4px 0 0 0; font-size: 14px; color: #7f8c8d;">
+                            Your Sleep Training Partner
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #E0E0E0;">
+                    <p style="margin: 0; font-size: 13px; color: #95a5a6;">
+                        📧 <a href="mailto:support@napocalypse.com" style="color: #3498db; text-decoration: none;">support@napocalypse.com</a><br>
+                        🌐 <a href="https://napocalypse.com" style="color: #3498db; text-decoration: none;">napocalypse.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #E8E8E8; margin: 30px 0;">
+        <p style="font-size: 12px; color: #95a5a6; line-height: 1.5;">
+            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.<br>
+            <a href="{{unsubscribe_url}}" style="color: #3498db; text-decoration: none;">Unsubscribe</a> | <a href="https://napocalypse.com/privacy" style="color: #3498db; text-decoration: none;">Privacy Policy</a>
         </p>
     </div>
 </body>

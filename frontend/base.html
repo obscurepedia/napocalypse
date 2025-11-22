@@ -12,10 +12,10 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="{{ url_for('index') }}" class="logo">
-                <span class="logo-icon">😴</span>
-                <span class="logo-text">Napocalypse</span>
-            </a>
+            <div class="logo">
+                <span class="brand-icon">🌙</span>
+                <span class="brand-name">Napocalypse</span>
+            </div>
             <ul class="nav-links">
                 <li><a href="{{ url_for('blog_index') }}">Blog</a></li>
                 <li><a href="{{ url_for('quiz') }}" class="cta-button">Get Started</a></li>
@@ -59,9 +59,22 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p><small>&copy; 2024 Napocalypse. All rights reserved. | Medical Disclaimer: This is educational content, not medical advice. Always consult your pediatrician.</small></p>
+            <p><small>&copy; 2025 Napocalypse. All rights reserved. | Medical Disclaimer: This is educational content, not medical advice. Always consult your pediatrician.</small></p>
         </div>
     </footer>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', function() {
+                const navLinks = document.querySelector('.nav-links');
+                navLinks.classList.toggle('mobile-active');
+            });
+        }
+    });
+    </script>
 
     {% block extra_js %}{% endblock %}
 </body>

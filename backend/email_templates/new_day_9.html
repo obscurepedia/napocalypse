@@ -3,44 +3,113 @@
 <head>
 <title>Day 9: The Dreaded Sleep Regression</title>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #2c3e50;">Day 9: What to Do When It All Falls Apart</h2>
-        
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #2c3e50; background: #F9F9F9; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; background: #F9F9F9;">
+
         <p>Hi {customer_name},</p>
-        
-        <p>Just when you think you have it all figured out, it happens: a sleep regression. Your baby, who was sleeping beautifully, suddenly starts waking up all night again. It's frustrating, but it's also normal and temporary.</p>
 
-        <p>Regressions often happen around developmental milestones (learning to crawl, stand, talk) or during teething or illness. The key is not to panic and not to revert to old habits.</p>
+        <p>Let me tell you the thing nobody warns you about:</p>
 
-        <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #2c3e50;">Your Goal for Today: Hold the Line</h3>
-            <p>When a regression hits, it's tempting to go back to rocking, feeding, or holding your baby to sleep "just for a few nights." This is the biggest mistake you can make, as it undoes all the hard work you've both put in.</p>
-            
-            <p><strong>Your Task:</strong> If you're in the middle of a regression (or when one hits in the future), your job is to change *nothing*. </p>
+        <p>Just when you think you've figured it out, everything falls apart.</p>
 
-            <ul>
-                <li><strong>Stick to your {method} method.</strong> Consistency is your anchor in a storm.</li>
-                <li><strong>Offer extra comfort during the day.</strong> If your baby is teething or frustrated with a new skill, give them lots of cuddles and attention during their wake windows.</li>
-                <li><strong>Don't create new habits.</strong> Acknowledge their discomfort, offer a quick cuddle if that's part of your plan, but then put them back down awake.</li>
-            </ul>
-            <p>Think of it as a test. Your baby is checking to see if the new rules still apply. Your job is to lovingly and consistently show them that they do.</p>
+        <p>Your baby, who was sleeping beautifully, suddenly starts waking every 2 hours again. The naps that were getting longer are back to 30 minutes. You're wondering if you imagined all that progress.</p>
+
+        <p>Welcome to a sleep regression. They're temporary, they're normal, and they do NOT mean you failed.</p>
+
+        <!-- Age-Specific Regression Content -->
+        <div style="background-color: #E8F4F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            {regression_age_block}
         </div>
 
-        <p>This too shall pass. Your consistency will ensure it passes quickly.</p>
-        
+        <!-- Parenting Setup Context -->
+        <!-- IF parenting_setup == single -->
+        {regression_single_parent_block}
+        <!-- ENDIF -->
+
+        <!-- Living Situation Context -->
+        <!-- IF living_situation == apartment -->
+        {regression_apartment_block}
+        <!-- ENDIF -->
+
+        <div style="background-color: #F4F4F4; padding: 20px; border-radius: 8px; border-left: 4px solid #3498db; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">Why Regressions Happen</h3>
+
+            <p>Sleep regressions often coincide with developmental leaps:</p>
+
+            <ul style="line-height: 1.8;">
+                <li>Learning to crawl, stand, or walk</li>
+                <li>Language explosion (learning new words)</li>
+                <li>Teething</li>
+                <li>Illness or vaccines</li>
+                <li>Travel or routine changes</li>
+            </ul>
+
+            <p>Your baby's brain is working overtime processing new skills. Sleep takes a temporary hit. It's not permanent. And it's definitely not your fault.</p>
+        </div>
+
+        <div style="background-color: #FFF9E6; padding: 20px; border-radius: 8px; border-left: 4px solid #F39C12; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">Your Only Job: Hold the Line</h3>
+
+            <p>When a regression hits, it's <em>so</em> tempting to go back to rocking, feeding, or holding your baby to sleep "just for a few nights."</p>
+
+            <p><strong>Don't do it.</strong></p>
+
+            <p>Here's what to do instead:</p>
+
+            <ol style="line-height: 1.8;">
+                <li><strong>Change nothing about your method.</strong> Stick to your {method} approach. Consistency is your anchor in the storm.</li>
+                <li><strong>Offer extra comfort during the day.</strong> If your baby is teething or frustrated with a new skill, give them lots of cuddles and attention during wake time.</li>
+                <li><strong>Don't create new habits.</strong> Acknowledge their discomfort, offer a quick cuddle if that's part of your plan, but then put them back down awake.</li>
+            </ol>
+
+            <p style="margin-bottom: 0;"><strong>Think of it as a test.</strong> Your baby is checking to see if the new rules still apply. Your job is to lovingly and consistently show them that yes, they do.</p>
+        </div>
+
+        <p>Regressions typically last 3-7 days (sometimes up to 2 weeks for major leaps). Your consistency will ensure it passes quickly instead of becoming a new habit.</p>
+
         <p>Tomorrow, we'll talk about a common challenge: dropping the pacifier.</p>
-        
-        <p>Stay strong. You're the expert on your baby.</p>
-        
-        <p>Best,<br>
-        The Napocalypse Team</p>
-        
-        <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
-        <p style="font-size: 12px; color: #666;">
-            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.
-            <br>
-            <a href="{{unsubscribe_url}}">Unsubscribe</a> | <a href="https://napocalypse.com/privacy">Privacy Policy</a>
+
+        <p>You're stronger than you think. Even when it feels like you're starting over, you're not.</p>
+
+        <div style="margin-top: 30px; padding: 20px; background: #E8F4F8; border-radius: 8px;">
+            <p style="margin: 0; font-style: italic; color: #2c3e50;">
+                <strong>Be honest:</strong> Are you in the middle of a regression right now? Hit reply - sometimes just venting to someone who gets it helps.
+            </p>
+        </div>
+
+        <!-- Branded Footer -->
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #E8E8E8;">
+            <p style="margin: 0; font-size: 16px; color: #2c3e50;">
+                Stay strong,<br>
+                <strong>Isaac</strong>
+            </p>
+
+            <div style="margin-top: 20px; padding: 20px; background: #FAFAFA; border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 32px;">😴</span>
+                    <div>
+                        <p style="margin: 0; font-weight: bold; font-size: 18px; color: #2c3e50;">
+                            Isaac | Napocalypse
+                        </p>
+                        <p style="margin: 4px 0 0 0; font-size: 14px; color: #7f8c8d;">
+                            Your Sleep Training Partner
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #E0E0E0;">
+                    <p style="margin: 0; font-size: 13px; color: #95a5a6;">
+                        📧 <a href="mailto:support@napocalypse.com" style="color: #3498db; text-decoration: none;">support@napocalypse.com</a><br>
+                        🌐 <a href="https://napocalypse.com" style="color: #3498db; text-decoration: none;">napocalypse.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #E8E8E8; margin: 30px 0;">
+        <p style="font-size: 12px; color: #95a5a6; line-height: 1.5;">
+            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.<br>
+            <a href="{{unsubscribe_url}}" style="color: #3498db; text-decoration: none;">Unsubscribe</a> | <a href="https://napocalypse.com/privacy" style="color: #3498db; text-decoration: none;">Privacy Policy</a>
         </p>
     </div>
 </body>

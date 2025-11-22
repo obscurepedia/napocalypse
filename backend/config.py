@@ -43,6 +43,7 @@ class Config:
     AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
     AWS_REGION = os.getenv('AWS_REGION', 'us-east-1')
     AWS_SES_FROM_EMAIL = os.getenv('AWS_SES_FROM_EMAIL', 'support@napocalypse.com')
+    AWS_SES_FROM_NAME = os.getenv('AWS_SES_FROM_NAME', 'Isaac from Napocalypse')
     
     # Frontend
     FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:5000')

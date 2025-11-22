@@ -3,41 +3,116 @@
 <head>
 <title>Day 3: The Magic of a Bedtime Routine</title>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #2c3e50;">Day 3: Your 15-Minute Bedtime Ritual</h2>
-        
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #2c3e50; background: #F9F9F9; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; background: #F9F9F9;">
+
         <p>Hi {customer_name},</p>
-        
-        <p>You're on a roll! You've observed the old routine and optimized the sleep space. Today, we'll create a new, predictable bedtime routine that will become a powerful sleep cue for your baby.</p>
 
-        <p>A good routine doesn't need to be long or complicated. The goal is consistency, not complexity. It should be a 15-20 minute wind-down period that you can do every single night.</p>
+        <p>Here's something I want you to know: You don't need a Pinterest-perfect bedtime routine.</p>
 
-        <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #2c3e50;">Your Goal for Today: The 3-Step Routine</h3>
-            <p>Choose three simple, calming activities to do in order before bed. Here is a classic example:</p>
-            <ol>
-                <li><strong>Bath or Wipe-Down:</strong> A warm bath or a quick wipe with a warm cloth can be very soothing.</li>
-                <li><strong>PJs & Story:</strong> Get into pajamas, and then read one (and only one!) short, boring book in a dim light.</li>
-                <li><strong>Feed & Cuddle:</strong> If a feed is part of your routine, do it now. Keep it calm and quiet. End with a brief cuddle and a consistent phrase like, "I love you, it's time to sleep."</li>
-            </ol>
-            <p><strong>Your Task:</strong> Decide on your 3 steps. Perform them in the same order tonight, and every night from now on. The predictability is what creates the magic.</p>
+        <p>I know you've probably seen the instagram posts with candlelit baths, organic lavender oil, and a 45-minute wind-down. That's lovely if it works for you. But it's not necessary.</p>
+
+        <p>What <em>is</em> necessary? Consistency. Simplicity. Predictability.</p>
+
+        <!-- Work Schedule Context -->
+        <!-- IF work_schedule == working -->
+        {routine_work_block}
+        <!-- ENDIF -->
+
+        <p>Today we're building a bedtime routine that actually works in real life - not just in theory.</p>
+
+        <!-- Sleep Association Specific Content -->
+        <div style="background-color: #E8F4F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            {routine_association_block}
         </div>
 
-        <p>This routine will soon be your baby's strongest signal that sleep is coming.</p>
-        
-        <p>Tomorrow, we'll talk about the foundation of it all: wake windows.</p>
-        
-        <p>Amazing work!</p>
-        
-        <p>Best,<br>
-        The Napocalypse Team</p>
-        
-        <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
-        <p style="font-size: 12px; color: #666;">
-            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.
-            <br>
-            <a href="{{unsubscribe_url}}">Unsubscribe</a> | <a href="https://napocalypse.com/privacy">Privacy Policy</a>
+        <div style="background-color: #F4F4F4; padding: 20px; border-radius: 8px; border-left: 4px solid #3498db; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">Today's Goal: The 3-Step Routine</h3>
+
+            <p>A bedtime routine signals to your baby's brain: "Sleep is coming." The key is doing the same 3 things, in the same order, every single night.</p>
+
+            <!-- Age-Specific Routine -->
+            <!-- IF baby_age_category == baby -->
+            <p><strong>Here's a classic routine for your {baby_age_short}:</strong></p>
+
+            <ol style="line-height: 1.8;">
+                <li><strong>Bath or Wipe-Down</strong> - A warm bath is soothing. Don't have time? A quick wipe with a warm cloth works just fine.</li>
+                <li><strong>PJs & Story</strong> - Get into pajamas, then read one (and only one!) short, quiet book with dim lights.</li>
+                <li><strong>Brief Cuddle</strong> - End with a brief cuddle and say the same phrase every night: "I love you, it's time to sleep."</li>
+            </ol>
+            <!-- ELSE -->
+            <p><strong>Here's a toddler-ready routine for your {baby_age_short}:</strong></p>
+
+            <ol style="line-height: 1.8;">
+                <li><strong>Transition Warning</strong> - "Bedtime in 5 minutes." Toddlers need time to shift gears.</li>
+                <li><strong>Bath & Teeth</strong> - Wash up and brush teeth. Let them have one choice: "Blue PJs or green PJs?"</li>
+                <li><strong>2-3 Books</strong> - Let them choose from 3 options. No negotiations for "one more."</li>
+                <li><strong>Consistent Goodbye</strong> - Same phrase every night, then into crib/bed.</li>
+            </ol>
+            <!-- ENDIF -->
+
+            <p><strong>Your task tonight:</strong></p>
+
+            <ul style="line-height: 1.8;">
+                <li>Choose your 3 steps (feel free to customize)</li>
+                <li>Perform them in the same order</li>
+                <li>Keep it to 15-20 minutes total</li>
+                <li>Do it every night from now on</li>
+            </ul>
+
+            <p style="margin-bottom: 0;"><strong>Important:</strong> The routine doesn't put your baby to sleep - it just signals that sleep is coming. They still need to fall asleep on their own.</p>
+        </div>
+
+        <!-- IF specific_challenge == bedtime_takes_over_hour -->
+        <div style="background-color: #FFF9E6; padding: 20px; border-radius: 8px; border-left: 4px solid #F39C12; margin: 30px 0;">
+            <h4 style="margin-top: 0; color: #2c3e50;">Since Bedtime Has Been Taking Over an Hour...</h4>
+            <p style="margin-bottom: 0;">I know bedtime battles are your thing. Here's the truth: longer routines don't mean better sleep. In fact, drawn-out routines can make things worse. Commit to 15-20 minutes MAX. When the routine is done, the routine is done. No extensions, no negotiations.</p>
+        </div>
+        <!-- ENDIF -->
+
+        <p>The predictability is what creates the magic. Within a week, your baby will start recognizing "Oh, this means sleep time."</p>
+
+        <p>Tomorrow, we'll talk about wake windows - the single most important concept in baby sleep.</p>
+
+        <div style="margin-top: 30px; padding: 20px; background: #E8F4F8; border-radius: 8px;">
+            <p style="margin: 0; font-style: italic; color: #2c3e50;">
+                <strong>Question:</strong> What's your biggest challenge with bedtime right now? Hit reply - I want to know what you're struggling with.
+            </p>
+        </div>
+
+        <!-- Branded Footer -->
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #E8E8E8;">
+            <p style="margin: 0; font-size: 16px; color: #2c3e50;">
+                Talk soon,<br>
+                <strong>Isaac</strong>
+            </p>
+
+            <div style="margin-top: 20px; padding: 20px; background: #FAFAFA; border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 32px;">😴</span>
+                    <div>
+                        <p style="margin: 0; font-weight: bold; font-size: 18px; color: #2c3e50;">
+                            Isaac | Napocalypse
+                        </p>
+                        <p style="margin: 4px 0 0 0; font-size: 14px; color: #7f8c8d;">
+                            Your Sleep Training Partner
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #E0E0E0;">
+                    <p style="margin: 0; font-size: 13px; color: #95a5a6;">
+                        📧 <a href="mailto:support@napocalypse.com" style="color: #3498db; text-decoration: none;">support@napocalypse.com</a><br>
+                        🌐 <a href="https://napocalypse.com" style="color: #3498db; text-decoration: none;">napocalypse.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #E8E8E8; margin: 30px 0;">
+        <p style="font-size: 12px; color: #95a5a6; line-height: 1.5;">
+            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.<br>
+            <a href="{{unsubscribe_url}}" style="color: #3498db; text-decoration: none;">Unsubscribe</a> | <a href="https://napocalypse.com/privacy" style="color: #3498db; text-decoration: none;">Privacy Policy</a>
         </p>
     </div>
 </body>

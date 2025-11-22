@@ -13,8 +13,8 @@
     <nav>
         <div class="nav-container">
             <a href="{{ url_for('index') }}" class="logo">
-                <span class="logo-icon">😴</span>
-                <span class="logo-text">Napocalypse</span>
+                <span class="brand-icon">🌙</span>
+                <span class="brand-name">Napocalypse</span>
             </a>
             <ul class="nav-links">
                 <li><a href="#approach">Our Approach</a></li>
@@ -61,9 +61,17 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p><small>&copy; 2024 Napocalypse. All rights reserved. | Medical Disclaimer: This is educational content, not medical advice. Always consult your pediatrician.</small></p>
+            <p><small>&copy; 2025 Napocalypse. All rights reserved. | Medical Disclaimer: This is educational content, not medical advice. Always consult your pediatrician.</small></p>
         </div>
     </footer>
+
+    <!-- Mobile Menu Toggle -->
+    <script>
+    document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.classList.toggle('mobile-active');
+    });
+    </script>
 
     {% block extra_js %}{% endblock %}
 </body>

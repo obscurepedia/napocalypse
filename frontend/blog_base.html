@@ -8,24 +8,45 @@
     <meta name="keywords" content="{% block keywords %}baby sleep, sleep training, parenting{% endblock %}">
     <link rel="stylesheet" href="/css/styles.css">
     {% block extra_css %}{% endblock %}
+
+    <!-- Structured Data (Schema.org JSON-LD) -->
+    {% block schema %}{% endblock %}
 </head>
 <body>
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="reading-progress"></div>
+
     <!-- Navigation Bar -->
     <nav class="navigation-bar">
         <div class="nav-content">
             <a href="/" class="logo">
-                <span class="logo-icon">😴</span>
-                <span class="logo-text">Napocalypse</span>
+                <span class="brand-icon">🌙</span>
+                <span class="brand-name">Napocalypse</span>
             </a>
             <ul class="nav-links">
                 <li><a href="/blog">All Guides</a></li>
                 <li><a href="/quiz" class="cta-button">Get Started</a></li>
             </ul>
+            <button class="mobile-menu-toggle">☰</button>
         </div>
     </nav>
 
-        <div class="blog-layout">
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <div class="breadcrumb-container">
+            <ol>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+                {% block breadcrumb_current %}<li aria-current="page">Article</li>{% endblock %}
+            </ol>
+        </div>
+    </nav>
+
+    <div class="blog-layout">
         <main class="blog-main-content">
+            <!-- Table of Contents (for long articles) -->
+            {% block table_of_contents %}{% endblock %}
+
             <article class="blog-post-content">
                 {% block article_content %}{% endblock %}
             </article>
@@ -87,9 +108,50 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p><small>&copy; 2024 Napocalypse. All rights reserved. | Medical Disclaimer: This is educational content, not medical advice. Always consult your pediatrician.</small></p>
+            <p><small>&copy; 2025 Napocalypse. All rights reserved. | Medical Disclaimer: This is educational content, not medical advice. Always consult your pediatrician.</small></p>
         </div>
     </footer>
+
+    <!-- Floating CTA -->
+    <a href="/quiz" class="floating-cta" id="floating-cta">
+        Get Your Sleep Plan →
+    </a>
+
+    <!-- Scripts -->
+    <script>
+    // Mobile Menu Toggle
+    document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.classList.toggle('mobile-active');
+    });
+
+    // Reading Progress Bar
+    window.addEventListener('scroll', function() {
+        const article = document.querySelector('.blog-post-content');
+        if (!article) return;
+
+        const articleTop = article.offsetTop;
+        const articleHeight = article.offsetHeight;
+        const windowHeight = window.innerHeight;
+        const scrollTop = window.scrollY;
+
+        const progress = Math.min(100, Math.max(0,
+            ((scrollTop - articleTop + windowHeight) / articleHeight) * 100
+        ));
+
+        document.getElementById('reading-progress').style.width = progress + '%';
+    });
+
+    // Floating CTA - show after scrolling 300px
+    window.addEventListener('scroll', function() {
+        const floatingCta = document.getElementById('floating-cta');
+        if (window.scrollY > 300) {
+            floatingCta.classList.add('visible');
+        } else {
+            floatingCta.classList.remove('visible');
+        }
+    });
+    </script>
 
     {% block extra_js %}{% endblock %}
 </body>

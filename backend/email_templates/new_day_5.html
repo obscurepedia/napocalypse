@@ -3,42 +3,127 @@
 <head>
 <title>Day 5: Your Sleep Training Method</title>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #2c3e50;">Day 5: The Heart of the Method</h2>
-        
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #2c3e50; background: #F9F9F9; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; background: #F9F9F9;">
+
         <p>Hi {customer_name},</p>
-        
-        <p>This is a big day. You've laid the groundwork perfectly, and now it's time to begin the sleep training process itself. Remember, you chose the <strong>{method}</strong> approach because it felt right for you and your family. Trust that instinct.</p>
 
-        <p>The key to success is 100% consistency. It will be challenging, but you can do this. The goal is to give your baby the space to learn the incredible skill of falling asleep on their own.</p>
+        <p>I know tonight feels scary.</p>
 
-        <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #2c3e50;">Your Goal for Today: The First Night</h3>
-            <p>Tonight, you will put your baby down in their crib **awake** and follow the steps of your chosen method. This will feel different, and that's okay.</p>
-            
-            <div style="border-left: 3px solid #3498db; padding-left: 15px; margin-top: 15px;">
-                <h4>Your Personalized Instructions ({method}):</h4>
-                <p><em>{method_instructions}</em></p>
+        <p>I know you're worried you might be doing the wrong thing. I know you're second-guessing yourself. I know part of you wants to hit reply and ask me "Are you sure this won't hurt my baby?"</p>
+
+        <p>Here's what I need you to hear: <strong>This fear means you're a good parent.</strong></p>
+
+        <p>You care deeply about your child's wellbeing. That's exactly why you'll do this right.</p>
+
+        <!-- Parenting Setup Support -->
+        <!-- IF parenting_setup == single -->
+        {method_single_parent_block}
+        <!-- ENDIF -->
+
+        <!-- IF parenting_setup == two_sharing -->
+        {method_partner_alignment_block}
+        <!-- ENDIF -->
+
+        <!-- Living Situation Context -->
+        <!-- IF living_situation == apartment -->
+        <div style="background-color: #E8F4F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            {method_apartment_block}
+        </div>
+        <!-- ENDIF -->
+
+        <!-- IF living_situation == room_sharing -->
+        <div style="background-color: #E8F4F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            {method_room_sharing_block}
+        </div>
+        <!-- ENDIF -->
+
+        <p>The truth is, sleep training isn't about leaving your baby to suffer. It's about giving them the gift of independent sleep - a skill that will serve them for life. You're not abandoning them. You're teaching them.</p>
+
+        <!-- Sleep Association Context -->
+        <!-- IF sleep_association != none -->
+        <p>Since your baby currently {sleep_association_text}, they're going to be confused when you put them down without it. That confusion = crying. But you're not taking away comfort - you're teaching them a new way to find it.</p>
+        <!-- ENDIF -->
+
+        <p>And yes, there might be tears tonight. Theirs and yours. That's normal. That doesn't mean you're failing.</p>
+
+        <div style="background-color: #F4F4F4; padding: 20px; border-radius: 8px; border-left: 4px solid #3498db; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">Tonight: The First Night</h3>
+
+            <p>You've spent the last 4 days preparing. You've optimized the sleep environment. You've built a solid bedtime routine. You've understood wake windows. You chose the <strong>{method}</strong> approach because it felt right for your family.</p>
+
+            <p><strong>Trust that choice.</strong></p>
+
+            <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 3px solid #3498db;">
+                <h4 style="margin-top: 0; color: #2c3e50;">Your Personalized Instructions ({method}):</h4>
+                <div>{method_instructions}</div>
             </div>
 
-            <p style="margin-top: 15px;"><strong>Your Task:</strong> Read the instructions above carefully. Visualize yourself doing them. Commit to following them consistently for all sleep tonight (bedtime and any night wakings). Do not give up halfway through.</p>
+            <p><strong>Your Task for Tonight:</strong></p>
+            <ul style="line-height: 1.8;">
+                <li>Read your instructions above carefully</li>
+                <!-- IF parenting_setup == two_sharing -->
+                <li>Talk through the plan with your partner</li>
+                <!-- ENDIF -->
+                <li>Put your baby down <strong>awake</strong> at their usual bedtime</li>
+                <li>Follow your method consistently - don't give up halfway</li>
+                <li>Apply the same approach to any night wakings</li>
+            </ul>
         </div>
 
-        <p>The first night can be the hardest, but it's also where the most learning happens. Be patient with your baby, and be kind to yourself.</p>
-        
-        <p>Tomorrow, we'll talk about how to handle the inevitable challenges and troubleshoot any issues.</p>
-        
-        <p>You are strong. You are capable. You've got this.</p>
-        
-        <p>Best,<br>
-        The Napocalypse Team</p>
-        
-        <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
-        <p style="font-size: 12px; color: #666;">
-            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.
-            <br>
-            <a href="{{unsubscribe_url}}">Unsubscribe</a> | <a href="https://napocalypse.com/privacy">Privacy Policy</a>
+        <!-- Age-Based Expectations -->
+        <div style="background-color: #FFF9E6; padding: 20px; border-radius: 8px; border-left: 4px solid #F39C12; margin: 30px 0;">
+            <h4 style="margin-top: 0; color: #2c3e50;">What to Expect Tonight with Your {baby_age_short}</h4>
+            {age_expectation_block}
+        </div>
+
+        <p>I'm not going to lie and tell you tonight will be easy. It probably won't be.</p>
+
+        <p>But I <em>will</em> tell you this: Thousands of parents have stood exactly where you're standing right now, felt exactly what you're feeling, and come out the other side with a baby who sleeps independently. You can do this.</p>
+
+        <p>Tomorrow, I'll be here to help you troubleshoot whatever happened tonight - whether it went perfectly, terribly, or somewhere in between.</p>
+
+        <p>(And if you need to eat an entire pint of ice cream after bedtime tonight, I won't judge. Self-care counts.)</p>
+
+        <div style="margin-top: 30px; padding: 20px; background: #E8F4F8; border-radius: 8px;">
+            <p style="margin: 0; font-style: italic; color: #2c3e50;">
+                <strong>I mean it:</strong> How are you feeling about tonight? Hit reply and tell me - even if it's just "terrified." I read every response and I'm here for this.
+            </p>
+        </div>
+
+        <!-- Branded Footer -->
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #E8E8E8;">
+            <p style="margin: 0; font-size: 16px; color: #2c3e50;">
+                You've got this,<br>
+                <strong>Isaac</strong>
+            </p>
+
+            <div style="margin-top: 20px; padding: 20px; background: #FAFAFA; border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 32px;">😴</span>
+                    <div>
+                        <p style="margin: 0; font-weight: bold; font-size: 18px; color: #2c3e50;">
+                            Isaac | Napocalypse
+                        </p>
+                        <p style="margin: 4px 0 0 0; font-size: 14px; color: #7f8c8d;">
+                            Your Sleep Training Partner
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #E0E0E0;">
+                    <p style="margin: 0; font-size: 13px; color: #95a5a6;">
+                        📧 <a href="mailto:support@napocalypse.com" style="color: #3498db; text-decoration: none;">support@napocalypse.com</a><br>
+                        🌐 <a href="https://napocalypse.com" style="color: #3498db; text-decoration: none;">napocalypse.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #E8E8E8; margin: 30px 0;">
+        <p style="font-size: 12px; color: #95a5a6; line-height: 1.5;">
+            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.<br>
+            <a href="{{unsubscribe_url}}" style="color: #3498db; text-decoration: none;">Unsubscribe</a> | <a href="https://napocalypse.com/privacy" style="color: #3498db; text-decoration: none;">Privacy Policy</a>
         </p>
     </div>
 </body>

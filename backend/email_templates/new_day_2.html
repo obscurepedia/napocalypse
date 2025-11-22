@@ -3,37 +3,94 @@
 <head>
 <title>Day 2: The Perfect Sleep Environment</title>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #2c3e50;">Day 2: Let's Build a Sleep Sanctuary</h2>
-        
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #2c3e50; background: #F9F9F9; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; background: #F9F9F9;">
+
         <p>Hi {customer_name},</p>
-        
-        <p>Welcome to Day 2! Yesterday, you took the crucial first step of observing your current routine. Today, we'll make a small but powerful change to your baby's sleep space.</p>
 
-        <p>A great sleep environment signals to your baby that it's time for rest. We're aiming for a space that is cool, dark, and boring!</p>
+        <p>Day 2. How did last night go?</p>
 
-        <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #2c3e50;">Your Goal for Today: The Darkness Test</h3>
-            <p>Light is the enemy of sleep. Even a small amount can disrupt the production of melatonin, the sleep hormone.</p>
-            <p><strong>Your Task:</strong> Go into your baby's room during the day and cover the windows with whatever you have (towels, cardboard, aluminum foil - no need to buy anything yet!). Can you see your hand in front of your face? If you can, it's not dark enough. Add another layer.</p>
-            <p><strong>Bonus Tip:</strong> If you don't have one already, consider adding a white noise machine. A constant, low hum can block out household noises. You can even use a simple fan or a white noise app on an old phone.</p>
+        <p>I know you might feel like you're not doing enough yet. You are. Yesterday you took the hardest step: you started observing instead of just reacting. That awareness is powerful.</p>
+
+        <p>Today, we're making one small but game-changing adjustment to your {baby_age_short}'s sleep space.</p>
+
+        <!-- Environment Content Block Based on Living Situation -->
+        <div style="background-color: #E8F4F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            {environment_block}
         </div>
 
-        <p>That's your one job for today. Make the room as dark as possible for all naps and bedtime tonight.</p>
-        
-        <p>Tomorrow, we'll introduce the concept of a consistent bedtime routine.</p>
-        
-        <p>You're doing great!</p>
-        
-        <p>Best,<br>
-        The Napocalypse Team</p>
-        
-        <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
-        <p style="font-size: 12px; color: #666;">
-            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.
-            <br>
-            <a href="{{unsubscribe_url}}">Unsubscribe</a> | <a href="https://napocalypse.com/privacy">Privacy Policy</a>
+        <div style="background-color: #F4F4F4; padding: 20px; border-radius: 8px; border-left: 4px solid #3498db; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">Today's Focus: Darkness</h3>
+
+            <p>Light is sleep's worst enemy. Even a small amount of light can suppress melatonin production (the sleep hormone) and tell your baby's brain "it's time to be awake."</p>
+
+            <p><strong>Your task for today:</strong></p>
+
+            <!-- IF living_situation == room_sharing -->
+            <p>Since you're room sharing, go to your bedroom during the middle of the day. You'll want to create a dark zone around the crib area specifically. Close the door. Cover the windows with whatever you have on hand - towels, cardboard, aluminum foil. A room divider with blackout curtains works wonders for separating the crib zone.</p>
+            <!-- ELSE -->
+            <p>Go into your baby's room during the middle of the day. Close the door. Cover the windows with whatever you have on hand - towels, cardboard, aluminum foil (I'm serious). No need to buy anything yet.</p>
+            <!-- ENDIF -->
+
+            <p><strong>The test:</strong> Can you see your hand in front of your face?</p>
+
+            <ul style="line-height: 1.8;">
+                <li>If YES - It's not dark enough. Add another layer.</li>
+                <li>If NO - Perfect. That's cave-dark, and that's what we want.</li>
+            </ul>
+
+            <p style="margin-bottom: 0;"><strong>Bonus:</strong> If you don't have one already, add white noise. A fan, a white noise machine, or even a free app on an old phone works. Consistent sound blocks out household noise that can wake babies between sleep cycles.</p>
+
+            <!-- IF living_situation == apartment -->
+            <p style="margin-top: 15px; margin-bottom: 0;"><strong>Apartment bonus:</strong> White noise does double duty for you - it helps baby sleep AND covers apartment sounds from hallways, neighbors, and street traffic.</p>
+            <!-- ENDIF -->
+        </div>
+
+        <p>That's it. That's your only job today. Make the room dark for all naps and bedtime tonight.</p>
+
+        <p>You'd be surprised how many sleep problems are solved by a darker room. Sometimes the simplest fixes are the most powerful.</p>
+
+        <p>Tomorrow, we'll build a simple bedtime routine that becomes your baby's sleep signal.</p>
+
+        <div style="margin-top: 30px; padding: 20px; background: #E8F4F8; border-radius: 8px;">
+            <p style="margin: 0; font-style: italic; color: #2c3e50;">
+                <strong>Quick check-in:</strong> How did the first night go? Hit reply and tell me (even if it was rough). I read every response.
+            </p>
+        </div>
+
+        <!-- Branded Footer -->
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #E8E8E8;">
+            <p style="margin: 0; font-size: 16px; color: #2c3e50;">
+                Talk soon,<br>
+                <strong>Isaac</strong>
+            </p>
+
+            <div style="margin-top: 20px; padding: 20px; background: #FAFAFA; border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 32px;">😴</span>
+                    <div>
+                        <p style="margin: 0; font-weight: bold; font-size: 18px; color: #2c3e50;">
+                            Isaac | Napocalypse
+                        </p>
+                        <p style="margin: 4px 0 0 0; font-size: 14px; color: #7f8c8d;">
+                            Your Sleep Training Partner
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #E0E0E0;">
+                    <p style="margin: 0; font-size: 13px; color: #95a5a6;">
+                        📧 <a href="mailto:support@napocalypse.com" style="color: #3498db; text-decoration: none;">support@napocalypse.com</a><br>
+                        🌐 <a href="https://napocalypse.com" style="color: #3498db; text-decoration: none;">napocalypse.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #E8E8E8; margin: 30px 0;">
+        <p style="font-size: 12px; color: #95a5a6; line-height: 1.5;">
+            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.<br>
+            <a href="{{unsubscribe_url}}" style="color: #3498db; text-decoration: none;">Unsubscribe</a> | <a href="https://napocalypse.com/privacy" style="color: #3498db; text-decoration: none;">Privacy Policy</a>
         </p>
     </div>
 </body>

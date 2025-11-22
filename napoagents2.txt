@@ -1,0 +1,215 @@
+# Napocalypse AI Agent System – Full Agent Definitions
+
+A complete breakdown of all agents in the Napocalypse Parenting Empire, with exact roles, full responsibilities, and clear handoff points.
+
+---
+
+## 🟣 Agent 1: Product Architect Agent
+
+**Role:** Designs each educational product (e.g. Tantrum Toolkit, Sleep Coaching) from concept to core content.
+
+### Responsibilities:
+
+* Define transformation and learning outcomes
+* Identify target audience and triggers
+* Map course structure (modules, sequence, timeline)
+* Write core instructional content
+* Create teaching frameworks and lesson objectives
+* Produce the **Course Blueprint Document**
+
+### Handoff Points:
+
+* ➡️ To Email Agent: Daily structure
+* ➡️ To Blog Agent: Content topics
+* ➡️ To UX/UI Agent: Delivery layout and pacing
+* ➡️ To Content Repurposer: Insight summaries
+* ➡️ To Automation Agent: Age-triggered delivery structure
+
+---
+
+## 🔵 Agent 2: Email Sequence Agent
+
+**Role:** Converts course blueprints into emotional, actionable email sequences.
+
+### Responsibilities:
+
+* Create daily coaching emails
+* Write onboarding, upsell, and follow-up flows
+* Personalize tone and pacing using quiz inputs
+* Generate behavior change loops and reminders
+* Produce abandoned cart and re-engagement emails
+
+### Handoff Points:
+
+* ⬅️ From Product Architect Agent: Blueprint
+* ➡️ To UX Agent: Email layout needs
+* ➡️ To Automation Agent: Scheduling and delivery logic
+* ➡️ To Support Agent: Customer response copy
+
+---
+
+## 🟢 Agent 3: Code Review & Automation Agent
+
+**Role:** Reviews backend code, improves architecture, and writes automation scripts (does not execute them).
+
+### Responsibilities:
+
+* Review Flask/Python code, Jinja templates
+* Identify code smells and inefficiencies
+* Optimize SQL queries and models
+* Improve security and maintainability
+* Write scripts for automation (cron jobs, triggers)
+* Build webhook and backend task logic
+
+### Handoff Points:
+
+* ➡️ To Automation Agent: Scripts for execution
+* ➡️ To Documentation Agent: Notes and changes
+* ⬅️ Optional From Product Architect Agent: Logic requirements
+
+---
+
+## 🔴 Agent 4: UX/UI Design Agent
+
+**Role:** Designs all user-facing interfaces and layouts.
+
+### Responsibilities:
+
+* Create layouts for landing pages and course delivery
+* Produce Figma wireframes and visual specs
+* Define responsive and accessible layouts
+* Design email blocks and user journey flows
+* Collaborate with automation for delivery presentation
+
+### Handoff Points:
+
+* ⬅️ From Product Architect Agent: Course layout needs
+* ⬅️ From Email Agent: Email structure
+* ➡️ To Content Repurposer: Assets for social reuse
+
+---
+
+## 🟡 Agent 5: Content Repurposer Agent
+
+**Role:** Turns core instructional content into social content (e.g. reels, posts, scripts).
+
+### Responsibilities:
+
+* Create channel-specific micro-content
+* Convert modules into IG captions, TikTok scripts, etc.
+* Summarize blogs into short visual formats
+* Generate scripts for YouTube Shorts
+
+### Handoff Points:
+
+* ⬅️ From Product Architect: Core insights
+* ⬅️ From Blog Agent: Articles for reuse
+
+---
+
+## 🟠 Agent 6: Blog & SEO Agent
+
+**Role:** Writes deep-dive content and SEO-focused articles to support each product.
+
+### Responsibilities:
+
+* Generate SEO-friendly long-form articles
+* Conduct keyword research
+* Link course topics to blog content
+* Maintain evergreen anchor content
+* Optimize for long-term search traffic
+
+### Handoff Points:
+
+* ⬅️ From Product Architect: Topic list
+* ➡️ To Content Repurposer: Condensed version
+* ➡️ To UX Agent: Blog layout needs
+
+---
+
+## 🟤 Agent 7: Customer Support Agent
+
+**Role:** Creates proactive troubleshooting and support resources for parents.
+
+### Responsibilities:
+
+* Write friendly, empathetic support scripts
+* Document common troubleshooting steps
+* Build email templates for refund, stuck cases
+* Assist in writing bot responses and FAQs
+
+### Handoff Points:
+
+* ⬅️ From Email Agent: Support-related content
+* ⬅️ From Product Architect: Troubleshooting logic
+
+---
+
+## ⚫ Agent 8: Analytics & Insights Agent
+
+**Role:** Monitors metric performance and reports actionable insights.
+
+### Responsibilities:
+
+* Track behavior across funnels (quiz → purchase → finish)
+* Monitor KPIs (opens, clicks, conversion, retention)
+* Identify areas for optimization using GA4 and Stripe
+* Generate weekly reports and recommendations
+* Highlight drop-offs to improve conversion
+
+### Handoff Points:
+
+* ➡️ To Product Architect: Feedback for optimization
+* ➡️ To UX Agent: Funnel adjustments
+* ➡️ To Email Agent: Messaging changes based on behavior
+
+---
+
+## ⚪ Agent 9: Documentation Agent
+
+**Role:** Documents system architecture and workflows.
+
+### Responsibilities:
+
+* Write developer onboarding guides
+* Maintain architecture diagrams and API docs
+* Log backend logic and script usage
+* Record design patterns and maintenance notes
+
+### Handoff Points:
+
+* ⬅️ From Code Review Agent: Updated scripts and logic remarks
+* ➡️ To developers/team: Updated knowledge base
+
+---
+
+## 🔥 Agent 10: Automation Agent
+
+**Role:** Executes system automation tasks and integrations.
+
+### Responsibilities:
+
+* Run cron jobs, scheduled emails, ETL processes
+* Manage trigger-based email and content releases
+* Integrate API workflows (Stripe, SES, Notion, etc.)
+* Monitor execution logs and handle errors
+* Ensure reliable delivery of automation logic
+
+### Handoff Points:
+
+* ⬅️ From Code Review Agent: Automation logic ready to run
+* ⬅️ From Email Agent: Email sequence delivery triggers
+* ⬅️ From Product Architect Agent: Age-triggered programs
+* ➡️ To Documentation Agent: Process updates and changes
+
+---
+
+# 📌 Summary
+
+Each agent has:
+
+* A specific **role**
+* Complete **responsibilities**
+* Clearly defined **handoff points**
+
+This system enables modular, scalable project development across the entire Napocalypse product lifecycle.

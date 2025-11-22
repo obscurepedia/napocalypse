@@ -3,7 +3,6 @@ from . import webhook_bp
 import stripe
 from database import db, Customer, QuizResponse, Order
 from services.module_selector import select_modules
-from services.pdf_generator import generate_personalized_pdf
 from services.email_service import send_delivery_email, schedule_email_sequence
 from config import Config
 from datetime import datetime
@@ -38,18 +37,7 @@ def stripe_webhook():
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
         print(f"Processing checkout.session.completed for session: {session['id']}")
-        
-        # Check if this is an upsell or regular purchase
-        session_type = session.get('metadata', {}).get('type', 'regular')
-        print(f"Session type: {session_type}")
-        
-        if session_type == 'upsell':
-            print(f"Processing upsell webhook...")
-            from routes.upsell import process_upsell_webhook
-            process_upsell_webhook(session)
-        else:
-            print(f"Processing regular payment webhook...")
-            handle_successful_payment(session)
+        handle_successful_payment(session)
     
     elif event['type'] == 'payment_intent.succeeded':
         payment_intent = event['data']['object']

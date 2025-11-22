@@ -1,13 +1,54 @@
 {% extends "blog_base.html" %}
 
 {% block title %}Get a Personalised Baby Sleep Plan: Custom Solutions for Your Family | Napocalypse{% endblock %}
-{% block description %}You've read the books. You've joined the Facebook groups. You've watched the YouTube videos. You've tried every sleep training method you can find...{% endblock %}
+{% block description %}Generic sleep advice not working? Get a personalized baby sleep plan tailored to your baby's age, situation, and challenges.{% endblock %}
 {% block keywords %}personalised, baby, sleep, plan, baby sleep, sleep training, parenting{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Get a Personalised Baby Sleep Plan: Custom Solutions for Your Family",
+  "description": "Generic sleep advice not working? Learn why personalised sleep plans work better and how to get a custom plan for your baby's specific needs.",
+  "author": {
+    "@type": "Organization",
+    "name": "Napocalypse"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Napocalypse",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://napocalypse.com/images/logo.png"
+    }
+  },
+  "datePublished": "2024-01-15",
+  "dateModified": "2024-01-15",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://napocalypse.com/blog/10-personalised-baby-sleep-plan"
+  }
+}
+</script>
+{% endblock %}
+
+{% block table_of_contents %}
+<div class="table-of-contents">
+    <h3>Table of Contents</h3>
+    <ol>
+        <li><a href="#why-fails">Why Generic Sleep Advice Fails</a></li>
+        <li><a href="#what-personalised">What Makes a Good Personalised Plan</a></li>
+        <li><a href="#how-get">How to Get a Custom Sleep Plan</a></li>
+        <li><a href="#success-stories">Real Success Stories</a></li>
+    </ol>
+</div>
+{% endblock %}
 
 {% block article_content %}
 <h1>Get a Personalised Baby Sleep Plan: Custom Solutions for Your Family</h1>
 
-<p><em>Last Updated: January 2024 | Reading Time: 11 minutes</em></p>
+<p><em>Reading Time: 11 minutes</em></p>
 
 <hr />
 
@@ -43,7 +84,7 @@
 
 <hr />
 
-<h2>Why Generic Sleep Advice Fails</h2>
+<h2 id="why-fails">Why Generic Sleep Advice Fails</h2>
 
 <h3>The Problem with One-Size-Fits-All</h3>
 
@@ -111,7 +152,7 @@
 
 <hr />
 
-<h2>What Makes a Good Personalised Sleep Plan</h2>
+<h2 id="what-personalised">What Makes a Good Personalised Sleep Plan</h2>
 
 <h3>The 7 Essential Components</h3>
 
@@ -443,7 +484,7 @@
 
 <hr />
 
-<h2>Real Parent Stories: Personalised Plans That Worked</h2>
+<h2 id="success-stories">Real Parent Stories: Personalised Plans That Worked</h2>
 
 <h3>Maria's Story: Room-Sharing in an Apartment</h3>
 
@@ -557,7 +598,7 @@
 
 <hr />
 
-<h2>How to Get Your Personalised Sleep Plan</h2>
+<h2 id="how-get">How to Get Your Personalised Sleep Plan</h2>
 
 <h3>The Simple Process</h3>
 

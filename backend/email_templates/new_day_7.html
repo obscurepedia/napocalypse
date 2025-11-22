@@ -3,45 +3,96 @@
 <head>
 <title>Day 7: Finding the Wins</title>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #2c3e50;">Day 7: One Week In! Let's Find the Wins.</h2>
-        
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #2c3e50; background: #F9F9F9; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; background: #F9F9F9;">
+
         <p>Hi {customer_name},</p>
-        
-        <p>You've been on this journey for a full week. It's time to pause and acknowledge how far you've come. Progress is not a straight line, especially with sleep. It's a messy path of two steps forward, one step back.</p>
 
-        <p>Don't get discouraged if things aren't "perfect" yet. Perfect is not the goal. Progress is. Let's find it.</p>
+        <p>You've been at this for a full week.</p>
 
-        <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #2c3e50;">Your Goal for Today: Acknowledge Your Progress</h3>
-            <p>It's easy to focus on what's still not working. Today, I want you to actively look for the small improvements. Did any of these happen?</p>
-            
-            <ul>
-                <li>Did your baby fall asleep even 5 minutes faster than before?</li>
-                <li>Was there one nap where they connected a sleep cycle?</li>
-                <li>Did they fuss instead of scream when you put them down?</li>
-                <li>Did you get one longer stretch of sleep at night?</li>
-                <li>Did YOU feel even 1% more confident?</li>
-            </ul>
+        <p>I know you're probably exhausted. I know you might be wondering if it's working. I know you're looking at other parents whose babies "just sleep naturally" and questioning everything.</p>
 
-            <p><strong>Your Task:</strong> Grab a piece of paper and write down **one positive change** you've noticed since Day 1. Just one. Stick it on your fridge. This is your proof that what you are doing is working.</p>
+        <p>Here's what I need you to do: <strong>Stop comparing. Start celebrating.</strong></p>
+
+        <p>Progress is not a straight line. It's messy, uneven, two-steps-forward-one-step-back. And it's easy to miss if you're only looking for "perfect."</p>
+
+        <p>Today, we're finding the wins.</p>
+
+        <!-- Challenge-Specific Wins -->
+        <div style="background-color: #E8F9F1; padding: 20px; border-radius: 8px; border-left: 4px solid #27ae60; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #27ae60;">What Progress Looks Like for You</h3>
+
+            {wins_challenge_block}
         </div>
 
-        <p>These small wins are the foundation of lasting change. You are building a healthier sleep foundation, one night at a time.</p>
-        
-        <p>Tomorrow, we'll tackle the tricky world of nap transitions and how to handle them.</p>
-        
-        <p>Keep going. You're closer than you think.</p>
-        
-        <p>Best,<br>
-        The Napocalypse Team</p>
-        
-        <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
-        <p style="font-size: 12px; color: #666;">
-            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.
-            <br>
-            <a href="{{unsubscribe_url}}">Unsubscribe</a> | <a href="https://napocalypse.com/privacy">Privacy Policy</a>
+        <!-- Work Schedule Wins -->
+        <!-- IF work_schedule == working -->
+        <div style="background-color: #E8F4F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            {wins_work_block}
+        </div>
+        <!-- ENDIF -->
+
+        <div style="background-color: #F4F4F4; padding: 20px; border-radius: 8px; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">Your Task for Today: Write It Down</h3>
+
+            <p>Grab a piece of paper (or your phone). Write down <strong>one positive change</strong> you've noticed since Day 1. Just one.</p>
+
+            <p>It could be:</p>
+            <ul style="line-height: 1.8;">
+                <li>"My baby cried for 20 minutes instead of 45"</li>
+                <li>"I got a 4-hour stretch last night"</li>
+                <li>"I didn't panic when they woke up at 2 AM"</li>
+                <li>"I stuck with the plan even when it was hard"</li>
+            </ul>
+
+            <p style="margin-bottom: 0;"><strong>Put it somewhere you'll see it</strong> - your fridge, your bathroom mirror, your phone lock screen. This is your proof that what you're doing is working.</p>
+        </div>
+
+        <p>These small wins are the foundation of lasting change. You're building healthier sleep habits one night at a time.</p>
+
+        <p>Tomorrow, we tackle naps in more detail. But today? Today you celebrate how far you've come.</p>
+
+        <p>You're closer than you think.</p>
+
+        <div style="margin-top: 30px; padding: 20px; background: #E8F4F8; border-radius: 8px;">
+            <p style="margin: 0; font-style: italic; color: #2c3e50;">
+                <strong>I'm curious:</strong> What's one positive change you've seen this week? Reply and share your win with me - I celebrate every single one.
+            </p>
+        </div>
+
+        <!-- Branded Footer -->
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #E8E8E8;">
+            <p style="margin: 0; font-size: 16px; color: #2c3e50;">
+                Proud of you,<br>
+                <strong>Isaac</strong>
+            </p>
+
+            <div style="margin-top: 20px; padding: 20px; background: #FAFAFA; border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 32px;">😴</span>
+                    <div>
+                        <p style="margin: 0; font-weight: bold; font-size: 18px; color: #2c3e50;">
+                            Isaac | Napocalypse
+                        </p>
+                        <p style="margin: 4px 0 0 0; font-size: 14px; color: #7f8c8d;">
+                            Your Sleep Training Partner
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #E0E0E0;">
+                    <p style="margin: 0; font-size: 13px; color: #95a5a6;">
+                        📧 <a href="mailto:support@napocalypse.com" style="color: #3498db; text-decoration: none;">support@napocalypse.com</a><br>
+                        🌐 <a href="https://napocalypse.com" style="color: #3498db; text-decoration: none;">napocalypse.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #E8E8E8; margin: 30px 0;">
+        <p style="font-size: 12px; color: #95a5a6; line-height: 1.5;">
+            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.<br>
+            <a href="{{unsubscribe_url}}" style="color: #3498db; text-decoration: none;">Unsubscribe</a> | <a href="https://napocalypse.com/privacy" style="color: #3498db; text-decoration: none;">Privacy Policy</a>
         </p>
     </div>
 </body>

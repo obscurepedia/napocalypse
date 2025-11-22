@@ -3,44 +3,104 @@
 <head>
 <title>Day 6: Troubleshooting & Staying Strong</title>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #2c3e50;">Day 6: You Survived! Now, Let's Troubleshoot.</h2>
-        
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #2c3e50; background: #F9F9F9; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; background: #F9F9F9;">
+
         <p>Hi {customer_name},</p>
-        
-        <p>You made it through the first night! Whether it was smooth or rocky, you should be incredibly proud. The first step is always the hardest. Today is about staying consistent and navigating the common bumps in the road.</p>
 
-        <p>It's normal for things to feel a little chaotic for the first 2-3 days. Don't mistake a few tears (or a lot of them) for failure. It's your baby learning a new skill.</p>
+        <p>You survived the first night. You actually did it.</p>
 
-        <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #2c3e50;">Your Goal for Today: Be a Detective</h3>
-            <p>Today, your job is to stay consistent with the {method} method for all sleep, and to identify any specific challenges that pop up.</p>
-            
-            <h4>Common Challenge #1: The Crying Feels Like Forever</h4>
-            <p><strong>The Fix:</strong> It almost always feels longer than it is. Set a timer. Knowing it was 15 minutes of crying, not an hour, can make a huge difference to your own sanity. Remind yourself: you are giving your baby the gift of independent sleep.</p>
+        <p>I don't know if last night went smoothly or if it was absolutely brutal. But either way, you showed up. And that matters more than you realize.</p>
 
-            <h4>Common Challenge #2: "But what about naps?"</h4>
-            <p><strong>The Fix:</strong> Yes, use the same method for naps! Nap training can sometimes take longer than night training. For now, a "short" nap (under 45 mins) that your baby falls asleep for on their own is still a huge win. Don't rescue short naps yet.</p>
+        <!-- Parenting Setup Context -->
+        <!-- IF parenting_setup == single -->
+        {troubleshoot_single_parent_block}
+        <!-- ENDIF -->
 
-            <h4>Common Challenge #3: The Early Morning Wake-Up (4/5 AM)</h4>
-            <p><strong>The Fix:</strong> This is the hardest time for sleep pressure. Treat it like any other night waking. Apply your {method} consistently. Avoid starting the day before 6:00 AM, as this can lock in the early waking.</p>
+        <!-- Living Situation Context -->
+        <!-- IF living_situation == apartment -->
+        {troubleshoot_apartment_block}
+        <!-- ENDIF -->
+
+        <p>Today is about one thing: staying consistent. Not perfect. <em>Consistent</em>.</p>
+
+        <p>Because here's the truth: The first 2-3 days can feel chaotic. It's normal for things to feel harder before they get easier. Don't mistake the mess for failure.</p>
+
+        <!-- Method-Specific Troubleshooting -->
+        <div style="background-color: #E8F4F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            {troubleshoot_method_block}
         </div>
 
-        <p>Your only task today is to stick with it. Consistency is more important than perfection.</p>
-        
-        <p>Tomorrow, we'll talk about celebrating small wins and looking for signs of progress.</p>
-        
-        <p>You are doing an amazing job.</p>
-        
-        <p>Best,<br>
-        The Napocalypse Team</p>
-        
-        <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
-        <p style="font-size: 12px; color: #666;">
-            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.
-            <br>
-            <a href="{{unsubscribe_url}}">Unsubscribe</a> | <a href="https://napocalypse.com/privacy">Privacy Policy</a>
+        <div style="background-color: #F4F4F4; padding: 20px; border-radius: 8px; border-left: 4px solid #3498db; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">Common Challenges (And How to Fix Them)</h3>
+
+            <h4 style="color: #2c3e50;">Challenge #1: "The crying feels like forever"</h4>
+            <p><strong>The reality:</strong> It almost always feels longer than it actually is.</p>
+            <p><strong>The fix:</strong> Set a timer. Knowing it was 15 minutes (not an hour) makes a huge difference to your sanity. And remember: you're not abandoning your baby. You're teaching them a life skill.</p>
+
+            <h4 style="color: #2c3e50; margin-top: 20px;">Challenge #2: "But what about naps?"</h4>
+            <p><strong>The reality:</strong> Yes, use the {method} method for naps too.</p>
+            <p><strong>The fix:</strong> Nap training can take longer than night training. A "short" nap (under 45 mins) where your baby fell asleep independently is still a huge win. Don't rescue short naps yet - just stay consistent.</p>
+
+            <!-- IF biggest_challenge == early_morning_waking -->
+            <h4 style="color: #2c3e50; margin-top: 20px;">Challenge #3: The Early Morning Wake-Up</h4>
+            {troubleshoot_early_morning_block}
+            <!-- ELSE -->
+            <h4 style="color: #2c3e50; margin-top: 20px;">Challenge #3: "The early morning wake-up (4-5 AM)"</h4>
+            <p><strong>The reality:</strong> This is the hardest time for sleep pressure. Their drive to sleep is lowest.</p>
+            <p><strong>The fix:</strong> Treat it like any other night waking. Apply your {method} consistently. Don't start the day before 6:00 AM - that locks in the early waking pattern.</p>
+            <!-- ENDIF -->
+        </div>
+
+        <div style="background-color: #E8F4F8; padding: 20px; border-radius: 8px; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">Your Only Job Today</h3>
+            <p style="margin-bottom: 0;"><strong>Stick with it.</strong> Use your {method} approach for all sleep - bedtime, naps, night wakings. Don't change strategies halfway through. Don't give up on a bad nap. Don't second-guess yourself.</p>
+            <p style="margin-top: 15px; margin-bottom: 0;">Consistency is more important than perfection. Your baby is learning. Give them time to learn.</p>
+        </div>
+
+        <p>Tomorrow, we'll pause to celebrate small wins and look for signs of progress. Because they're there - even if you can't see them yet.</p>
+
+        <p>You're doing an amazing job. Even on the hard days.</p>
+
+        <div style="margin-top: 30px; padding: 20px; background: #E8F4F8; border-radius: 8px;">
+            <p style="margin: 0; font-style: italic; color: #2c3e50;">
+                <strong>How did the first night go?</strong> Reply and tell me (even if it was rough) - I read every response.
+            </p>
+        </div>
+
+        <!-- Branded Footer -->
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #E8E8E8;">
+            <p style="margin: 0; font-size: 16px; color: #2c3e50;">
+                You've got this,<br>
+                <strong>Isaac</strong>
+            </p>
+
+            <div style="margin-top: 20px; padding: 20px; background: #FAFAFA; border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 32px;">😴</span>
+                    <div>
+                        <p style="margin: 0; font-weight: bold; font-size: 18px; color: #2c3e50;">
+                            Isaac | Napocalypse
+                        </p>
+                        <p style="margin: 4px 0 0 0; font-size: 14px; color: #7f8c8d;">
+                            Your Sleep Training Partner
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #E0E0E0;">
+                    <p style="margin: 0; font-size: 13px; color: #95a5a6;">
+                        📧 <a href="mailto:support@napocalypse.com" style="color: #3498db; text-decoration: none;">support@napocalypse.com</a><br>
+                        🌐 <a href="https://napocalypse.com" style="color: #3498db; text-decoration: none;">napocalypse.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #E8E8E8; margin: 30px 0;">
+        <p style="font-size: 12px; color: #95a5a6; line-height: 1.5;">
+            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.<br>
+            <a href="{{unsubscribe_url}}" style="color: #3498db; text-decoration: none;">Unsubscribe</a> | <a href="https://napocalypse.com/privacy" style="color: #3498db; text-decoration: none;">Privacy Policy</a>
         </p>
     </div>
 </body>

@@ -1,0 +1,83 @@
+i want create some ai agents to carry out tasks on my project so i would like one agent would generate emails for the project, another would deal with web design and ux another would check code - based on your knowledge of this project can you give me a list of 10 ideas that i could use ai agents for this project
+You said:
+is agent 7 not doing the work of some of the other agentgs
+You said:
+so can you create the full agent list again with the handoff points between the agents where it is relevant
+You said:
+give me a comprehensive system prompt for agent 1
+You said:
+agent 1 is this: Product Architect Agent (formerly Agent 7)
+
+Role: Designs each new product (e.g. Toddler Tantrum Toolkit) from concept to core content.
+
+Responsibilities:
+
+Defines transformation & learning outcomes
+
+Maps course structure (modules, days, delivery flow)
+
+Writes all core teaching content (instructions, examples, frameworks)
+
+Creates internal Course Blueprint Document
+
+Handoff To:
+
+🔸 Email Sequence Agent — receives blueprint → creates daily email flow
+🔸 Blog & SEO Agent — receives topics structure → creates deep dive articles
+🔸 UX/UI Design Agent — receives course skeleton → designs delivery pages
+🔸 Content Repurposer — receives lesson summaries → builds social content
+You said:
+when should claude use the agent?
+You said:
+i need to tell claude when to use this agent - is it when i call for it to be used or another thing
+You said:
+this is agent 3: Code Review & Automation Agent
+
+Role: Reviews backend/frontend code, suggests fixes, and automates infrastructure.
+
+Responsibilities:
+
+Static code review (Flask/Python/jinja)
+
+SQL optimization, security checks, DRY refactors
+
+Writes cron jobs, tasks, and scripts
+
+Sets up triggers & scheduling for emails and webhooks
+
+Handoff To:
+
+🔸 Automation Agent (for task execution)
+🔸 Documentation Agent (for documenting system changes) and this is agent 10: 10. Automation Agent
+
+Role: Executes timed or triggered actions, integrations and workflows.
+
+Responsibilities:
+
+Runs cron jobs, ETL workflows, scheduled emails
+
+Manages age-trigger-based sending
+
+Integrates APIs (SES, Stripe, Flask, Notion)
+
+Ensures smooth operation of backend logic
+
+Handoff From:
+
+🔹 Code Review Agent
+🔹 Product Architect Agent
+🔹 Email Agent are these two agents doing different things given that their names suggest that they may be doing something similar
+You said:
+give me a comprehensive system prompt for agent 3
+You said:
+have you finished giving me the system prompt for agent 3
+You said:
+when should claude call agent 3
+You said:
+give me a response that i can enter into claude to the question that claude is asking when should claude use this agent
+You said:
+so how would call the agent
+You said:
+can i ask the agent to review the entire codebase
+You said:
+should i allow agent 3 to delete files?

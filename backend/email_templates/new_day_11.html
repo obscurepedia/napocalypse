@@ -3,43 +3,113 @@
 <head>
 <title>Day 11: Breaking the Feed-to-Sleep Association</title>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #2c3e50;">Day 11: The End of the All-Night Buffet</h2>
-        
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #2c3e50; background: #F9F9F9; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; background: #F9F9F9;">
+
         <p>Hi {customer_name},</p>
-        
-        <p>Today we're tackling one of the most common and persistent sleep crutches: feeding to sleep. If your baby needs a bottle or breast to fall asleep at the beginning of the night, they will likely look for it every time they wake up.</p>
 
-        <p>The goal is to gently separate feeding from sleeping. Eating is for nutrition and comfort, but sleep is a skill your baby can learn to do on their own.</p>
+        <p>I know what you're thinking: "But my baby NEEDS to eat before bed."</p>
 
-        <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #2c3e50;">Your Goal for Today: Move the Feed</h3>
-            <p>The key is to create a small buffer between the end of the feed and the moment your baby is placed in the crib.</p>
-            
-            <p><strong>Your Task:</strong> Tonight, move the bedtime feed to be the *first* step in your bedtime routine, not the last. </p>
+        <p>And you're right - they do need to eat. Feeding before bed is perfectly fine.</p>
 
-            <ol>
-                <li><strong>Feed:</strong> Give your baby their full feed in a well-lit room (like the living room). Keep them awake!</li>
-                <li><strong>Routine:</strong> Proceed with the rest of your calming bedtime routine (e.g., bath, PJs, story).</li>
+        <p>What's NOT fine is when feeding becomes the <em>only</em> way your baby can fall asleep. Because if they need a bottle or breast to fall asleep at bedtime, they'll look for it every single time they wake up at night.</p>
+
+        <!-- IF sleep_association == feeding -->
+        <div style="background-color: #E8F4F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            {feeding_main_challenge_block}
+        </div>
+        <!-- ELSE -->
+        <div style="background-color: #E8F4F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            {feeding_not_relevant_block}
+        </div>
+        <!-- ENDIF -->
+
+        <p>Today, we're separating eating from sleeping. They're both important - they just can't be the same thing.</p>
+
+        <div style="background-color: #F4F4F4; padding: 20px; border-radius: 8px; border-left: 4px solid #3498db; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">Why This Matters</h3>
+
+            <p>If your baby falls asleep while feeding, their brain creates a strong association: "Food = Sleep."</p>
+
+            <p>When they wake up between sleep cycles (which all humans do), they don't know how to fall back asleep without that same condition. So they cry for you to recreate it.</p>
+
+            <p><strong>The solution:</strong> Create a buffer between the end of the feed and the moment they're placed in the crib.</p>
+        </div>
+
+        <div style="background-color: #FFF9E6; padding: 20px; border-radius: 8px; border-left: 4px solid #F39C12; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">Your Task for Tonight: Move the Feed</h3>
+
+            <p>Tonight, move the bedtime feed to be the <strong>first step</strong> in your bedtime routine, not the last.</p>
+
+            <p><strong>New routine order:</strong></p>
+
+            <ol style="line-height: 1.8;">
+                <li><strong>Feed:</strong> Give your baby their full feed in a well-lit room (like the living room). Keep them awake during the feed!</li>
+                <li><strong>Routine:</strong> Proceed with the rest of your calming bedtime routine (bath, PJs, story).</li>
                 <li><strong>Bed:</strong> Place your baby in the crib awake, using your {method} approach.</li>
             </ol>
 
-            <p>This small change is a huge mental shift. It breaks the association that "food = sleep." Be prepared for some protest, as this is a big change to their routine, but hold firm. Your baby is capable of falling asleep without it.</p>
+            <p><strong>Why this works:</strong> There are now other activities between eating and sleeping. Your baby's brain stops linking the two together.</p>
+
+            <p style="margin-bottom: 0;"><strong>Be prepared:</strong> This is a big change to their routine. There may be protest. Hold firm - your baby is capable of falling asleep without feeding.</p>
         </div>
 
-        <p>If you're concerned about night feeds for nutrition, that's a separate issue we'll address tomorrow.</p>
-        
-        <p>You are teaching your baby invaluable skills.</p>
-        
-        <p>Best,<br>
-        The Napocalypse Team</p>
-        
-        <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
-        <p style="font-size: 12px; color: #666;">
-            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.
-            <br>
-            <a href="{{unsubscribe_url}}">Unsubscribe</a> | <a href="https://napocalypse.com/privacy">Privacy Policy</a>
+        <!-- Age-Based Night Feed Guidance -->
+        <div style="background-color: #E8F4F8; padding: 20px; border-radius: 8px; margin: 30px 0;">
+            <h4 style="margin-top: 0; color: #2c3e50;">What About Night Feeds?</h4>
+
+            <!-- IF baby_age_category == younger_baby -->
+            {feeding_night_needs_baby_block}
+            <!-- ELSE -->
+            {feeding_night_needs_older_block}
+            <!-- ENDIF -->
+        </div>
+
+        <p>You're teaching your baby that eating is for nutrition and comfort, but sleep is a skill they can do on their own.</p>
+
+        <p>That's huge.</p>
+
+        <p>Tomorrow, we'll talk about how to night wean if your doctor has given you the green light.</p>
+
+        <div style="margin-top: 30px; padding: 20px; background: #E8F4F8; border-radius: 8px;">
+            <p style="margin: 0; font-style: italic; color: #2c3e50;">
+                <strong>Question:</strong> Does your baby currently feed to sleep? How do you feel about changing it? Hit reply - I'm here to talk through the tough decisions.
+            </p>
+        </div>
+
+        <!-- Branded Footer -->
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #E8E8E8;">
+            <p style="margin: 0; font-size: 16px; color: #2c3e50;">
+                You've got this,<br>
+                <strong>Isaac</strong>
+            </p>
+
+            <div style="margin-top: 20px; padding: 20px; background: #FAFAFA; border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 32px;">😴</span>
+                    <div>
+                        <p style="margin: 0; font-weight: bold; font-size: 18px; color: #2c3e50;">
+                            Isaac | Napocalypse
+                        </p>
+                        <p style="margin: 4px 0 0 0; font-size: 14px; color: #7f8c8d;">
+                            Your Sleep Training Partner
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #E0E0E0;">
+                    <p style="margin: 0; font-size: 13px; color: #95a5a6;">
+                        📧 <a href="mailto:support@napocalypse.com" style="color: #3498db; text-decoration: none;">support@napocalypse.com</a><br>
+                        🌐 <a href="https://napocalypse.com" style="color: #3498db; text-decoration: none;">napocalypse.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #E8E8E8; margin: 30px 0;">
+        <p style="font-size: 12px; color: #95a5a6; line-height: 1.5;">
+            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.<br>
+            <a href="{{unsubscribe_url}}" style="color: #3498db; text-decoration: none;">Unsubscribe</a> | <a href="https://napocalypse.com/privacy" style="color: #3498db; text-decoration: none;">Privacy Policy</a>
         </p>
     </div>
 </body>

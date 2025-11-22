@@ -3,51 +3,118 @@
 <head>
 <title>Day 14: You Did It! What's Next?</title>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #27ae60;">Day 14: Congratulations, You Did It!</h2>
-        
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #2c3e50; background: #F9F9F9; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; background: #F9F9F9;">
+
         <p>Hi {customer_name},</p>
-        
-        <p>You've reached the end of the 14-Day Sleep Coaching Program. Take a moment to look back at where you were two weeks ago. You have given your child an incredible gift: the skill of independent sleep. And you've given yourself the gift of rest and confidence. You should be immensely proud.</p>
 
-        <p>You now have a complete toolkit to handle whatever sleep challenges come your way.</p>
+        <p>You made it.</p>
 
-        <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #2c3e50;">Your Journey in Review</h3>
-            <p>In just 14 days, you have:</p>
-            <ul>
-                <li>Established a calming, consistent bedtime routine.</li>
-                <li>Mastered wake windows to prevent overtiredness.</li>
-                <li>Consistently implemented your chosen sleep training method.</li>
-                <li>Learned to troubleshoot naps, regressions, and other challenges.</li>
-                <li>Broken dependencies on sleep crutches like feeding or pacifiers.</li>
+        <p>Fourteen days ago, you were exhausted, uncertain, and maybe wondering if better sleep was even possible for your family. And now look at you.</p>
+
+        <p>I know these two weeks weren't easy. I know there were nights you wanted to give up. I know there were moments you questioned whether you were doing the right thing.</p>
+
+        <p>But you kept going. And that's everything.</p>
+
+        <!-- Personalized Celebration Based on Situation -->
+        <!-- IF parenting_setup == single -->
+        <div style="background-color: #E8F9F1; padding: 20px; border-radius: 8px; border-left: 4px solid #27ae60; margin: 20px 0;">
+            {celebration_single_parent_block}
+        </div>
+        <!-- ENDIF -->
+
+        <!-- IF work_schedule == working -->
+        <div style="background-color: #E8F9F1; padding: 20px; border-radius: 8px; border-left: 4px solid #27ae60; margin: 20px 0;">
+            {celebration_working_parent_block}
+        </div>
+        <!-- ENDIF -->
+
+        <!-- Challenge-Specific Celebration -->
+        <div style="background-color: #E8F9F1; padding: 25px; border-radius: 8px; border-left: 4px solid #27ae60; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #27ae60;">What You've Accomplished</h3>
+
+            <p>In just 14 days, you:</p>
+            <ul style="line-height: 1.8;">
+                <li>Created a sleep environment that actually works</li>
+                <li>Built a bedtime routine your child can count on</li>
+                <li>Mastered wake windows (no more overtired meltdowns)</li>
+                <li>Taught your baby the life-changing skill of independent sleep</li>
+                <li>Navigated naps, night wakings, and all the curveballs</li>
+                <li>Stayed consistent even when it was hard</li>
             </ul>
-            <p><strong>Your Task for Today:</strong> Celebrate! You've earned it. Enjoy the peace and quiet of a sleeping baby. Trust in the skills you've learned and the foundation you've built.</p>
+
+            {celebration_challenge_block}
+
+            <p style="margin-bottom: 0;"><strong>Most importantly:</strong> You gave yourself permission to prioritize your family's wellbeing. That takes courage.</p>
         </div>
 
-        <h3 style="color: #2c3e50;">The Journey Doesn't End Here</h3>
-        <p>Your child will continue to grow and change, and so will their sleep needs. From toddler bed transitions to dropping the last nap, new challenges will arise.</p>
-        <p>We're here to support you for the long haul. Keep an eye on your inbox for future tips, guides, and advanced programs to help you navigate every stage of your parenting journey.</p>
-        
-        <div style="background-color: #d5f4e6; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
-            <h3 style="margin-top: 0; color: #2c3e50;">Your Complete Reference Guide</h3>
-            <p>As a thank you for completing the course, you can now download a complete, personalized PDF guide containing all the information from your chosen modules.</p>
-            <a href="https://napocalypse.com/api/generate-full-guide?order_id={{order_id}}" style="background-color: #27ae60; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 10px;">Download Your Full Guide</a>
-            <p style="font-size: 12px; color: #666; margin-top: 15px;">This link is unique to you. Please do not share it.</p>
+        <p>I want you to take a moment - right now - and acknowledge how far you've come. Not just in sleep training, but as a parent.</p>
+
+        <p>You trusted yourself. You learned new skills. You pushed through doubt. You showed up for your child and for yourself, night after night.</p>
+
+        <p><strong>That's not just good parenting. That's exceptional parenting.</strong></p>
+
+        <!-- Future Guidance Based on Age -->
+        <div style="background-color: #F4F4F4; padding: 20px; border-radius: 8px; margin: 30px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">What Happens Next?</h3>
+
+            {future_age_block}
+
+            <p>Here's what I want you to remember when things get rocky (because they will):</p>
+
+            <ol style="line-height: 1.8;">
+                <li><strong>You've already proven you can do this.</strong> Whatever challenge comes next, you have the skills to work through it.</li>
+                <li><strong>Consistency is your superpower.</strong> When in doubt, go back to the fundamentals: wake windows, routine, environment.</li>
+                <li><strong>Rough nights don't erase progress.</strong> One bad night (or even a bad week) doesn't mean you're back at square one.</li>
+                <li><strong>You're not alone.</strong> If you ever need support, I'm here. Just reply to this email.</li>
+            </ol>
         </div>
 
-        <p>Thank you for trusting us with your family's sleep. It has been a privilege to guide you.</p>
-        
-        <p>With deepest congratulations,</p>
-        
-        <p><strong>The Napocalypse Team</strong></p>
-        
-        <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
-        <p style="font-size: 12px; color: #666;">
-            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.
-            <br>
-            <a href="{{unsubscribe_url}}">Unsubscribe</a> | <a href="https://napocalypse.com/privacy">Privacy Policy</a>
+        <p>The 14-day sequence is complete, but your inbox access to me isn't going anywhere. Seriously. If you hit a roadblock six months from now, reply to any of these emails. I read them.</p>
+
+        <p>I'm so proud of you. Not just for finishing the program, but for everything you did to get here.</p>
+
+        <p>(And I really hope you're getting at least one full sleep cycle tonight. You've earned it.)</p>
+
+        <div style="margin-top: 30px; padding: 20px; background: #E8F4F8; border-radius: 8px;">
+            <p style="margin: 0; font-style: italic; color: #2c3e50;">
+                <strong>You made it! Reply and tell me:</strong> What changed for your family? I genuinely want to know - your story matters, and I celebrate every win with the parents I work with.
+            </p>
+        </div>
+
+        <!-- Branded Footer -->
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #E8E8E8;">
+            <p style="margin: 0; font-size: 16px; color: #2c3e50;">
+                Congratulations,<br>
+                <strong>Isaac</strong>
+            </p>
+
+            <div style="margin-top: 20px; padding: 20px; background: #FAFAFA; border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 32px;">😴</span>
+                    <div>
+                        <p style="margin: 0; font-weight: bold; font-size: 18px; color: #2c3e50;">
+                            Isaac | Napocalypse
+                        </p>
+                        <p style="margin: 4px 0 0 0; font-size: 14px; color: #7f8c8d;">
+                            Your Sleep Training Partner
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #E0E0E0;">
+                    <p style="margin: 0; font-size: 13px; color: #95a5a6;">
+                        📧 <a href="mailto:support@napocalypse.com" style="color: #3498db; text-decoration: none;">support@napocalypse.com</a><br>
+                        🌐 <a href="https://napocalypse.com" style="color: #3498db; text-decoration: none;">napocalypse.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #E8E8E8; margin: 30px 0;">
+        <p style="font-size: 12px; color: #95a5a6; line-height: 1.5;">
+            You're receiving this because you signed up for the 14-Day Sleep Coaching Program.<br>
+            <a href="{{unsubscribe_url}}" style="color: #3498db; text-decoration: none;">Unsubscribe</a> | <a href="https://napocalypse.com/privacy" style="color: #3498db; text-decoration: none;">Privacy Policy</a>
         </p>
     </div>
 </body>

@@ -1,13 +1,55 @@
 {% extends "blog_base.html" %}
 
 {% block title %}Wake Windows by Age: The Complete Chart for Better Baby Sleep | Napocalypse{% endblock %}
-{% block description %}You put your baby down for a nap. They cry for 30 minutes. You finally get them to sleep. They wake up after 20 minutes. Or... You put your baby d...{% endblock %}
+{% block description %}Master wake windows by age (0-24 months) to solve nap battles, short naps, and night wakings. Complete chart with troubleshooting.{% endblock %}
 {% block keywords %}wake, windows, by, age, baby sleep, sleep training, parenting{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Wake Windows by Age: The Complete Chart for Better Baby Sleep",
+  "description": "Master wake windows for every age (0-24 months) and solve nap battles, short naps, and night wakings. Complete chart and troubleshooting guide.",
+  "author": {
+    "@type": "Organization",
+    "name": "Napocalypse"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Napocalypse",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://napocalypse.com/images/logo.png"
+    }
+  },
+  "datePublished": "2024-01-15",
+  "dateModified": "2024-01-15",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://napocalypse.com/blog/08-wake-windows-by-age"
+  }
+}
+</script>
+{% endblock %}
+
+{% block table_of_contents %}
+<div class="table-of-contents">
+    <h3>Table of Contents</h3>
+    <ol>
+        <li><a href="#what-are">What Are Wake Windows?</a></li>
+        <li><a href="#complete-chart">Complete Wake Windows Chart</a></li>
+        <li><a href="#signs-tired">Signs Your Baby Is Tired</a></li>
+        <li><a href="#adjust">How to Adjust Wake Windows</a></li>
+        <li><a href="#faq">Frequently Asked Questions</a></li>
+    </ol>
+</div>
+{% endblock %}
 
 {% block article_content %}
 <h1>Wake Windows by Age: The Complete Chart for Better Baby Sleep</h1>
 
-<p><em>Last Updated: January 2024 | Reading Time: 14 minutes</em></p>
+<p><em>Reading Time: 14 minutes</em></p>
 
 <hr />
 
@@ -48,7 +90,9 @@
 
 <hr />
 
-<h2>What Are Wake Windows?</h2>
+<h2 id="what-are">What Are Wake Windows?</h2>
+
+<p><small><em>Wake window guidance is based on infant sleep research and developmental milestones tracked by organizations like the <a href="https://www.nichd.nih.gov/health/topics/sleep" target="_blank" rel="noopener">National Institute of Child Health and Human Development</a>.</em></small></p>
 
 <h3>The Simple Definition</h3>
 
@@ -118,7 +162,7 @@
 
 <hr />
 
-<h2>Wake Windows by Age: The Complete Chart</h2>
+<h2 id="complete-chart">Wake Windows by Age: The Complete Chart</h2>
 
 <h3>Newborn (0-6 Weeks)</h3>
 
@@ -566,7 +610,7 @@
 
 <hr />
 
-<h2>Sleepy Cues: Your Baby's Sleep Signals</h2>
+<h2 id="signs-tired">Sleepy Cues: Your Baby's Sleep Signals</h2>
 
 <h3>Early Sleepy Cues (Perfect Time for Sleep)</h3>
 
@@ -746,7 +790,7 @@
 
 <hr />
 
-<h2>How to Adjust Wake Windows</h2>
+<h2 id="adjust">How to Adjust Wake Windows</h2>
 
 <h3>The Process</h3>
 
@@ -986,7 +1030,7 @@
 
 <hr />
 
-<h2>Frequently Asked Questions</h2>
+<h2 id="faq">Frequently Asked Questions</h2>
 
 <p><strong>Q: What if my baby's wake windows don't match the chart?</strong></p>
 
