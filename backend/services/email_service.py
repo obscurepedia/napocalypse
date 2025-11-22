@@ -49,7 +49,7 @@ def send_delivery_email(to_email, customer_name, pdf_path, modules):
 
             <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin: 20px 0;">
                 <h3 style="margin-top: 0; color: #2c3e50;">What's Next?</h3>
-                <p>This guide is your "instant gratification" to get you started immediately. Your comprehensive 14-day email coaching course begins tomorrow.</p>
+                <p>This guide has quick wins you can start using tonight. Your comprehensive 14-day email coaching course begins tomorrow.</p>
                 <ul>
                     <li><strong>Today:</strong> Read the Quick-Start Guide and try the "One Thing".</li>
                     <li><strong>Tomorrow:</strong> Look for the "Day 1" email in your inbox.</li>

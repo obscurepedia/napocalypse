@@ -360,7 +360,7 @@ def generate_quick_start_guide_pdf(customer):
         <!-- Cover Page -->
         <div class="cover-page">
             <div class="logo-header">
-                <img src="file://{os.path.abspath(os.path.join(os.path.dirname(__file__), '../../frontend/images/napocalypse.png'))}" alt="Napocalypse Logo" class="pdf-logo">
+                <p style="font-size: 32pt; font-weight: bold; color: #2c3e50; margin: 0.5cm 0;">🌙 Napocalypse</p>
             </div>
             <h1>Quick-Start Guide</h1>
             <p class="subtitle">Your First Steps to Better Sleep</p>
@@ -374,13 +374,10 @@ def generate_quick_start_guide_pdf(customer):
         </div>
 
         <!-- Guide Content -->
-        <div class="page-break"></div>
         <div class="module-content">
             {html_body}
-        </div>
 
-        <!-- Footer on last page -->
-        <div class="footer-page">
+            <!-- Footer -->
             <hr style="border: none; border-top: 2px solid #ddd; margin: 30px 0;">
             <div style="text-align: center; color: #666; font-size: 10pt;">
                 <p>&copy; {datetime.now().year} Napocalypse. All rights reserved.</p>
