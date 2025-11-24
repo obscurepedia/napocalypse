@@ -157,7 +157,10 @@ def send_sequence_email(to_email, customer_name, day_number, order_id=None, cust
         personalization_vars = get_personalization_data(customer, quiz_data, modules)
 
     # Email content based on day and personalization
-    email_content = get_sequence_content(day_number, customer_name, personalization_vars, order_id)
+    email_content = get_sequence_content(
+        day_number, customer_name, personalization_vars, order_id,
+        customer_id=customer_id, customer_email=to_email
+    )
 
     try:
         response = ses_client.send_email(
@@ -734,7 +737,7 @@ def _load_day_content_blocks(day_number, personalization_vars):
     return content
 
 
-def get_sequence_content(day_number, customer_name, personalization_vars=None, order_id=None):
+def get_sequence_content(day_number, customer_name, personalization_vars=None, order_id=None, customer_id=None, customer_email=None):
     """
     Get email content for the new 14-day sequence.
     Loads from new_day_X.html templates and injects dynamic content.
@@ -744,6 +747,8 @@ def get_sequence_content(day_number, customer_name, personalization_vars=None, o
         customer_name: Customer name
         personalization_vars: Dict of personalization variables
         order_id: Order ID
+        customer_id: Customer ID for unsubscribe link
+        customer_email: Customer email for unsubscribe link
 
     Returns:
         dict: Email content with subject, text_body, html_body
@@ -844,6 +849,15 @@ def get_sequence_content(day_number, customer_name, personalization_vars=None, o
         # Order ID
         if order_id:
             html_content = html_content.replace('{{order_id}}', str(order_id))
+
+        # Unsubscribe URL
+        if customer_id and customer_email:
+            from routes.email_routes import get_unsubscribe_url
+            unsubscribe_url = get_unsubscribe_url(customer_id, customer_email)
+            html_content = html_content.replace('{{unsubscribe_url}}', unsubscribe_url)
+        else:
+            # Fallback to support email if no customer info
+            html_content = html_content.replace('{{unsubscribe_url}}', 'mailto:support@napocalypse.com?subject=Unsubscribe')
 
         # Clean up any unused placeholders to avoid them showing up in the email
         unused_placeholders = [

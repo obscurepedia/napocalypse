@@ -33,8 +33,15 @@ def init_scheduler(app):
                     quiz_response = QuizResponse.query.filter_by(customer_id=email.customer_id).first()
                     module_assignments = ModuleAssigned.query.filter_by(order_id=email.order_id).all()
                     modules = [m.module_name for m in module_assignments]
-                    
+
                     if customer:
+                        # Skip if customer has unsubscribed
+                        if customer.email_unsubscribed:
+                            email.status = 'skipped_unsubscribed'
+                            db.session.commit()
+                            print(f"Skipped email to {customer.email} - unsubscribed")
+                            continue
+
                         # Send email with all necessary data for personalization
                         success = send_sequence_email(
                             to_email=customer.email,

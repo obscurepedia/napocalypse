@@ -39,7 +39,33 @@ def init_db(app):
                 db.session.execute(text("ALTER TABLE customers ADD COLUMN stripe_session_id VARCHAR(255);"))
                 db.session.commit()
                 print("✅ stripe_session_id column added")
-                
+
+            # Check if email_unsubscribed column exists
+            result = db.session.execute(text("""
+                SELECT column_name
+                FROM information_schema.columns
+                WHERE table_name='customers' AND column_name='email_unsubscribed';
+            """))
+
+            if not result.fetchone():
+                print("Adding email_unsubscribed column to customers table...")
+                db.session.execute(text("ALTER TABLE customers ADD COLUMN email_unsubscribed BOOLEAN DEFAULT FALSE;"))
+                db.session.commit()
+                print("✅ email_unsubscribed column added")
+
+            # Check if unsubscribed_at column exists
+            result = db.session.execute(text("""
+                SELECT column_name
+                FROM information_schema.columns
+                WHERE table_name='customers' AND column_name='unsubscribed_at';
+            """))
+
+            if not result.fetchone():
+                print("Adding unsubscribed_at column to customers table...")
+                db.session.execute(text("ALTER TABLE customers ADD COLUMN unsubscribed_at TIMESTAMP;"))
+                db.session.commit()
+                print("✅ unsubscribed_at column added")
+
         except Exception as e:
             print(f"Migration check failed (this is normal for new databases): {str(e)}")
             db.session.rollback()
@@ -47,13 +73,15 @@ def init_db(app):
 # Models
 class Customer(db.Model):
     __tablename__ = 'customers'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
     name = db.Column(db.String(255))
     baby_name = db.Column(db.String(255))  # Added for personalization
     stripe_customer_id = db.Column(db.String(255))
     stripe_session_id = db.Column(db.String(255))  # Added to track sessions
+    email_unsubscribed = db.Column(db.Boolean, default=False)  # Email opt-out flag
+    unsubscribed_at = db.Column(db.DateTime)  # When they unsubscribed
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
