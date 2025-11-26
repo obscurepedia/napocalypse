@@ -91,6 +91,21 @@ def handle_successful_payment(session):
         schedule_email_sequence(customer_id=customer.id, order_id=order.id)
         print(f"✅ Email sequence scheduled for {customer.email}")
 
+        # 3. Send Facebook CAPI Purchase event (server-side)
+        try:
+            from services.facebook_capi import send_purchase_event
+            send_purchase_event(
+                user_email=customer.email,
+                value=order.amount / 100,  # Convert cents to dollars
+                currency=order.currency.upper(),
+                event_id=session.get('client_reference_id'),  # Use quiz_id as event_id if available
+                customer_id=customer.id
+            )
+            print(f"✅ Facebook CAPI Purchase event sent for {customer.email}")
+        except Exception as fb_error:
+            # Don't fail the webhook if Facebook tracking fails
+            print(f"Facebook CAPI error (non-critical): {fb_error}")
+
         db.session.commit()
         print(f"🎉 Successfully processed payment (new flow) for customer: {customer.email}")
 

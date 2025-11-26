@@ -126,6 +126,15 @@
         // Track successful purchase
         if (sessionId) {
             console.log('Purchase completed:', sessionId);
+
+            // Facebook Pixel - Purchase event
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Purchase', {
+                    value: 47.00,
+                    currency: 'USD',
+                    content_name: 'Baby Sleep Course'
+                });
+            }
         }
     </script>
 {% endblock %}

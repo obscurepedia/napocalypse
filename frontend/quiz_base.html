@@ -7,6 +7,25 @@
     <meta name="description" content="{% block description %}Evidence-based, personalized baby sleep training plans that actually work for YOUR family. Get your custom sleep plan today.{% endblock %}">
     <link rel="stylesheet" href="/css/styles.css">
     {% block extra_css %}{% endblock %}
+
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1221450536702199');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent', {content_name: 'Baby Sleep Quiz'});
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1221450536702199&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
 </head>
 <body>
     <!-- Minimal Header - Logo Only (no navigation) -->

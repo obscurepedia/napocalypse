@@ -48,7 +48,24 @@ def submit_quiz():
         
         db.session.add(quiz_response)
         db.session.commit()
-        
+
+        # Send Facebook CAPI Lead event (server-side)
+        try:
+            from services.facebook_capi import send_lead_event
+            send_lead_event(
+                user_email=customer.email,
+                event_id=data.get('event_id'),  # For deduplication with browser pixel
+                user_ip=request.headers.get('X-Forwarded-For', request.remote_addr),
+                user_agent=request.headers.get('User-Agent'),
+                event_source_url=request.headers.get('Referer'),
+                fbc=data.get('fbc'),  # Facebook click ID
+                fbp=data.get('fbp'),  # Facebook browser ID
+                customer_id=customer.id
+            )
+        except Exception as fb_error:
+            # Don't fail the request if Facebook tracking fails
+            print(f"Facebook CAPI error (non-critical): {fb_error}")
+
         return jsonify({
             'success': True,
             'customer_id': customer.id,

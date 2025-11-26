@@ -330,7 +330,27 @@ def create_checkout():
         except Exception as order_error:
             print(f"❌ Order creation failed: {order_error}")
             raise order_error
-        
+
+        # Send Facebook CAPI InitiateCheckout event (server-side)
+        try:
+            from services.facebook_capi import send_initiate_checkout_event
+            data_json = request.get_json()
+            send_initiate_checkout_event(
+                user_email=customer.email,
+                value=47.00,
+                currency='USD',
+                event_id=data_json.get('event_id'),  # For deduplication with browser pixel
+                user_ip=request.headers.get('X-Forwarded-For', request.remote_addr),
+                user_agent=request.headers.get('User-Agent'),
+                event_source_url=request.headers.get('Referer'),
+                fbc=data_json.get('fbc'),  # Facebook click ID
+                fbp=data_json.get('fbp'),  # Facebook browser ID
+                customer_id=customer.id
+            )
+        except Exception as fb_error:
+            # Don't fail the request if Facebook tracking fails
+            print(f"Facebook CAPI error (non-critical): {fb_error}")
+
         print("✅ All steps completed successfully!")
         return jsonify({
             'success': True,

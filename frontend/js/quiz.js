@@ -4,6 +4,38 @@ let currentQuestion = 1;
 const totalQuestions = 8;
 let quizData = {};
 
+// Facebook Pixel helper functions
+function generateEventId() {
+    // Generate a unique event ID for deduplication
+    return 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function getFacebookParams() {
+    // Get Facebook click ID from URL (_fbc) and browser cookie (_fbp)
+    const params = {};
+
+    // Get fbc from URL (Facebook click ID)
+    const urlParams = new URLSearchParams(window.location.search);
+    const fbclid = urlParams.get('fbclid');
+    if (fbclid) {
+        params.fbc = 'fb.1.' + Date.now() + '.' + fbclid;
+    }
+
+    // Get fbp from cookie (Facebook browser ID)
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+        const [name, value] = cookie.trim().split('=');
+        if (name === '_fbp') {
+            params.fbp = value;
+        }
+        if (name === '_fbc') {
+            params.fbc = value;
+        }
+    }
+
+    return params;
+}
+
 function startQuiz() {
     document.getElementById('quiz-intro').style.display = 'none';
     document.getElementById('quiz-container').style.display = 'block';
@@ -153,6 +185,10 @@ document.getElementById('quiz-form').addEventListener('submit', async function(e
         return;
     }
     
+    // Generate event ID for deduplication and get Facebook parameters
+    const leadEventId = generateEventId();
+    const fbParams = getFacebookParams();
+
     // Map question data to expected field names
     const submissionData = {
         email: email,
@@ -164,7 +200,10 @@ document.getElementById('quiz-form').addEventListener('submit', async function(e
         parenting_setup: quizData.question5,
         work_schedule: quizData.question6,
         biggest_challenge: quizData.question7,
-        sleep_associations: quizData.question8
+        sleep_associations: quizData.question8,
+        event_id: leadEventId,  // For Facebook deduplication
+        fbc: fbParams.fbc,  // Facebook click ID
+        fbp: fbParams.fbp   // Facebook browser ID
     };
     
     console.log('Quiz data being sent:', submissionData);
@@ -192,7 +231,19 @@ document.getElementById('quiz-form').addEventListener('submit', async function(e
         
         if (data.success) {
             console.log('Quiz submitted successfully:', data);
-            
+
+            // Facebook Pixel - Lead event (quiz completed)
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', {
+                    content_name: 'Baby Sleep Quiz Completion'
+                }, {
+                    eventID: leadEventId  // For server-side deduplication
+                });
+            }
+
+            // Generate event ID for InitiateCheckout
+            const checkoutEventId = generateEventId();
+
             // Create Stripe checkout session
             const checkoutResponse = await fetch('/api/payment/create-checkout', {
                 method: 'POST',
@@ -201,13 +252,27 @@ document.getElementById('quiz-form').addEventListener('submit', async function(e
                 },
                 body: JSON.stringify({
                     customer_id: data.customer_id,
-                    quiz_id: data.quiz_id
+                    quiz_id: data.quiz_id,
+                    event_id: checkoutEventId,  // For Facebook deduplication
+                    fbc: fbParams.fbc,  // Facebook click ID
+                    fbp: fbParams.fbp   // Facebook browser ID
                 })
             });
             
             const checkoutData = await checkoutResponse.json();
             
             if (checkoutData.success) {
+                // Facebook Pixel - InitiateCheckout event
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'InitiateCheckout', {
+                        value: 47.00,
+                        currency: 'USD',
+                        content_name: 'Baby Sleep Course'
+                    }, {
+                        eventID: checkoutEventId  // For server-side deduplication
+                    });
+                }
+
                 // Redirect to Stripe Checkout
                 window.location.href = checkoutData.checkout_url;
             } else {
