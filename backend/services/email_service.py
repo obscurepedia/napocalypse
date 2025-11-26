@@ -190,6 +190,13 @@ def schedule_email_sequence(customer_id, order_id):
     Schedule 14-day email sequence.
     """
     try:
+        # Check if sequence already exists for this order
+        from database import EmailSequence
+        existing = EmailSequence.query.filter_by(order_id=order_id).first()
+        if existing:
+            print(f"⚠️ Email sequence already exists for order {order_id}. Skipping duplicate creation.")
+            return True
+
         # Get customer for email personalization
         from database import Customer
         customer = Customer.query.get(customer_id)
