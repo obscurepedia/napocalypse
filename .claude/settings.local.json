@@ -3,7 +3,9 @@
     "allow": [
       "Bash(git log:*)",
       "Bash(sqlite3:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(dir /s /b *.md)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
