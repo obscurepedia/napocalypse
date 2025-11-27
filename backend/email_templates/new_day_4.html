@@ -25,16 +25,48 @@
 
             {age_based_content}
 
-            <p style="margin-top: 20px;"><strong>General guidelines by age:</strong></p>
+            <!-- Age-Specific Wake Window Guidance -->
+            <!-- IF baby_age_category == 4_6_months -->
+            <p style="margin-top: 20px;"><strong>Your baby's wake window (4-6 months): 1.5 - 2.5 hours</strong></p>
 
-            <ul style="line-height: 1.8;">
-                <li><strong>4-6 Months:</strong> 1.5 - 2.5 hours</li>
-                <li><strong>7-9 Months:</strong> 2 - 3.5 hours</li>
-                <li><strong>10-12 Months:</strong> 2.5 - 4 hours</li>
-                <li><strong>13-18 Months:</strong> 4 - 6 hours</li>
-            </ul>
+            <p><strong>Example:</strong> If your baby wakes at 7:00 AM, their first nap should happen around <strong>8:30-9:00 AM</strong> (starting with the shorter 1.5-hour window). The second nap might be 2-2.5 hours later, and bedtime wake window can stretch to the longer end (2.5 hours).</p>
 
-            <p><strong>Example:</strong> If your {baby_age_short} wakes at 7:00 AM, their first nap should happen around {first_nap_example}. Start with the shorter end of the range for the first nap, and extend it as the day progresses.</p>
+            <p style="font-size: 14px; color: #7f8c8d; margin-top: 10px;"><em>As your baby grows: Wake windows gradually lengthen. By 7-9 months, they'll stretch to 2-3.5 hours.</em></p>
+            <!-- ENDIF -->
+
+            <!-- IF baby_age_category == 7_9_months -->
+            <p style="margin-top: 20px;"><strong>Your baby's wake window (7-9 months): 2 - 3.5 hours</strong></p>
+
+            <p><strong>Example:</strong> If your baby wakes at 7:00 AM, their first nap should happen around <strong>9:00-9:30 AM</strong> (starting with the shorter 2-hour window). The second nap might be 2.5-3 hours later, and the final wake window before bed can stretch to 3.5 hours.</p>
+
+            <p style="font-size: 14px; color: #7f8c8d; margin-top: 10px;"><em>As your baby grows: Wake windows continue to lengthen. By 10-12 months, they'll stretch to 2.5-4 hours.</em></p>
+            <!-- ENDIF -->
+
+            <!-- IF baby_age_category == 10_12_months -->
+            <p style="margin-top: 20px;"><strong>Your baby's wake window (10-12 months): 2.5 - 4 hours</strong></p>
+
+            <p><strong>Example:</strong> If your baby wakes at 7:00 AM, their first nap should happen around <strong>9:30-10:00 AM</strong> (starting with the shorter 2.5-hour window). If still on 2 naps, the second nap might be 3-3.5 hours later. The final wake window before bed can stretch to 4 hours.</p>
+
+            <p style="font-size: 14px; color: #7f8c8d; margin-top: 10px;"><em>As your baby grows: Wake windows continue to lengthen. By 13-18 months, they'll stretch to 4-6 hours (often transitioning to 1 nap).</em></p>
+            <!-- ENDIF -->
+
+            <!-- IF baby_age_category == 13_18_months -->
+            <p style="margin-top: 20px;"><strong>Your toddler's wake window (13-18 months): 4 - 6 hours</strong></p>
+
+            <p><strong>Example:</strong> If your toddler wakes at 7:00 AM, their single nap should happen around <strong>11:00 AM-12:00 PM</strong> (4-5 hours after wake). After the nap, they can stay awake 5-6 hours before bedtime.</p>
+
+            <p style="font-size: 14px; color: #7f8c8d; margin-top: 10px;"><em>Most toddlers this age transition from 2 naps to 1 nap. If your toddler is still on 2 naps, the first wake window might be 4 hours, and the second 4-5 hours.</em></p>
+            <!-- ENDIF -->
+
+            <!-- IF baby_age_category == older_toddler -->
+            <p style="margin-top: 20px;"><strong>Your toddler's wake window (18+ months): 5 - 6 hours</strong></p>
+
+            <p><strong>Example:</strong> If your toddler wakes at 7:00 AM, their single nap should happen around <strong>12:00-1:00 PM</strong> (5-6 hours after wake). After the nap, they can stay awake 5-6 hours before bedtime around 7:00-8:00 PM.</p>
+
+            <p style="font-size: 14px; color: #7f8c8d; margin-top: 10px;"><em>At this age, most toddlers are solidly on 1 nap per day, typically 1.5-2.5 hours long in the early afternoon.</em></p>
+            <!-- ENDIF -->
+
+            <p style="margin-top: 15px;"><strong>Key principle:</strong> Start with the shorter end of the range for the first nap, and extend it as the day progresses. The wake window before bedtime is usually the longest.</p>
         </div>
 
         <!-- Challenge-Specific Wake Window Content -->
