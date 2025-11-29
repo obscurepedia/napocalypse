@@ -26,8 +26,6 @@ def get_personalization_data(customer, quiz_data, modules):
     Returns:
         dict: Complete personalization variables for all 14 days
     """
-    from .module_selector import get_module_info
-
     # Detect method from modules or quiz data
     method_info = detect_method(modules, quiz_data)
 
@@ -70,13 +68,18 @@ def get_personalization_data(customer, quiz_data, modules):
     biggest_struggle = normalize_biggest_struggle(biggest_struggle_raw)
     biggest_challenge_text = get_biggest_challenge_text(biggest_struggle)
 
-    # Get module details
-    module_details = [get_module_info(m) for m in modules]
+    # Baby name with smart fallback
+    baby_name = getattr(customer, 'baby_name', None)
+    baby_name_or_age = baby_name if baby_name else "your baby"
 
     return {
         # Basic customer data
         'customer_name': customer.name or 'there',
         'customer_id': customer.id,
+
+        # Baby identification
+        'baby_name': baby_name,
+        'baby_name_or_age': baby_name_or_age,  # Smart fallback: name if provided, "your baby" otherwise
 
         # Age variables
         'baby_age': baby_age,
@@ -118,10 +121,8 @@ def get_personalization_data(customer, quiz_data, modules):
         'biggest_struggle': biggest_struggle,
         'biggest_challenge_text': biggest_challenge_text,
 
-        # Module info
-        'modules': modules,
-        'module_titles': [m['title'] for m in module_details],
-        'module_list': ', '.join([m['title'] for m in module_details])
+        # Module info (legacy - modules no longer used)
+        'modules': modules
     }
 
 

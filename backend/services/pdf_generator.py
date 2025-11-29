@@ -8,7 +8,6 @@ import os
 import re
 from datetime import datetime
 from config import Config
-from .module_selector import get_module_info
 
 # Try to import markdown2 for v2 system
 try:

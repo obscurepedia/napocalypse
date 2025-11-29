@@ -2,7 +2,6 @@ from flask import request, jsonify, current_app
 from . import webhook_bp
 import stripe
 from database import db, Customer, QuizResponse, Order
-from services.module_selector import select_modules
 from services.email_service import schedule_email_sequence
 from config import Config
 from datetime import datetime

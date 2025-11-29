@@ -152,9 +152,10 @@ def send_sequence_email(to_email, customer_name, day_number, order_id=None, cust
 
     # Get personalization data if available
     personalization_vars = None
-    if customer and quiz_data and modules:
+    if customer and quiz_data:
         from services.personalization import get_personalization_data
-        personalization_vars = get_personalization_data(customer, quiz_data, modules)
+        # Modules is legacy - personalization works from quiz_data alone
+        personalization_vars = get_personalization_data(customer, quiz_data, modules or [])
 
     # Email content based on day and personalization
     email_content = get_sequence_content(
@@ -793,6 +794,12 @@ def get_sequence_content(day_number, customer_name, personalization_vars=None, o
                 personalization_vars.get('baby_age_short', 'your baby')
             )
 
+            # Baby name or age (smart fallback)
+            html_content = html_content.replace(
+                '{baby_name_or_age}',
+                personalization_vars.get('baby_name_or_age', personalization_vars.get('baby_age_short', 'your baby'))
+            )
+
             # Biggest challenge text
             html_content = html_content.replace(
                 '{biggest_challenge_text}',
@@ -838,6 +845,7 @@ def get_sequence_content(day_number, customer_name, personalization_vars=None, o
             # Default replacements when no personalization
             html_content = html_content.replace('{method}', 'your chosen method')
             html_content = html_content.replace('{baby_age_short}', 'your baby')
+            html_content = html_content.replace('{baby_name_or_age}', 'your baby')
             html_content = html_content.replace('{biggest_challenge_text}', 'struggling with sleep')
             html_content = html_content.replace('{sleep_association_text}', '')
             html_content = html_content.replace('{parenting_setup_context}', '')
