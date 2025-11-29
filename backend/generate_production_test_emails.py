@@ -9,7 +9,8 @@ import os
 
 sys.path.insert(0, '.')
 
-from database import db, app, Customer
+from app import app
+from database import db, Customer
 from services.email_service import generate_day_email
 
 def generate_test_emails_for_customer(customer_id, output_dir='test_email_output/production'):
