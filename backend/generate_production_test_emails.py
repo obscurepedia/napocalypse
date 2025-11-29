@@ -11,7 +11,7 @@ sys.path.insert(0, '.')
 
 from app import app
 from database import db, Customer
-from services.email_service import generate_day_email
+from services.email_service import get_sequence_content
 
 def generate_test_emails_for_customer(customer_id, output_dir='test_email_output/production'):
     """Generate all 14 day emails for a customer using production code"""
@@ -40,7 +40,15 @@ def generate_test_emails_for_customer(customer_id, output_dir='test_email_output
 
         for day in range(1, 15):
             try:
-                html_content, subject = generate_day_email(customer, day)
+                # Use get_sequence_content which generates the email HTML
+                html_content, subject = get_sequence_content(
+                    day,
+                    customer.name,
+                    personalization_vars=None,  # Will be generated from customer data
+                    order_id=None,
+                    customer_id=customer.id,
+                    customer_email=customer.email
+                )
 
                 # Save to file
                 filename = os.path.join(output_dir, f'day_{day}.html')
