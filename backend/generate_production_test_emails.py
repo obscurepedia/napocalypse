@@ -52,11 +52,12 @@ def generate_test_emails_for_customer(customer_id, output_dir='test_email_output
 
                 # Extract content from result dictionary
                 html_content = result.get('html_body', '')
+                text_content = result.get('text_body', '')
                 subject = result.get('subject', f'Day {day}')
 
-                # Save to file
-                filename = os.path.join(output_dir, f'day_{day}.html')
-                with open(filename, 'w', encoding='utf-8') as f:
+                # Save HTML file
+                html_filename = os.path.join(output_dir, f'day_{day}.html')
+                with open(html_filename, 'w', encoding='utf-8') as f:
                     f.write(f"""<!DOCTYPE html>
 <html><head><meta charset="UTF-8">
 <title>Day {day}: {subject}</title>
@@ -76,6 +77,22 @@ body {{ max-width: 800px; margin: 20px auto; padding: 20px; font-family: Arial, 
 {html_content}
 </div>
 </body></html>""")
+
+                # Save text file
+                text_filename = os.path.join(output_dir, f'day_{day}.txt')
+                with open(text_filename, 'w', encoding='utf-8') as f:
+                    f.write(f"""{'=' * 70}
+PRODUCTION EMAIL - CUSTOMER {customer_id}
+{'=' * 70}
+Customer: {customer.name}
+Email: {customer.email}
+Baby Name: {customer.baby_name or 'Not provided'}
+
+Day {day}: {subject}
+{'=' * 70}
+
+{text_content}
+""")
 
                 print(f"   ✅ Day {day}: {subject}")
 
