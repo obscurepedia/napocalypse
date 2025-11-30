@@ -6,12 +6,59 @@ Run this on Render or locally with production database access
 
 import sys
 import os
+import re
+from html.parser import HTMLParser
 
 sys.path.insert(0, '.')
 
 from app import app
 from database import db, Customer
 from services.email_service import get_sequence_content
+
+
+class HTMLToText(HTMLParser):
+    """Convert HTML to plain text"""
+    def __init__(self):
+        super().__init__()
+        self.text = []
+        self.skip = False
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ['script', 'style']:
+            self.skip = True
+        elif tag == 'br':
+            self.text.append('\n')
+        elif tag == 'p':
+            self.text.append('\n\n')
+        elif tag in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+            self.text.append('\n\n')
+        elif tag == 'li':
+            self.text.append('\n  • ')
+
+    def handle_endtag(self, tag):
+        if tag in ['script', 'style']:
+            self.skip = False
+        elif tag in ['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+            self.text.append('\n')
+
+    def handle_data(self, data):
+        if not self.skip:
+            text = data.strip()
+            if text:
+                self.text.append(text)
+
+    def get_text(self):
+        result = ''.join(self.text)
+        # Clean up multiple newlines
+        result = re.sub(r'\n{3,}', '\n\n', result)
+        return result.strip()
+
+
+def html_to_text(html):
+    """Convert HTML to readable plain text"""
+    parser = HTMLToText()
+    parser.feed(html)
+    return parser.get_text()
 
 def generate_test_emails_for_customer(customer_id, output_dir='test_email_output/production'):
     """Generate all 14 day emails for a customer using production code"""
@@ -52,8 +99,10 @@ def generate_test_emails_for_customer(customer_id, output_dir='test_email_output
 
                 # Extract content from result dictionary
                 html_content = result.get('html_body', '')
-                text_content = result.get('text_body', '')
                 subject = result.get('subject', f'Day {day}')
+
+                # Convert HTML to readable text
+                text_content = html_to_text(html_content)
 
                 # Save HTML file
                 html_filename = os.path.join(output_dir, f'day_{day}.html')
