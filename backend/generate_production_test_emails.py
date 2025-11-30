@@ -41,7 +41,7 @@ def generate_test_emails_for_customer(customer_id, output_dir='test_email_output
         for day in range(1, 15):
             try:
                 # Use get_sequence_content which generates the email HTML
-                html_content, subject = get_sequence_content(
+                result = get_sequence_content(
                     day,
                     customer.name,
                     personalization_vars=None,  # Will be generated from customer data
@@ -49,6 +49,10 @@ def generate_test_emails_for_customer(customer_id, output_dir='test_email_output
                     customer_id=customer.id,
                     customer_email=customer.email
                 )
+
+                # Extract content from result dictionary
+                html_content = result.get('html_body', '')
+                subject = result.get('subject', f'Day {day}')
 
                 # Save to file
                 filename = os.path.join(output_dir, f'day_{day}.html')
