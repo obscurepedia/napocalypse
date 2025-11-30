@@ -14,6 +14,7 @@ sys.path.insert(0, '.')
 from app import app
 from database import db, Customer
 from services.email_service import get_sequence_content
+from services.personalization import get_personalization_data
 
 
 class HTMLToText(HTMLParser):
@@ -79,6 +80,32 @@ def generate_test_emails_for_customer(customer_id, output_dir='test_email_output
         print(f"Baby Name: {customer.baby_name or 'Not provided'}")
         print()
 
+        # Get quiz response for personalization
+        quiz_response = customer.quiz_responses[0] if customer.quiz_responses else None
+
+        if not quiz_response:
+            print("❌ No quiz response found for this customer")
+            return
+
+        # Convert quiz response to dict
+        quiz_data = {
+            'baby_age': quiz_response.baby_age,
+            'sleep_situation': quiz_response.sleep_situation,
+            'sleep_philosophy': quiz_response.sleep_philosophy,
+            'living_situation': quiz_response.living_situation,
+            'parenting_setup': quiz_response.parenting_setup,
+            'work_schedule': quiz_response.work_schedule,
+            'biggest_challenge': quiz_response.biggest_challenge,
+            'sleep_associations': quiz_response.sleep_associations
+        }
+
+        # Generate personalization variables
+        personalization_vars = get_personalization_data(customer, quiz_data, [])
+
+        print(f"Quiz Data: baby_age={quiz_data['baby_age']}, method={personalization_vars.get('method')}")
+        print(f"Personalization: baby_name_or_age='{personalization_vars.get('baby_name_or_age')}'")
+        print()
+
         # Create output directory
         os.makedirs(output_dir, exist_ok=True)
 
@@ -87,11 +114,11 @@ def generate_test_emails_for_customer(customer_id, output_dir='test_email_output
 
         for day in range(1, 15):
             try:
-                # Use get_sequence_content which generates the email HTML
+                # Use get_sequence_content which generates the email HTML with full personalization
                 result = get_sequence_content(
                     day,
                     customer.name,
-                    personalization_vars=None,  # Will be generated from customer data
+                    personalization_vars=personalization_vars,
                     order_id=None,
                     customer_id=customer.id,
                     customer_email=customer.email
